@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_pages_services",
+  "info": {
+    "name": "Service",
+    "icon": "diagnoses"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "services": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.services"
+    }
+  }
+}

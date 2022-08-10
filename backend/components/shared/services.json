@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_shared_services",
+  "info": {
+    "name": "Services",
+    "icon": "award"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}

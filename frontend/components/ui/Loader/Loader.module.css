@@ -1,0 +1,36 @@
+.root {
+    @apply flex min-h-screen items-center justify-center bg-gradient-to-r from-slate-200 to-slate-400;
+}
+.loader {
+    height: 50px;
+    transform-origin: bottom center;
+    animation: rotate 3s linear infinite;
+}
+
+.circle {
+    @apply bg-blue-600;
+    display: inline-block;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    animation: grow 1.5s linear infinite;
+    transform: scale(0);
+    margin: -9px;
+}
+
+.circle:nth-child(2) {
+    @apply bg-blue-900;
+    animation-delay: 0.75s;
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes grow {
+    50% {
+        transform: scale(1);
+    }
+}

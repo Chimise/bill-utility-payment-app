@@ -1,0 +1,52 @@
+.root {
+  @apply bg-blue-500 text-white cursor-pointer inline-flex
+    px-4 lg:px-6 py-3 leading-6 transition ease-in-out duration-150
+    shadow-sm text-center justify-center uppercase
+    border border-transparent items-center text-sm font-semibold
+    tracking-wide rounded-lg;
+}
+
+.root:hover {
+  @apply bg-blue-900;
+}
+
+.root:focus {
+  @apply outline-none;
+}
+
+
+
+.loading {
+  @apply cursor-not-allowed !important;
+}
+
+.slim {
+  @apply px-4 py-2 transform-none text-sm;
+}
+
+.ghost {
+  @apply border border-blue-500 bg-white text-blue-700 text-sm;
+}
+
+.ghost:hover {
+  @apply border-blue-500 bg-blue-500 text-white;
+}
+
+.disabled,
+.disabled:hover {
+  @apply text-slate-900 border-slate-500 bg-slate-500 cursor-not-allowed;
+  filter: grayscale(1);
+  -webkit-transform: translateZ(0);
+  -webkit-perspective: 1000;
+  -webkit-backface-visibility: hidden;
+}
+
+.progress {
+    @apply w-4 h-4 rounded-full bg-transparent border-2 relative border-gray-500 overflow-visible;
+}
+
+.progress-inner {
+  @apply w-4 h-4 rounded-full bg-transparent border-2 absolute -top-0.5 -left-0.5;
+  border-color: white transparent transparent transparent;
+
+}

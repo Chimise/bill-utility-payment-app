@@ -1,0 +1,66 @@
+{
+  "kind": "singleType",
+  "collectionName": "homepages",
+  "info": {
+    "name": "Homepage",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "pages.seo"
+    },
+    "banner": {
+      "type": "component",
+      "repeatable": false,
+      "component": "pages.header"
+    },
+    "stat": {
+      "type": "component",
+      "repeatable": false,
+      "component": "pages.section"
+    },
+    "service": {
+      "type": "component",
+      "repeatable": false,
+      "component": "pages.service"
+    },
+    "advert": {
+      "type": "component",
+      "repeatable": false,
+      "component": "pages.header"
+    },
+    "review": {
+      "type": "component",
+      "repeatable": false,
+      "component": "pages.review"
+    },
+    "partners": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "alt_banner": {
+      "type": "component",
+      "repeatable": true,
+      "component": "pages.header"
+    },
+    "actions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    }
+  }
+}

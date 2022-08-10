@@ -1,0 +1,21 @@
+.root {
+  @apply relative z-40 bg-slate-100 transition-all duration-150 min-h-[50px];
+  
+}
+
+.container {
+  @apply py-3 md:py-4 flex items-center justify-between;
+}
+
+.nav {
+  @apply flex-1 justify-between items-center text-center hidden md:flex z-20 relative;
+  
+}
+
+.navlist {
+  @apply space-x-0 md:space-x-3 lg:space-x-8;
+}
+
+.navlist .link {
+  @apply font-medium leading-6 transition ease-in-out duration-75 cursor-pointer focus:text-blue-600 focus:outline-none;
+}

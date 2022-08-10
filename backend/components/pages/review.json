@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_pages_reviews",
+  "info": {
+    "name": "Review",
+    "icon": "american-sign-language-interpreting"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "reviews": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.reviews"
+    }
+  }
+}

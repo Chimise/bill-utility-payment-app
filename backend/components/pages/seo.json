@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_pages_seos",
+  "info": {
+    "name": "seo",
+    "icon": "code"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text",
+      "required": true
+    },
+    "meta": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.meta"
+    },
+    "noindex": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "nofollow": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}
