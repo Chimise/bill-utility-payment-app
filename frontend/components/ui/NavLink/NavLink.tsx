@@ -3,7 +3,7 @@ import {useRouter} from 'next/router';
 import Link, {LinkProps} from 'next/link';
 import cn from 'classnames';
 
-import {HomeIcon, CashIcon, DesktopComputerIcon, DocumentReportIcon, GlobeAltIcon, PencilAltIcon, LightBulbIcon, DocumentSearchIcon, TrendingUpIcon, PresentationChartBarIcon, PresentationChartLineIcon, ChartSquareBarIcon, CalendarIcon} from '@heroicons/react/outline';
+import {HomeIcon, CashIcon, DesktopComputerIcon, DocumentReportIcon, GlobeAltIcon, PencilAltIcon, LightBulbIcon, DocumentSearchIcon, PresentationChartBarIcon, PresentationChartLineIcon, CalendarIcon} from '@heroicons/react/outline';
 
 interface NavLinkProps extends LinkProps{
     onClick?: (event: React.MouseEvent<any>) => void;

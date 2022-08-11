@@ -71,7 +71,7 @@ function RadioButton({ selected, onSelect, providers, label }: RadioButtonProps)
             key={provider}
             value={provider}
             style={{backgroundImage: `url(${providerImages[provider as Provider].src})`}}
-            className={({ active, checked }) => cn({'ring ring-white/60': active, [`grayscale-0 ${providers[provider as Provider]}`]: checked, 'grayscale bg-gray-400': !checked}, `relative bg-cover bg-no-repeat bg-center cursor-pointer rounded-sm shadow-sm p-2 w-16 h-16 shadow-sm focus:outline-none`)}
+            className={({ active, checked }) => cn({'ring ring-white/60': active, [`grayscale-0 ${providers[provider as Provider]}`]: checked, 'grayscale bg-gray-400': !checked}, `relative bg-cover bg-no-repeat bg-center cursor-pointer rounded-sm shadow-sm p-2 w-16 h-16 focus:outline-none`)}
           >
             {({ checked }) => (
                <Radio checked={checked} className='absolute top-1 left-1' />
