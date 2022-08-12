@@ -29,7 +29,7 @@ const RegisterPage = () => {
     phone: Yup.string().required('Enter your phone number').matches(new RegExp('(^((\\+?234)|0){1}(7|8|9){1}(0|1){1}[0-9]{8}$)'), 'Enter a valid Nigerian phone number'),
     firstName: Yup.string().required('Enter your first name'),
     lastName: Yup.string().required('Enter your last name')
-  }) }) 
+  }) })
 
   return (
     <div className='bg-gray-100 flex items-center justify-center w-full min-h-[150vh] md:min-h-[160vh]'>

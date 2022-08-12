@@ -11,6 +11,9 @@ import RadioButton, {Providers} from '../../../components/ui/Radio/RadioButton';
 import TextArea from '../../../components/ui/TextArea/TextArea';
 import Button from '../../../components/ui/Button/Button';
 import AnalyzeNumbers from '../../../components/common/AnalyzeNumbers/AnalyzeNumbers';
+import DashboardContainer from '../../../components/ui/DashboardContainer/DashboardContainer';
+
+import type { Stepper } from '../../../components/common/AnalyzeNumbers/AnalyzeNumbers';
 
 
 
@@ -36,16 +39,20 @@ const filteredNumbers = (enteredNumbers: string) => {
     const parsedNumbers = parseNumbersToArray(enteredNumbers);
     return parsedNumbers.reduce((acc, number) => {
         const isValid = number.match(new RegExp('(^((\\+?234)|0){1}(7|8|9){1}(0|1){1}[0-9]{8}$)'));
+
         if(isValid) {
-            acc['validNum'] = [...(acc['validNum'] || []), number]
-            acc['invalidNum'] = [...(acc['invalidNum'] || [])]
+            // Make the numbers unique
+            const similarNumberIndex = acc['validNum'].findIndex(num => num === number);
+            if(similarNumberIndex === -1) {
+                acc['validNum'] = [...acc['validNum'], number];
+            }
 
         }else {
-            acc['invalidNum'] = [...(acc['invalidNum'] || []), number]
-            acc['validNum'] = [...(acc['validNum'] || [])]
+            acc['invalidNum'] = [...acc['invalidNum'], number]
+            
         }
         return acc;
-    }, {} as {validNum: string[], invalidNum: string[]})
+    }, {invalidNum: [], validNum: []} as {validNum: string[], invalidNum: string[]})
     
 }
 
@@ -78,10 +85,20 @@ const AirtimePage = () => {
         setValidNumbers(validNum);
     }, [numbers])
 
+    const parsedAmount = parseInt(amount);
+    const isProviderValid = provider !== '';
+    const isValidNumbers = validNumbers.length > 0;
+    const isInvalidNumbers = invalidNumbers.length > 0;
+    const reciepients = validNumbers.length;
+    const isTotalValid = reciepients > 0 && parsedAmount > 0
+    const total = isTotalValid ? reciepients * parsedAmount : 0;
+
+    const steppers: Array<Stepper> = [{iconName: 'provider', active: isProviderValid, header: 'Provider', content: provider.toUpperCase()}, {iconName: 'validNumbers', active: isValidNumbers, header: 'Valid Numbers', content: validNumbers}, {iconName: 'invalidNumbers', active: isInvalidNumbers, header: 'Invalid Numbers', content: invalidNumbers}, {iconName: 'recipients', active: isValidNumbers, header: 'Recipients', content: reciepients.toString()}, {iconName: 'total', active: isTotalValid, header: 'Total', content: `₦${total}`}]
+
     return (
-        <div>
+        <DashboardContainer>
             <DashboardHeader title="Airtime Topup" />
-            <Paper className='w-11/12 mx-auto'>
+            <Paper>
                 <UtilityHeader title="VTU Recharge" />
                 <div className='my-4 px-4 py-3'>
                     <form onSubmit={handleSubmit} className='space-y-5'>
@@ -92,8 +109,8 @@ const AirtimePage = () => {
                     </form>
                 </div>
             </Paper>
-            <AnalyzeNumbers />
-        </div>
+            <AnalyzeNumbers label="Preview Airtime Purchase" steppers={steppers} />
+        </DashboardContainer>
     )
 }
 
