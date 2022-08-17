@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import { ErrorMessage, useFormik, validateYupSchema } from "formik";
+import { useFormik} from "formik";
 import * as Yup from "yup";
 
 import AuthLayout from "../../../components/common/AuthLayout/AuthLayout";
-import RadioList, { Payment } from "../../../components/ui/Radio/RadioList";
+import SelectPaymentMethod, { Payment } from "../../../components/common/SelectPaymentMethod/SelectPaymentMethod";
 import FundWalletInput from "../../../components/ui/FundWalletInput/FundWalletInput";
 import Button from "../../../components/ui/Button/Button";
 
@@ -100,7 +100,7 @@ function FundWalletPage() {
           <p className="mb-2 text-sm text-gray-700 font-medium">
             Choose a payment method:
           </p>
-          <RadioList
+          <SelectPaymentMethod
             selected={selected}
             onSelect={setSelected}
             channels={payments}

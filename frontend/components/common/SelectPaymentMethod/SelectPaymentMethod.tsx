@@ -3,7 +3,7 @@ import { RadioGroup } from "@headlessui/react";
 
 import Chip from '../../ui/Chip/Chip';
 
-interface RadioListProps<S extends object = {}> {
+interface SelectPaymentMethodProps<S extends object = {}> {
   selected: S;
   onSelect: React.Dispatch<React.SetStateAction<S>>;
   channels: Array<S>;
@@ -21,11 +21,11 @@ export interface Payment {
 }
 
 
-function RadioList<S extends Payment = Payment>({
+function SelectPaymentMethod<S extends Payment = Payment>({
   selected,
   onSelect,
   channels,
-}: RadioListProps<S>) {
+}: SelectPaymentMethodProps<S>) {
   return (
     <RadioGroup value={selected} onChange={onSelect}>
       <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
@@ -110,4 +110,4 @@ function CheckIcon(props: React.HTMLAttributes<SVGSVGElement>) {
 
 
 
-export default RadioList;
+export default SelectPaymentMethod;
