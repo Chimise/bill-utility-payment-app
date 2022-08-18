@@ -8,15 +8,15 @@ import {
 } from "react-table";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
-import router from "next/router";
-
 import ToolTip from "../../ui/Tooltip/Tooltip";
 import TablePagination from "./TablePagination";
+import { formatDate } from "../../../utils";
 
 export interface Header<T extends object = {}>
   extends UseSortByColumnOptions<T> {
   Header: string;
   accessor: keyof T;
+  Cell?: ({value}: {value: Date}) => any
 }
 
 export interface TableProps<T extends object = {}> {
@@ -72,7 +72,7 @@ function Table<T extends object = {}>({
   return (
     <div className="min-w-[700px] shadow-[0px_3px_3px_-2px_rgba(0,0,0,0.2),0px_3px_4px_0px_rgba(0,0,0,0.14),0px_1px_8px_0px_rgba(0,0,0,0.12)]">
       <table
-        className="w-full border border-slate-200 table-fixed border-collapse min-h-[200px]"
+        className="w-full border border-slate-200 table-fixed border-collapse min-h-[300px]"
         {...getTableProps()}
       >
         <thead>
@@ -123,7 +123,7 @@ function Table<T extends object = {}>({
                       {...cell.getCellProps()}
                       key={`${index}-${cellIndex}`}
                     >
-                      <ToolTip title={cell.value}>
+                      <ToolTip title={cell.value instanceof Date ? formatDate(cell.value) : cell.value}>
                         {cell.render("Cell")}
                       </ToolTip>
                     </td>

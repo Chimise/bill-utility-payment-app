@@ -23,10 +23,10 @@ interface NavLinks {
 
 const navLinks:NavLinks = {
     actions: [{href: '/dashboard', label: 'Dashboard', icon: 'dashboard'}, {href: '/dashboard/wallet/fund', label: 'Fund Wallet', icon: 'fund'}],
-    utility: [{href: '/dashboard/utility/airtime', label: 'Airtime Topup', icon: 'airtime'}, {href: '/dashboard/utility/data', label: 'Data Topup', icon: 'data'}],
+    orders: [{href: '/dashboard/order/airtime', label: 'Airtime Topup', icon: 'airtime'}, {href: '/dashboard/order/data', label: 'Data Topup', icon: 'data'}],
     bills: [{href: '/dashboard/bills/electricity', label: 'Pay Electricity Bills', icon: 'electricity'}, {href: '/dashboard/bills/cable-tv', label: 'Cable TV Subscriptions', icon: 'cabletv'}],
-    faq: [{label: 'Faq', href: '/dashboard/faq', icon: 'faq'}],
-    transactions: [{href: '/dashboard/transactions/wallet', label: 'Wallet Funding', icon: 'wallet'}, {label: 'Order History', href: '/dashboard/transactions/orders', icon: 'order'}, {label: 'Bill History', href: '/dashboard/transactions/bills', icon: 'bills'}]  
+    faq: [{label: 'FAQs', href: '/dashboard/faq', icon: 'faq'}],
+    transactions: [{href: '/dashboard/transactions/wallet', label: 'Wallet Funding History', icon: 'wallet'}, {label: 'Order History', href: '/dashboard/transactions/orders', icon: 'order'}, {label: 'Bill History', href: '/dashboard/transactions/bills', icon: 'bills'}]  
 }
 const AuthLayout = ({children, isHome = false}: AuthLayoutProps) => {
     const [menuIsVisible, setMenuIsVisible] = useState(false);
