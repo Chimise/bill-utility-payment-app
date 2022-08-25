@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/data-purchases",
+      "handler": "data-purchase.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/data-purchases/count",
+      "handler": "data-purchase.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/data-purchases/:id",
+      "handler": "data-purchase.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/data-purchases",
+      "handler": "data-purchase.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/data-purchases/:id",
+      "handler": "data-purchase.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/data-purchases/:id",
+      "handler": "data-purchase.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/cabletv-payments",
+      "handler": "cabletv-payment.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cabletv-payments/count",
+      "handler": "cabletv-payment.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cabletv-payments/:id",
+      "handler": "cabletv-payment.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/cabletv-payments",
+      "handler": "cabletv-payment.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/cabletv-payments/:id",
+      "handler": "cabletv-payment.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/cabletv-payments/:id",
+      "handler": "cabletv-payment.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

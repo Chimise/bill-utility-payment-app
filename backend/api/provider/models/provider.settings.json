@@ -14,19 +14,11 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true,
-      "maxLength": 10,
       "unique": true
     },
-    "logo": {
-      "model": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
-      "plugin": "upload",
-      "required": false,
-      "pluginOptions": {}
+    "plans": {
+      "via": "provider",
+      "collection": "plan"
     }
   }
 }

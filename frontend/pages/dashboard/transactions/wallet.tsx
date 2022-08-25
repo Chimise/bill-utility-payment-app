@@ -7,6 +7,7 @@ import UtilityHeader from "../../../components/common/UtilityHeader/UtilityHeade
 import { Funding, tableData, formatDate } from "../../../utils";
 import Table, { Header } from "../../../components/common/Table/Table";
 
+
 const sortBy: Array<{ id: keyof Funding; desc: boolean }> = [
   { id: "date", desc: true },
 ];
@@ -36,6 +37,7 @@ const columns: Header<Funding>[] = [
 ];
 
 const WalletHistoryPage = () => {
+  
   const rowClickHandler = (rowData: Funding) => {
     console.log(rowData);
   };

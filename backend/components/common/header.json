@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_common_headers",
+  "info": {
+    "name": "header",
+    "icon": "align-justify"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "subtitle": {
+      "type": "text"
+    }
+  }
+}

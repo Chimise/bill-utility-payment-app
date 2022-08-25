@@ -16,7 +16,7 @@ export interface Header<T extends object = {}>
   extends UseSortByColumnOptions<T> {
   Header: string;
   accessor: keyof T;
-  Cell?: ({value}: {value: Date}) => any
+  Cell?: ({value}: {value: Date}) => any;
 }
 
 export interface TableProps<T extends object = {}> {
@@ -119,7 +119,7 @@ function Table<T extends object = {}>({
                 {row.cells.map((cell, cellIndex) => {
                   return (
                     <td
-                      className="text-left truncate text-md p-2 border-0 border-b border-slate-200 align-middle h-[53px] border-collapse"
+                      className="text-left truncate text-md p-2 border-0 border-b border-slate-200 align-middle h-[53px]"
                       {...cell.getCellProps()}
                       key={`${index}-${cellIndex}`}
                     >

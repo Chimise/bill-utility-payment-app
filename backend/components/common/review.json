@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_common_reviews",
+  "info": {
+    "name": "review",
+    "icon": "hand-lizard"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "comment": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

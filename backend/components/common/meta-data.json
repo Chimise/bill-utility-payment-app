@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_common_meta_data",
+  "info": {
+    "name": "MetaData",
+    "icon": "search"
+  },
+  "options": {},
+  "attributes": {
+    "value": {
+      "type": "text",
+      "required": true
+    },
+    "key": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

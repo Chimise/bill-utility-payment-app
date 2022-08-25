@@ -23,7 +23,7 @@ function TablePagination<D extends object = {}>({
   data,
 }: TablePaginationProps<D>) {
   return (
-    <div className="flex items-center justify-end space-x-7 px-3 py-3 border border-t-0 border-slate-200">
+    <div className="flex w-full items-center justify-end space-x-7 px-3 py-3 border border-t-0 border-slate-200">
       <div className="space-x-3">
         <label htmlFor="rowSize">Row per page:</label>
         <select

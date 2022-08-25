@@ -11,26 +11,20 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "type": {
-      "type": "enumeration",
-      "enum": [
-        "daily",
-        "weekly",
-        "monthly",
-        "night",
-        "biweekly"
-      ],
-      "required": true
-    },
     "provider": {
+      "via": "plans",
       "model": "provider"
-    },
-    "value": {
-      "type": "string",
-      "required": true
     },
     "price": {
       "type": "integer",
+      "required": true
+    },
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "value": {
+      "type": "string",
       "required": true
     }
   }

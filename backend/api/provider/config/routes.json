@@ -5,7 +5,7 @@
       "path": "/providers",
       "handler": "provider.find",
       "config": {
-        "policies": []
+        "policies": ["global::isAdmin"]
       }
     },
     {

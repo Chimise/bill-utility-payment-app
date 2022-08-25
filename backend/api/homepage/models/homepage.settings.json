@@ -12,55 +12,30 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "seo": {
-      "type": "component",
-      "repeatable": false,
-      "component": "pages.seo"
-    },
-    "banner": {
-      "type": "component",
-      "repeatable": false,
-      "component": "pages.header"
-    },
-    "stat": {
-      "type": "component",
-      "repeatable": false,
-      "component": "pages.section"
-    },
-    "service": {
-      "type": "component",
-      "repeatable": false,
-      "component": "pages.service"
-    },
-    "advert": {
-      "type": "component",
-      "repeatable": false,
-      "component": "pages.header"
-    },
-    "review": {
-      "type": "component",
-      "repeatable": false,
-      "component": "pages.review"
-    },
-    "partners": {
-      "collection": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
-      "plugin": "upload",
-      "required": false,
-      "pluginOptions": {}
-    },
-    "alt_banner": {
+    "metatag": {
       "type": "component",
       "repeatable": true,
-      "component": "pages.header"
+      "component": "common.meta-data"
     },
-    "actions": {
+    "header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common.header"
+    },
+    "features": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.link"
+      "component": "common.card"
+    },
+    "services": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.card"
+    },
+    "reviews": {
+      "type": "component",
+      "repeatable": true,
+      "component": "common.review"
     }
   }
 }

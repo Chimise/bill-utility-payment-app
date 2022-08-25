@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "electricity_payments",
+  "info": {
+    "name": "ElectricityPayment"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "meterNo": {
+      "type": "text"
+    },
+    "amount": {
+      "type": "integer"
+    },
+    "disco": {
+      "type": "text"
+    },
+    "type": {
+      "type": "string"
+    },
+    "buyer": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "electricity_payments"
+    }
+  }
+}

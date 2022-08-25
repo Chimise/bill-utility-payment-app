@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "data_purchases",
+  "info": {
+    "name": "DataPurchase"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "buyer": {
+      "via": "data_purchases",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "plan": {
+      "model": "data-purchase"
+    },
+    "recipients": {
+      "type": "json"
+    }
+  }
+}

@@ -4,14 +4,14 @@ import DashboardContainer from '../../../components/ui/DashboardContainer/Dashbo
 import DashboardHeader from '../../../components/common/DashboardHeader/DashboardHeader';
 import Paper from '../../../components/ui/Paper/Paper';
 import UtilityHeader from '../../../components/common/UtilityHeader/UtilityHeader';
-import {Funding, tableData, formatDate} from '../../../utils';
+import {Bill, sampleBills, formatDate} from '../../../utils';
 import Table, {Header} from '../../../components/common/Table/Table';
 
-const sortBy: Array<{ id: keyof Funding; desc: boolean }> = [
+const sortBy: Array<{ id: keyof Bill; desc: boolean }> = [
     { id: "date", desc: true },
   ];
   
-  const sortDate: Header<Funding>["sortType"] = (rowA, rowB) => {
+  const sortDate: Header<Bill>["sortType"] = (rowA, rowB) => {
     const dateRowA = rowA.original.date.getTime();
     const dateRowB = rowB.original.date.getTime();
     if (dateRowA > dateRowB) {
@@ -23,21 +23,25 @@ const sortBy: Array<{ id: keyof Funding; desc: boolean }> = [
     }
   };
   
-  const columns: Header<Funding>[] = [
+  const columns: Header<Bill>[] = [
     {
       Header: "Date",
       accessor: "date",
       sortType: sortDate,
       Cell: ({ value }) => formatDate(value),
     },
-    { Header: "Current Balance", accessor: "walletBalance", disableSortBy: true },
-    { Header: "Funded Amount", accessor: "amount", disableSortBy: true },
-    { Header: "Comment", accessor: "comment", disableSortBy: true },
+    { Header: "Bill Type", accessor: "billType", disableSortBy: true },
+    { Header: "Amount", accessor: "amount", disableSortBy: true },
+    { Header: "IUC / Meter No", accessor: "cardNo", disableSortBy: true },
+    { Header: "Meter Type", accessor: "meterType", disableSortBy: true },
+    { Header: "Distribution Comp", accessor: "disco", disableSortBy: true },
+    { Header: "CableTv Type", accessor: "cableTvType", disableSortBy: true },
+    { Header: "CableTv Package", accessor: "cableTvPackage", disableSortBy: true },
   ];
 
 const BillsHistoryPage = () => {
 
-    const rowClickHandler = (rowData: Funding) => {
+    const rowClickHandler = (rowData: Bill) => {
         console.log(rowData);
     }
 
@@ -46,7 +50,7 @@ const BillsHistoryPage = () => {
         <Paper className='space-y-2 mb-10 md:mb-0'>
             <UtilityHeader title="Funding History" />
             <div className='mt-4 mb-10 w-full overflow-y-auto px-8 py-10'>
-                <Table data={tableData} columns={columns} isLoading={true} onRowClick={rowClickHandler} sortBy={sortBy}  />
+                <Table data={sampleBills} columns={columns} isLoading={true} onRowClick={rowClickHandler} sortBy={sortBy}  />
             </div>
         </Paper>
     </DashboardContainer>)

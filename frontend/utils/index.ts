@@ -49,7 +49,39 @@ interface OrderHistory {
   total?: number
 }
 
+type BillHistory =  {
+  id: number;
+  cardNo: number;
+  amount: number;
+  date: Date;
+} & ({
+  cableTvPackage: '1 month' | '2 months' | '3 months'| '';
+  cableTvType: 'Startime' | 'Gotv' | 'Dstv'| '';
+  billType: 'CableTv';
+} | {
+  disco: string;
+  meterType: 'Prepaid' | 'Postpaid' | '';
+  billType: 'Electricity';
+})
 
+
+
+const bills: Array<BillHistory> = [{id: 1, cardNo: 3000300892, amount: 3000, billType: 'CableTv', cableTvPackage: '1 month', cableTvType: 'Dstv', date: new Date("2001-06-11T15:20:22.887Z")}, {id: 2, cardNo: 12239939393939, amount: 2000, date: new Date("2022-06-12T16:21:22.887Z"), disco: 'EEDC', meterType: 'Prepaid', billType: 'Electricity'}, {id: 3, cardNo: 22220303939303, amount: 1500, date: new Date("2022-08-16T17:44:59.8867Z"), billType: 'CableTv', cableTvPackage: '1 month', cableTvType: 'Startime'}, {id: 4, cardNo: 200239393848449, amount: 3500, date: new Date("2022-09-16T18:44:59.8867Z"), billType: 'Electricity', meterType: 'Prepaid', disco: 'Ikedc'}, {id: 5, cardNo: 300030089223, amount: 2000, billType: 'CableTv', cableTvPackage: '2 months', cableTvType: 'Gotv', date: new Date("2022-12-22T15:20:22.887Z")}, {id: 6, cardNo: 60939300892949, amount: 1500, billType: 'CableTv', cableTvPackage: '2 months', cableTvType: 'Startime', date: new Date("2022-07-11T15:20:22.887Z")}, {id: 7, cardNo: 959953389930030, amount: 800, billType: 'CableTv', cableTvPackage: '3 months', cableTvType: 'Dstv', date: new Date("2021-09-09T15:20:22.887Z")}, {id: 8, cardNo: 3993939393947573, amount: 2000, date: new Date("2022-07-12T17:21:22.887Z"), disco: 'KEDC', meterType: 'Prepaid', billType: 'Electricity'}, {id: 9, cardNo: 93000071133939, amount: 700, date: new Date("2022-10-19T13:21:22.887Z"), disco: 'EEDC', meterType: 'Postpaid', billType: 'Electricity'}, {id: 10, cardNo: 3939393923457, amount: 900, date: new Date("2022-10-02T09:21:22.887Z"), disco: 'IKEDC', meterType: 'Prepaid', billType: 'Electricity'}]
+export const sampleBills = bills.map((bill) => {
+  return {
+    ...bill,
+    ...(bill.billType === 'CableTv' ? {
+      disco: '',
+      meterType: '',
+    }: {}),
+    ...(bill.billType === 'Electricity' ? {
+      cableTvPackage: '',
+      cableTvType: ''
+    }: {})
+  }
+});
+
+export type Bill = typeof sampleBills[number];
 
 const sampleOrders: OrderHistory[] = [{id: 1, type: 'Airtime', recipients: 2, provider: 'mtn', amount: 100, date: new Date("2001-06-11T15:20:22.887Z")}, {id: 2, type: 'Data', plan: '1GB', recipients: 2, provider: 'airtel', amount: 1000, date: new Date("2022-06-12T16:21:22.887Z")}, {id: 3, type: 'Airtime', recipients: 4, provider: '9mobile', amount: 300, date: new Date("2022-08-16T17:44:59.8867Z")}, {id: 4, type: 'Data', plan: '3GB', recipients: 6, provider: 'mtn', amount: 300, date: new Date("2022-08-15T15:22:50.887Z")}, {id: 4, type: 'Airtime', recipients: 8, provider: 'glo', amount: 500, date: new Date("2001-06-11T15:20:22.887Z")}, {id: 5, type: 'Airtime', recipients: 1, provider: 'mtn', amount: 100, date: new Date("2022-09-22T17:40:43.887Z")}, {id: 6, type: 'Data', plan: '5GB', recipients: 6, provider: 'mtn', amount: 1000, date: new Date("2022-09-01T15:20:22.887Z")}, {id: 7, type: 'Airtime', recipients: 2, provider: 'mtn', amount: 3000, date: new Date("2022-09-14T15:30:28.887Z")}, {id: 8, type: 'Data', plan: '2.5GB', recipients: 4, provider: 'glo', amount: 1000, date: new Date("2022-12-25T19:20:22.887Z")}];
 export const orders = sampleOrders.map((sampleOrder) => {
@@ -61,6 +93,8 @@ export const orders = sampleOrders.map((sampleOrder) => {
 });
 
 export type Order = Required<OrderHistory>;
+
+
 
 export const parseNumbersToArray = (enteredNumbers: string) => {
   const numbers = Yup.string()

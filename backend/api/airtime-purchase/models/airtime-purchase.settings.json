@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "airtime_purchases",
+  "info": {
+    "name": "AirtimePurchase",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "provider": {
+      "model": "airtime-purchase"
+    },
+    "amount": {
+      "type": "integer",
+      "required": true
+    },
+    "recipients": {
+      "type": "json"
+    },
+    "buyer": {
+      "via": "airtime_purchases",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}

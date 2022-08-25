@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "companypages",
+  "info": {
+    "name": "Companypage"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common.header"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cabletv_payments",
+  "info": {
+    "name": "CabletvPayment",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "amount": {
+      "type": "integer"
+    },
+    "package": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "buyer": {
+      "via": "cabletv_payments",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "cardNo": {
+      "type": "text"
+    }
+  }
+}

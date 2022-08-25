@@ -1,0 +1,25 @@
+{
+  "kind": "singleType",
+  "collectionName": "contacts",
+  "info": {
+    "name": "Contact"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "header": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common.header"
+    },
+    "contactInfo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "common.companyinfo"
+    }
+  }
+}

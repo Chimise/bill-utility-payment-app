@@ -1,0 +1,99 @@
+{
+  "kind": "collectionType",
+  "collectionName": "users-permissions_user",
+  "info": {
+    "name": "user",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false,
+    "timestamps": true
+  },
+  "attributes": {
+    "username": {
+      "type": "string",
+      "minLength": 3,
+      "configurable": false,
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "minLength": 6,
+      "configurable": false,
+      "required": true
+    },
+    "provider": {
+      "type": "string",
+      "configurable": false
+    },
+    "password": {
+      "type": "password",
+      "minLength": 6,
+      "configurable": false,
+      "private": true
+    },
+    "resetPasswordToken": {
+      "type": "string",
+      "configurable": false,
+      "private": true
+    },
+    "confirmationToken": {
+      "type": "string",
+      "configurable": false,
+      "private": true
+    },
+    "confirmed": {
+      "type": "boolean",
+      "default": false,
+      "configurable": false,
+      "private": true
+    },
+    "blocked": {
+      "type": "boolean",
+      "default": false,
+      "configurable": false,
+      "private": true
+    },
+    "role": {
+      "model": "role",
+      "via": "users",
+      "plugin": "users-permissions",
+      "configurable": false,
+      "private": true
+    },
+    "amount": {
+      "required": true,
+      "default": 0,
+      "type": "integer"
+    },
+    "phoneNo": {
+      "type": "string",
+      "required": true
+    },
+    "payments": {
+      "private": true,
+      "via": "userId",
+      "collection": "payment"
+    },
+    "data_purchases": {
+      "private": true,
+      "via": "buyer",
+      "collection": "data-purchase"
+    },
+    "airtime_purchases": {
+      "via": "buyer",
+      "private": true,
+      "collection": "airtime-purchase"
+    },
+    "cabletv_payments": {
+      "via": "buyer",
+      "private": true,
+      "collection": "cabletv-payment"
+    },
+    "electricity_payments": {
+      "via": "buyer",
+      "collection": "electricity-payment",
+      "private": true
+    }
+  }
+}

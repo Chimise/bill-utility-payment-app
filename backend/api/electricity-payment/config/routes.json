@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/electricity-payments",
+      "handler": "electricity-payment.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/electricity-payments/count",
+      "handler": "electricity-payment.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/electricity-payments/:id",
+      "handler": "electricity-payment.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/electricity-payments",
+      "handler": "electricity-payment.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/electricity-payments/:id",
+      "handler": "electricity-payment.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/electricity-payments/:id",
+      "handler": "electricity-payment.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
