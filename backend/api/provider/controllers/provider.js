@@ -8,9 +8,6 @@ const {sanitizeEntity} = require('strapi-utils');
 module.exports = {
     async find(ctx) {
         let entities;
-        if(!ctx.state.isAdmin) {
-            console.log("I am not an Adminstrator");
-        }
         if(ctx.query._q) {
             entities = await strapi.services.provider.search(ctx.query);
         }else {

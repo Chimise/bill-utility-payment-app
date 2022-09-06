@@ -10,7 +10,7 @@
     "draftAndPublish": true
   },
   "pluginOptions": {},
-  "attributes": {
+  "attributes": {  
     "meterNo": {
       "type": "text"
     },

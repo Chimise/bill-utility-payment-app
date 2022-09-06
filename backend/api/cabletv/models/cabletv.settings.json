@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cabletvs",
+  "info": {
+    "name": "cabletv",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "service_id": {
+      "type": "string"
+    },
+    "plans": {
+      "type": "component",
+      "repeatable": true,
+      "component": "bill.cable-data"
+    },
+    "charge": {
+      "type": "integer"
+    },
+    "payments": {
+      "via": "cabletv",
+      "collection": "cabletv-payment"
+    }
+  }
+}

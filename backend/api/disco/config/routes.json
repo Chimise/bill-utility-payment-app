@@ -2,48 +2,56 @@
   "routes": [
     {
       "method": "GET",
-      "path": "/providers",
-      "handler": "provider.find",
+      "path": "/discos",
+      "handler": "disco.find",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/providers/count",
-      "handler": "provider.count",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
-      "path": "/providers/:id",
-      "handler": "provider.findOne",
+      "path": "/discos/count",
+      "handler": "disco.count",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/providers",
-      "handler": "provider.create",
+      "path": "/discos/:id/payment",
+      "handler": "disco.payment",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/discos/:id",
+      "handler": "disco.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/discos",
+      "handler": "disco.create",
       "config": {
         "policies": []
       }
     },
     {
       "method": "PUT",
-      "path": "/providers/:id",
-      "handler": "provider.update",
+      "path": "/discos/:id",
+      "handler": "disco.update",
       "config": {
         "policies": []
       }
     },
     {
       "method": "DELETE",
-      "path": "/providers/:id",
-      "handler": "provider.delete",
+      "path": "/discos/:id",
+      "handler": "disco.delete",
       "config": {
         "policies": []
       }

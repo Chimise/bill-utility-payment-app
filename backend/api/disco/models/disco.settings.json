@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "discos",
+  "info": {
+    "name": "Disco",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "meterType": {
+      "collection": "meter",
+      "via": "disco"
+    },
+    "initial": {
+      "type": "string"
+    },
+    "charge": {
+      "type": "integer"
+    }
+  }
+}

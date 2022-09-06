@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "meters",
+  "info": {
+    "name": "Meter"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "prepaid",
+        "postpaid"
+      ],
+      "required": true
+    },
+    "service_id": {
+      "type": "string"
+    },
+    "disco": {
+      "via": "meterType",
+      "model": "disco"
+    }
+  }
+}

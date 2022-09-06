@@ -12,15 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "amount": {
-      "type": "integer"
-    },
-    "package": {
-      "type": "string"
-    },
-    "type": {
-      "type": "string"
-    },
     "buyer": {
       "via": "cabletv_payments",
       "plugin": "users-permissions",
@@ -28,6 +19,21 @@
     },
     "cardNo": {
       "type": "text"
+    },
+    "cabletv": {
+      "model": "cabletv",
+      "via": "payments"
+    },
+    "planId": {
+      "type": "string"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "processed",
+        "processing"
+      ],
+      "default": "processing"
     }
   }
 }
