@@ -25,6 +25,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/providers/:id/plans",
+      "handler": "provider.plan",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/providers",
       "handler": "provider.create",

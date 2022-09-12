@@ -16,23 +16,24 @@ const userSchema = yup.object({
     .string()
     .email("Enter a valid Email")
     .required("Enter enter your email"),
-  username: yup
+  firstName: yup
     .string()
     .trim()
-    .required("Please enter your username")
-    .min(6, "Your username should be up to five characters"),
+    .required("Please enter your first name"),
+  lastName: yup.string().trim().required("Plese enter your last name")
+    
 });
 
 module.exports = {
   async register(ctx) {
     try {
-      await userSchema.validate(ctx.request.body);
-      const [user] = await strapi
+      const body = await userSchema.validate(ctx.request.body);
+      const users = await strapi
         .query("user", "users-permissions")
-        .find({ phoneNo: ctx.request.body.phoneNo });
+        .find({_where: {_or: [{phoneNo: body.phoneNo}, {email: body.email}]} });
 
-      if (user) {
-        return ctx.badRequest("Phone number already exists");
+      if (users.length > 0) {
+        return ctx.badRequest("Phone number or Email already exists");
       }
 
       return authRegister(ctx);

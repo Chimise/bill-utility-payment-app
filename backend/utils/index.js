@@ -2,6 +2,7 @@ const fetch = require('node-fetch');
 const yup = require('yup');
 
 const MOBILENIG_URI = "https://enterprise.mobilenig.com/api";
+const PAYSTACK_URI = 'https://api.paystack.co'
 
 exports.MOBILENG_URI = MOBILENIG_URI;
 
@@ -22,7 +23,7 @@ class RequestError extends Error {
 exports.RequestError = RequestError;
 
 exports.getRequest = async (url, headers = {}) => {
-    const response = await fetch(`${MOBILENIG_URI}${url}`, {
+    const response = await fetch(getUri(url), { 
         headers: {
             Authorization: `Bearer ${process.env.MOBILENIG_KEY}`,
             
@@ -39,11 +40,45 @@ exports.getRequest = async (url, headers = {}) => {
     return response;
 }
 
+exports.getPaystackRequest = async (url, headers = {}) => {
+    const response = await fetch(`${PAYSTACK_URI}${url}`, {
+        headers: {
+            Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`,
+            ...headers
+        },
+        redirect: 'follow'
+    })
+
+    if(!response.ok) {
+        throw new RequestError(response)
+    }
+
+    return response;
+}
+
 exports.postRequest = async (url, {headers = {}, body = {}}= {}) => {
     const response = await fetch(getUri(url), {
         method: 'POST',
         headers: {
             Authorization: `Bearer ${process.env.MOBILENIG_KEY}`,
+            'Content-Type': 'application/json',
+            ...headers
+        },
+        redirect: 'follow',
+        body: JSON.stringify(body)
+    })
+
+    if(!response.ok) {
+        throw new RequestError(response)
+    }
+    return response;
+}
+
+exports.postPaystackRequest = async (url, {headers = {}, body = {}}= {}) => {
+    const response = await fetch(`${PAYSTACK_URI}${url}`, {
+        method: 'POST',
+        headers: {
+            Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`,
             'Content-Type': 'application/json',
             ...headers
         },
@@ -73,3 +108,10 @@ exports.handleError = async (ctx, error) => {
         return ctx.badRequest("Something wrong happened", error.data || {});
     }
 }
+
+exports.generateUniqueNumber = () => {
+    const randomNumber = Math.random() * 10000;
+    const uniqueString = `${Math.floor(randomNumber)}${Date.now()}`;
+    const shortenStringLength = uniqueString.length <= 15 ? uniqueString : uniqueString.slice(0, 15);
+    return parseInt(shortenStringLength);
+};

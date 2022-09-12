@@ -2,14 +2,14 @@
 const { sanitizeEntity } = require("strapi-utils");
 const yup = require("yup");
 const _ = require("lodash");
-const { handleError} = require("../../../utils");
+const { handleError } = require("../../../utils");
 
 const querySchema = yup.object({
-  customerAccountId: yup.number().required(),
+  customerAccountId: yup.string().required(),
 });
 
 const purchaseSchema = yup.object({
-  customerAccountId: yup.number().required("Please enter your card No"),
+  customerAccountId: yup.string().required("Please enter your card No"),
   planId: yup.string().required(),
   currentPlanId: yup.string().optional(),
 });
@@ -18,11 +18,34 @@ module.exports = {
   async plan(ctx) {
     try {
       const query = await querySchema.validate(ctx.query);
-      const cableTv = await strapi
+      let cableTv = await strapi
         .query("cabletv")
         .findOne({ id: ctx.params.id });
       if (!cableTv) {
         return ctx.notFound("The CableTv plan was not found");
+      }
+
+      const newPlans = await strapi.services.cabletv.getPlans(
+        cableTv.service_id
+      );
+
+      const isEqual = strapi.services.cabletv.comparePlan(
+        cableTv.plans,
+        newPlans
+      );
+
+      if (!isEqual) {
+        const modifiedPlans = strapi.services.cabletv.modifyPlans(
+          cableTv.plans,
+          newPlans,
+          cableTv.charge
+        );
+        cableTv = await strapi.query("cabletv").update(
+          { id: cableTv.id },
+          {
+            plans: modifiedPlans,
+          }
+        );
       }
 
       const customerAccount = await strapi.config.functions.getCustomerInfo(
@@ -30,7 +53,9 @@ module.exports = {
         query.customerAccountId,
         true
       );
+
       let currentPlan;
+
       if (_.isObject(customerAccount.details)) {
         currentPlan = customerAccount.details.price;
       }
@@ -99,7 +124,7 @@ module.exports = {
       );
 
       const payment = await strapi.query("cabletv-payment").create({
-        trans_id: purchaseData.details.trans_id,
+        trans_id: purchaseData.trans_id,
         buyer: ctx.state.user.id,
         status: purchaseData.processing ? "processing" : "processed",
         planId: plan.id,
@@ -117,4 +142,6 @@ module.exports = {
       return handleError(ctx, error);
     }
   },
+
+
 };

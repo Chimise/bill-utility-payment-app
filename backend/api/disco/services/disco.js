@@ -74,17 +74,15 @@ module.exports = {
       requestBody
     );
 
-    if (responseData.processing) {
-      throw new Error("The transaction was not completed");
-    }
+    
     return {
-      trans_id: _.get(responseData, "details.trans_id"),
-      status: "processed",
+      trans_id: responseData.trans_id,
+      status: responseData.processing ? 'processing' : 'processed',
       amount,
-      type: meterType.name,
-      disco,
+      type: meterType.type,
+      disco: disco.id,
       accountNumber: customerInfo.customerAccountId,
-      token: _.get(responseData, 'details.details.creditToken', ''),
+      token: _.get(responseData, 'details.details.creditToken', undefined),
     };
   },
   async handleEkoBill(disco, meterType, customerData, amount) {
@@ -107,25 +105,136 @@ module.exports = {
     const responseData = await strapi.config.functions.handleBillPayment(meterType.service_id, requestBody);
 
     return {
-      trans_id: _.get(responseData, 'details.trans_id', _.get()),
-      disco,
+      trans_id: responseData.trans_id,
+      disco: disco.id,
       status: responseData.processing ? 'processing': 'processed',
       amount,
-      type: meterType.name,
+      type: meterType.type,
       accountNumber: customerData.customerAccountId,
-      token: _.get(responseData, 'details.details.standardTokenValue', _.get(responseData, 'details.details.bsstTokenValue', ''))
+      token: _.get(responseData, 'details.details.standardTokenValue', _.get(responseData, 'details.details.bsstTokenValue', undefined))
     }
     
      
   },
-  async handleAbujaBill(disco, meterType, customerData) {
+  async handleAbujaBill(disco, meterType, customerData, amount) {
+      const requestBody = {
+        customerReference: customerData.customerAccountId,
+        amount,
+        customerName: customerData.customerName,
+        customerAddress: customerData.customerAddress
+
+      }
+
+      const responseData = await strapi.config.functions.handleBillPayment(meterType.service_id, requestBody);
+      return {
+        trans_id: responseData.trans_id,
+        amount,
+        disco: disco.id,
+        status: responseData.processing ? 'processing': 'processed',
+        type: meterType.type,
+        accountNumber: customerData.customerAccountId,
+        token: _.get(responseData, 'details.details.token', undefined)
+      }
+  },
+  async handleKadunaBill(disco, meterType, customerData, amount) {
+    
+    const requestBody = {
+        meterNumber: customerData.customerAccountId,
+        amount,
+        customerName: customerData.customerName,
+        customerAddress: customerData.customerAddress,
+        tariff: customerData.tariff,
+        customerMobileNumber: customerData.user.phoneNo
+      }
+
+    const responseData = await strapi.config.functions.handleBillPayment(meterType.service_id, requestBody);
+    return {
+      trans_id: responseData.trans_id,
+      amount,
+      disco: disco.id,
+      status: responseData.processing ? 'processing' : 'processed',
+      type: meterType.type,
+      accountNumber: customerData.customerAccountId,
+      token: _.get(responseData, 'details.details.token', undefined)
+    }
+      
+  },
+  async handleIbadanBill(disco, meterType, customerData, amount) {
+    const requestBody = {
+      customerName: customerData.customerName,
+      customerReference: customerData.customerAccountId,
+      thirdPartyCode: customerData.thirdPartyCode,
+      serviceBand: customerData.serviceBand,
+      amount
+    };
+
+    const responseData = await strapi.config.functions.handleBillPayment(meterType.service_id, requestBody);
+
+    return {
+      trans_id: responseData.trans_id,
+      amount,
+      disco: disco.id,
+      status: responseData.processing ? 'processing' : 'processed',
+      type: meterType.type,
+      accountNumber: customerData.customerAccountId,
+      token: _.get(responseData, 'details.details.token', undefined)
+    }
 
   },
-  async handleKadunaBill(disco, meterType, customerData) {
+  async handleKanoBill(disco, meterType, customerData, amount) {
+      const requestBody = {
+        customerReference: customerData.customerAccountId,
+        tariffCode: customerData.tariffCode,
+        amount,
 
+      }
+      const responseData = await strapi.config.functions.handleBillPayment(meterType.service_id, requestBody);
+      return {
+        trans_id: responseData.trans_id,
+        amount,
+        disco: disco.id,
+        status: responseData.processing ? 'processing': 'processed',
+        type: meterType.type,
+        accountNumber: customerData.customerAccountId,
+        token: _.get(responseData, 'details.details.token', undefined)
+      }
   },
-  async handleIbadanBill(disco, meterType, customerData) {},
-  async handleKanoBill(disco, meterType, customerData) {},
-  async handlePortHarcourtBill(disco, meterType, customerData) {},
-  async handleJosBill(disco, meterType, customerData) {},
+  async handlePortHarcourtBill(disco, meterType, customerData, amount) {
+    const requestBody = {
+      customerNumber: customerData.customerAccountId,
+      amount,
+      customerDetails: customerData.customerDetails,
+      customerEmail: customerData.user.email,
+      customerPhone: customerData.user.phoneNo,
+      referenceId: customerData.referenceId
+    }
+    const responseData = await strapi.config.functions.handleBillPayment(meterType.service_id, requestBody);
+    return {
+      trans_id: responseData.trans_id,
+      amount,
+      disco: disco.id,
+      status: responseData.processing ? 'processing': 'processed',
+      type: meterType.type,
+      accountNumber: customerData.customerAccountId,
+      token: _.get(responseData, 'details.details.token', undefined)
+    }
+  },
+  async handleJosBill(disco, meterType, customerData, amount) {
+    const requestBody = {
+      accessCode: customerData.accessCode,
+      customerPhoneNumber: customerData.user.phoneNo,
+      amount
+    };
+
+    const responseData = await strapi.config.functions.handleBillPayment(meterType.service_id, requestBody)
+    return {
+      trans_id: responseData.trans_id,
+      amount,
+      disco: disco.id,
+      status: responseData.processing ? 'processing': 'processed',
+      type: meterType.type,
+      accountNumber: customerData.customerAccountId,
+      token: _.get(responseData, 'details.details.token', undefined)
+    }
+  },
 };

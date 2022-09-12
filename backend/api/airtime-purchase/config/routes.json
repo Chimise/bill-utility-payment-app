@@ -50,10 +50,10 @@
     },
     {
       "method": "POST",
-      "path": "/airtime-purchases/purchase/:id",
+      "path": "/airtime-purchases/purchase",
       "handler": "airtime-purchase.purchase",
       "config": {
-        "policies": ["plugins::users-permissions.isAuthenticated"]
+        "policies": []
       }
     }
   ]

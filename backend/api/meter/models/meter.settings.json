@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "meters",
   "info": {
-    "name": "Meter"
+    "name": "Meter",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -25,6 +26,9 @@
     "disco": {
       "via": "meterType",
       "model": "disco"
+    },
+    "min_amount": {
+      "type": "integer"
     }
   }
 }

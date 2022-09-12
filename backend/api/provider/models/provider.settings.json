@@ -19,6 +19,16 @@
     "plans": {
       "via": "provider",
       "collection": "plan"
+    },
+    "airtime": {
+      "type": "component",
+      "repeatable": false,
+      "component": "bill.config"
+    },
+    "data": {
+      "type": "component",
+      "repeatable": false,
+      "component": "bill.config"
     }
   }
 }

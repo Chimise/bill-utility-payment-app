@@ -28,7 +28,8 @@
     },
     "payments": {
       "via": "cabletv",
-      "collection": "cabletv-payment"
+      "collection": "cabletv-payment",
+      "private": true
     }
   }
 }

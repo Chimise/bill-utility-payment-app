@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "electricity_payments",
   "info": {
-    "name": "ElectricityPayment"
+    "name": "ElectricityPayment",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -10,22 +11,34 @@
     "draftAndPublish": true
   },
   "pluginOptions": {},
-  "attributes": {  
+  "attributes": {
     "meterNo": {
       "type": "text"
     },
     "amount": {
       "type": "integer"
     },
-    "disco": {
-      "type": "text"
-    },
-    "type": {
-      "type": "string"
-    },
     "buyer": {
       "plugin": "users-permissions",
       "model": "user",
+      "via": "electricity_payments"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "processing",
+        "processed"
+      ]
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "prepaid",
+        "postpaid"
+      ]
+    },
+    "disco": {
+      "model": "disco",
       "via": "electricity_payments"
     }
   }

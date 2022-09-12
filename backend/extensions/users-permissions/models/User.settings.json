@@ -70,6 +70,14 @@
       "type": "string",
       "required": true
     },
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "lastName": {
+      "type": "string",
+      "required": "true"
+    },
     "payments": {
       "private": true,
       "via": "userId",
@@ -92,8 +100,8 @@
     },
     "electricity_payments": {
       "via": "buyer",
-      "collection": "electricity-payment",
-      "private": true
+      "private": true,
+      "collection": "electricity-payment"
     }
   }
 }

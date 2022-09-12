@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_bill_configs",
+  "info": {
+    "name": "Config",
+    "icon": "closed-captioning"
+  },
+  "options": {},
+  "attributes": {
+    "service_id": {
+      "type": "string"
+    },
+    "charge": {
+      "type": "integer"
+    }
+  }
+}

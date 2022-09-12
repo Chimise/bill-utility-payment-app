@@ -1,6 +1,7 @@
 "use strict";
 const yup = require("yup");
 const _ = require('lodash');
+const {sanitizeEntity} = require('strapi-utils');
 
 const { handleError, postRequest } = require("../../../utils");
 
@@ -39,15 +40,19 @@ module.exports = {
         meterType.service_id,
         customerAccountId
       );
+      console.log(customerData);
 
         // Get the customerData from the response, might be in the details or data field
 
       const details = _.get(customerData, 'details', _.get(customerData, 'data', ''));
       if(!_.isObject(details)) {
         return ctx.notFound("The Card No details you entered was not found");
+
       }
 
-      const minimumAmount = _.get(details, 'minimumAmount', _.get(meterType, 'min_amount', 250));
+      const getMinName = Object.keys(details).find((key) => key.startsWith('min'));
+
+      const minimumAmount = details[getMinName] || meterType.min_amount || 100;
       
       if(amount < minimumAmount) {
           return ctx.badRequest(`Your amount should be greater than ${minimumAmount}`);
@@ -56,7 +61,18 @@ module.exports = {
       details.user = ctx.state.user;
       details.customerAccountId = customerAccountId;
 
-      const response = await strapi.services.disco.handleDiscoPayment(disco, meterType, details, amount);
+      const paymentData = await strapi.services.disco.handleDiscoPayment(disco, meterType, details, amount);
+
+      await strapi.query('user', 'users-permissions').update({id: ctx.state.user.id}, {
+        amount: ctx.state.user.amount - (amount + disco.charge)
+      })
+      const cableTvPayment = await strapi.query('electricity-payment').create({
+        buyer: ctx.state.user.id,
+        ...paymentData
+      })
+      ctx.status = paymentData.status === 'processing' ? 202 : 200;
+      return sanitizeEntity(cableTvPayment, {model: strapi.models['electricity-payment']});
+      
     } catch (error) {
       console.log(error);
       return handleError(ctx, error);

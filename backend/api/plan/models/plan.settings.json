@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "plans",
   "info": {
-    "name": "plan"
+    "name": "plan",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -19,13 +20,14 @@
       "type": "integer",
       "required": true
     },
-    "type": {
-      "type": "string",
-      "required": true
+    "cost": {
+      "type": "integer"
+    },
+    "code": {
+      "type": "string"
     },
     "value": {
-      "type": "string",
-      "required": true
+      "type": "integer"
     }
   }
 }

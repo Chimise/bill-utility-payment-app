@@ -18,6 +18,14 @@
     },
     {
       "method": "GET",
+      "path": "/electricity-payments/:id/verify",
+      "handler": "electricity-payment.verifyPayment",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/electricity-payments/:id",
       "handler": "electricity-payment.findOne",
       "config": {

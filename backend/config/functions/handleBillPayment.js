@@ -1,8 +1,8 @@
-const {v4: uuidv4} = require('uuid');
-const {postRequest} = require('../../utils');
+
+const {postRequest, generateUniqueNumber} = require('../../utils');
 
 module.exports = async (service_id, others = {}) => {
-    const trans_id = uuidv4();
+    const trans_id = generateUniqueNumber();
     const response = await postRequest('/services', {
         service_id,
         trans_id,

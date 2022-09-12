@@ -16,14 +16,18 @@
       "type": "string"
     },
     "meterType": {
-      "collection": "meter",
-      "via": "disco"
+      "via": "disco",
+      "collection": "meter"
     },
     "initial": {
       "type": "string"
     },
     "charge": {
       "type": "integer"
+    },
+    "electricity_payments": {
+      "via": "disco",
+      "collection": "electricity-payment"
     }
   }
 }

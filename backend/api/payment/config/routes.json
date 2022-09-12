@@ -25,6 +25,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "/payments/verify/:reference",
+      "handler": "payment.verify",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/payments",
       "handler": "payment.create",
