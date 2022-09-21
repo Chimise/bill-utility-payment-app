@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 
-import { useFormik} from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import AuthLayout from "../../../components/common/AuthLayout/AuthLayout";
-import SelectPaymentMethod, { Payment } from "../../../components/common/SelectPaymentMethod/SelectPaymentMethod";
+import SelectPaymentMethod, {
+  Payment,
+} from "../../../components/common/SelectPaymentMethod/SelectPaymentMethod";
 import FundWalletInput from "../../../components/ui/FundWalletInput/FundWalletInput";
 import Button from "../../../components/ui/Button/Button";
 
@@ -41,47 +43,61 @@ const payments: Array<Payment> = [
 
 function FundWalletPage() {
   const [selected, setSelected] = useState(payments[0]);
+  const [showPayment, setShowPayment] = useState(false);
 
-  const { handleBlur, handleSubmit, handleChange, errors, touched, values, isSubmitting } =
-    useFormik({
-      initialValues: {
-        amount: "",
-      },
-      async onSubmit(values, { setSubmitting, setFieldError }) {
+  const onCancelPayment = () => {
+    setShowPayment(false);
+  }
+  const onSubmit = () => {
+    setShowPayment(true);
+    
+  }
 
-        const test: (isValid: boolean) => Promise<string> = (isValid: boolean) => new Promise((resolve, reject) => {
+  const {
+    handleBlur,
+    handleSubmit,
+    handleChange,
+    errors,
+    touched,
+    values,
+    isSubmitting,
+  } = useFormik({
+    initialValues: {
+      amount: "",
+    },
+    async onSubmit(values, { setSubmitting, setFieldError }) {
+      const test: (isValid: boolean) => Promise<string> = (isValid: boolean) =>
+        new Promise((resolve, reject) => {
           setTimeout(() => {
-            if(isValid) {
-              resolve('Verified')
-            }else {
-              reject(new Error('Operation failed'))
-            }   
-             
-          }, 1000)
+            if (isValid) {
+              resolve("Verified");
+            } else {
+              reject(new Error("Operation failed"));
+            }
+          }, 1000);
+        });
 
-        })
+      try {
+        const isVerified = await test(false);
+        return isVerified;
+      } catch (error) {
+        setFieldError(
+          "amount",
+          error instanceof Error ? error.message : "invalid message"
+        );
+      }
+    },
+    validationSchema: Yup.object().shape({
+      amount: Yup.number()
+        .min(200, "The minimum amount is 200")
+        .max(20000, "The maximum amount is 20000")
+        .required("Enter a valid amount from 200 to 20000"),
+    }),
+  });
 
-        try {
-          const isVerified = await test(false);
-          return isVerified;
-        } catch (error) {
-          setFieldError('amount', error instanceof Error ? error.message : 'invalid message')
-        }
-
-        
-      },
-      validationSchema: Yup.object().shape({
-        amount: Yup.number()
-          .min(200, "The minimum amount is 200")
-          .max(20000, "The maximum amount is 20000")
-          .required("Enter a valid amount from 200 to 20000")
-      }),
-    });
-
-
-    const submitHandler = () => {
-      handleSubmit();
-    }
+  const submitHandler = () => {
+    handleSubmit();
+  };
 
   return (
     <div className="w-11/12 mx-auto mt-6 mb-8">
@@ -106,7 +122,12 @@ function FundWalletPage() {
             channels={payments}
           />
         </div>
-        <Button type='submit' onClick={submitHandler} loading={isSubmitting} className="w-full bg-gray-700 hover:bg-gray-800">
+        <Button
+          type="submit"
+          onClick={submitHandler}
+          loading={isSubmitting}
+          className="w-full bg-gray-700 hover:bg-gray-800"
+        >
           Proceed To Pay
         </Button>
       </div>

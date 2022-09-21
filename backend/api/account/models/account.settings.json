@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "payments",
+  "collectionName": "accounts",
   "info": {
-    "name": "payment"
+    "name": "account"
   },
   "options": {
     "increments": true,
@@ -11,28 +11,22 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "amount": {
-      "type": "decimal"
-    },
-    "reference": {
+    "bank": {
       "type": "string"
     },
-    "prevBal": {
-      "type": "decimal"
+    "account_id": {
+      "type": "integer"
     },
-    "currentBal": {
-      "type": "decimal"
-    },
-    "method": {
+    "name": {
       "type": "string"
     },
-    "comment": {
-      "type": "text"
+    "account_number": {
+      "type": "biginteger"
     },
     "user": {
-      "via": "payments",
       "plugin": "users-permissions",
-      "model": "user"
+      "model": "user",
+      "via": "accounts"
     }
   }
 }

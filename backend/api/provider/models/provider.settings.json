@@ -29,6 +29,9 @@
       "type": "component",
       "repeatable": false,
       "component": "bill.config"
+    },
+    "network_id": {
+      "type": "integer"
     }
   }
 }

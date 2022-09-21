@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import RequestError from "./RequestError";
 
 export type Provider = "mtn" | "airtel" | "9mobile" | "glo";
 
@@ -63,6 +64,14 @@ type BillHistory =  {
   meterType: 'Prepaid' | 'Postpaid' | '';
   billType: 'Electricity';
 })
+
+interface RequestParams {
+  headers?: {
+    [key: string]: string
+  },
+  body: any,
+  method?: 'POST' | 'PUT' | 'DELETE' | 'PATCH'
+}
 
 
 
@@ -359,3 +368,30 @@ export const tableData: Funding[] = [
     comment: "",
   },
 ];
+
+
+
+export const getBackendUri = (path: string = '') => {
+  return `${process.env.NEXT_PUBLIC_BACKEND_URL}${path}`;
+}
+
+export async function sendRequest<Data extends object = {}>(uri: string, {body = {}, headers = {}, method = 'POST'}: RequestParams, token: string | null = '') {
+  const response = await fetch(getBackendUri(uri), {
+    method,
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? {'Authorization': `Bearer ${token}`} : {}),
+      ...headers
+    },
+    body: JSON.stringify(body)
+  });
+
+  const responseData = await response.json();
+  if(!response.ok) {
+    const error = new RequestError({message: responseData.message, code: responseData.statusCode || response.status, errors: responseData.errors});
+    throw error;
+  };
+
+  return responseData as Data;
+
+}

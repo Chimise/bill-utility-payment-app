@@ -33,6 +33,14 @@
       }
     },
     {
+      "method": "GET",
+      "path": "payments/getDedicatedAccount",
+      "handler": "payment.getDedicatedAccount",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/payments",
       "handler": "payment.create",
@@ -52,6 +60,22 @@
       "method": "DELETE",
       "path": "/payments/:id",
       "handler": "payment.delete",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/payments/get_charge",
+      "handler": "payment.getCharge",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/payments/paystack/webhook",
+      "handler": "payment.webhook",
       "config": {
         "policies": []
       }

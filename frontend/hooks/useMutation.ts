@@ -1,90 +1,77 @@
-import {useReducer, useCallback} from 'react';
+import { useReducer, useCallback } from "react";
+import useAuth from "./useAuth";
+
 import RequestError from '../utils/RequestError';
-
-interface State<Data = any> {
-    data: Data | null;
-    error: RequestError | null;
-    isLoading: boolean;
+type State<T extends object> = {
+    error: RequestError | null,
+    data: T | null
 }
 
-type Actions<Data = any> = {type: 'SET_DATA', data: Data} | {type: 'SET_ERROR', error: RequestError} | {type: 'RESET_DATA'} | {type: 'START_REQUEST'};
+type actions<T extends object> = {type: 'INIT'} | {type: 'SET_DATA', data: T} | {type: 'SET_ERROR', error: RequestError}
 
-
-export type Fetcher<T = any, B = any> = (
-    options: FetcherOptions<B>,
-    ...others: any[]
-  ) => T | Promise<T>
-  
-  export type FetcherOptions<Body = any> = {
-    url?: string
-    method?: string
-    headers?: {[key: string]: string}
-    variables?: any
-    body?: Body
-  }
-
-const initialState: State = {
-    data: null,
+const initialState = {
     error: null,
-    isLoading: false
+    data: null
 }
 
 
 
 
-function reducer<Data = any>(state: State<Data>, action: Actions<Data>): State<Data>{
-    if(action.type === 'START_REQUEST') {
+export type Fetcher<Response extends object = {}, Body extends object = {}> = (body: Body, token: string | null, ...args: any[]) => Promise<Response>
+
+interface Reducer<Response extends object> {
+    (state: State<Response>, action: actions<Response>): State<Response>
+}
+
+function reducer<ResponseData extends object = {}>(state: State<ResponseData> = initialState, action: actions<ResponseData>): State<ResponseData> {
+    if(action.type === 'INIT') {
         return {
-            data: null,
-            error: null,
-            isLoading: true
+            ...state,
+            error: null
         }
     }
-    if(action.type === 'SET_DATA') {
+
+    if(action.type == 'SET_DATA') {
         return {
-            isLoading: false,
-            error: null,
-            data: action.data
+            data: action.data,
+            error: null
         }
     }
 
     if(action.type === 'SET_ERROR') {
         return {
             data: null,
-            isLoading: false,
             error: action.error
-
         }
     }
 
-    if(action.type === 'RESET_DATA') {
-        return initialState;
-    }
     return state;
 }
 
 
-function useMutation<Data>(fetcher: Fetcher<Data>, loadOnStart:boolean = false) {
-    const [requestData, dispatch] = useReducer<typeof reducer, State<Data>>(reducer, {...initialState, isLoading: loadOnStart}, () => ({...initialState, isLoading: loadOnStart}));
 
-    const sendRequest = useCallback(async (...args: Parameters<Fetcher<Data>>) => {
-        dispatch({type: 'START_REQUEST'})
+function useMutation<Response extends object = {}, Body extends object = {}>(fetcher: Fetcher<Response, Body>){
+    const [state, dispatch] = useReducer<Reducer<Response>>(reducer, initialState);
+    const {token} = useAuth();
+
+    const sendRequest = useCallback(async (data: Body, ...args: any[]) => {
+        dispatch({type: 'INIT'})
         try {
-            const data = await fetcher(...args);
-            dispatch({type: 'SET_DATA', data: data});
+            const response = await fetcher(data, token, ...args);
+            dispatch({type: 'SET_DATA', data: response});
         } catch (error: any) {
-            
-            const formattedError = new RequestError({message: error.message || 'Sending Request failed', code: error.code || 500});
-            dispatch({type: 'SET_ERROR', error: formattedError});
+            const modifiedError = new RequestError({message: error.message || 'Sending Request failed', code: error.code || 500});
+            dispatch({type: 'SET_ERROR', error: modifiedError});
         }
-    }, [fetcher]);
+    }, [fetcher, token]);
+
 
     return {
-        ...requestData,
+        ...state,
         sendRequest
-    }
+    };
+
     
 }
-
 
 export default useMutation;

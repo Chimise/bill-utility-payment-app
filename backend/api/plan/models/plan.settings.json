@@ -8,7 +8,7 @@
   "options": {
     "increments": true,
     "timestamps": true,
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -16,17 +16,24 @@
       "via": "plans",
       "model": "provider"
     },
-    "price": {
-      "type": "integer",
-      "required": true
-    },
     "cost": {
       "type": "integer"
     },
-    "code": {
-      "type": "string"
-    },
     "value": {
+      "type": "integer"
+    },
+    "type": {
+      "type": "enumeration",
+      "enum": [
+        "SME",
+        "GIFTING",
+        "CORPORATEGIFTING"
+      ]
+    },
+    "selling_price": {
+      "type": "integer"
+    },
+    "data_id": {
       "type": "integer"
     }
   }

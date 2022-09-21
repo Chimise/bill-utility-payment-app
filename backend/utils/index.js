@@ -2,7 +2,8 @@ const fetch = require('node-fetch');
 const yup = require('yup');
 
 const MOBILENIG_URI = "https://enterprise.mobilenig.com/api";
-const PAYSTACK_URI = 'https://api.paystack.co'
+const PAYSTACK_URI = 'https://api.paystack.co';
+const GEODNATECH_ROOT_URI = 'https://geodnatechsub.com/api';
 
 exports.MOBILENG_URI = MOBILENIG_URI;
 
@@ -45,8 +46,7 @@ exports.getPaystackRequest = async (url, headers = {}) => {
         headers: {
             Authorization: `Bearer ${process.env.PAYSTACK_SECRET}`,
             ...headers
-        },
-        redirect: 'follow'
+        }
     })
 
     if(!response.ok) {
@@ -55,6 +55,23 @@ exports.getPaystackRequest = async (url, headers = {}) => {
 
     return response;
 }
+
+exports.getBill = async (url, headers = {}) => {
+    const response = await fetch(`${GEODNATECH_ROOT_URI}${url}`, {
+        headers: {
+            Authorization: `Token ${process.env.GEODNATECH_KEY}`,
+            ...headers
+        }
+    })
+
+    if(!response.ok) {
+        throw new RequestError(response)
+    }
+
+    return response;
+}
+
+
 
 exports.postRequest = async (url, {headers = {}, body = {}}= {}) => {
     const response = await fetch(getUri(url), {
@@ -82,7 +99,23 @@ exports.postPaystackRequest = async (url, {headers = {}, body = {}}= {}) => {
             'Content-Type': 'application/json',
             ...headers
         },
-        redirect: 'follow',
+        body: JSON.stringify(body)
+    })
+
+    if(!response.ok) {
+        throw new RequestError(response)
+    }
+    return response;
+}
+
+exports.postBill = async (url, {headers = {}, body = {}}= {}) => {
+    const response = await fetch(`${GEODNATECH_ROOT_URI}${url}`, {
+        method: 'POST',
+        headers: {
+            Authorization: `Token ${process.env.GEODNATECH_KEY}`,
+            'Content-Type': 'application/json',
+            ...headers
+        },
         body: JSON.stringify(body)
     })
 
@@ -94,7 +127,9 @@ exports.postPaystackRequest = async (url, {headers = {}, body = {}}= {}) => {
 
 exports.handleError = async (ctx, error) => {
     if(error instanceof yup.ValidationError) {
-        return ctx.badRequest(error.errors[1]);
+        return ctx.badRequest(error.errors[0], {
+            errors: error.errors
+        });
     }else if(error instanceof RequestError) {
         let response;
         try{

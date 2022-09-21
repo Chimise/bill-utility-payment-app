@@ -3,6 +3,7 @@ const {
   register: authRegister,
 } = require("strapi-plugin-users-permissions/controllers/Auth");
 const yup = require("yup");
+const {handleError} = require('../../../utils');
 
 const userSchema = yup.object({
   phoneNo: yup
@@ -30,19 +31,15 @@ module.exports = {
       const body = await userSchema.validate(ctx.request.body);
       const users = await strapi
         .query("user", "users-permissions")
-        .find({_where: {_or: [{phoneNo: body.phoneNo}, {email: body.email}]} });
+        .find({phoneNo: body.phoneNo});
 
       if (users.length > 0) {
-        return ctx.badRequest("Phone number or Email already exists");
+        return ctx.badRequest("A user with this phone number already exist.");
       }
 
       return authRegister(ctx);
     } catch (error) {
-      if (error instanceof yup.ValidationError) {
-        return ctx.badRequest(error.errors[0]);
-      }
-      console.log(error);
-      return ctx.badImplementation("Something wrong happened");
+      return handleError(ctx, error);
     }
   },
 };

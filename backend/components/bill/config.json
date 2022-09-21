@@ -2,13 +2,11 @@
   "collectionName": "components_bill_configs",
   "info": {
     "name": "Config",
-    "icon": "closed-captioning"
+    "icon": "closed-captioning",
+    "description": ""
   },
   "options": {},
   "attributes": {
-    "service_id": {
-      "type": "string"
-    },
     "charge": {
       "type": "integer"
     }

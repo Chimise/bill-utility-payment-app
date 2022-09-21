@@ -80,7 +80,7 @@
     },
     "payments": {
       "private": true,
-      "via": "userId",
+      "via": "user",
       "collection": "payment"
     },
     "data_purchases": {
@@ -102,6 +102,10 @@
       "via": "buyer",
       "private": true,
       "collection": "electricity-payment"
+    },
+    "accounts": {
+      "via": "user",
+      "collection": "account"
     }
   }
 }

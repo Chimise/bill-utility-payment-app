@@ -14,6 +14,7 @@ module.exports = {
             amount: (responseData.data.amount / 100) - responseData.data.fees,
             method: responseData.data.channel,
             createdAt: responseData.data.paid_at,
+            status: responseData.data.status
         }
     },
     getLocalCharges(amount) {
@@ -56,6 +57,10 @@ module.exports = {
             }
         });
         const responseData = await response.json();
-        return  responseData.data.account_name; 
+        return {
+            accountName: responseData.data.account_name,
+            accountNo: responseData.data.account_number,
+            accountId: responseData.data.id
+        }; 
     }
 };
