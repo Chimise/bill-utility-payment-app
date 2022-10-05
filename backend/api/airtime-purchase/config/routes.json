@@ -33,6 +33,14 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/airtime-purchases/purchase",
+      "handler": "airtime-purchase.purchase",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "PUT",
       "path": "/airtime-purchases/:id",
       "handler": "airtime-purchase.update",
@@ -44,14 +52,6 @@
       "method": "DELETE",
       "path": "/airtime-purchases/:id",
       "handler": "airtime-purchase.delete",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "POST",
-      "path": "/airtime-purchases/purchase",
-      "handler": "airtime-purchase.purchase",
       "config": {
         "policies": []
       }

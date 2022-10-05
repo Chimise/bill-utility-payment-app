@@ -26,6 +26,14 @@
     },
     {
       "method": "POST",
+      "path": "/plans/:id/purchase",
+      "handler": "plan.purchase",
+      "config": {
+          "policies": []
+      }
+    },
+    {
+      "method": "POST",
       "path": "/plans",
       "handler": "plan.create",
       "config": {

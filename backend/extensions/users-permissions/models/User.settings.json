@@ -84,8 +84,8 @@
       "collection": "payment"
     },
     "data_purchases": {
-      "private": true,
       "via": "buyer",
+      "private": true,
       "collection": "data-purchase"
     },
     "airtime_purchases": {

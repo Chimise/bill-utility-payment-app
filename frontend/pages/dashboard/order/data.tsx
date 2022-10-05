@@ -75,4 +75,6 @@ DataPage.getLayout = (children: React.ReactNode) => {
   return <AuthLayout>{children}</AuthLayout>;
 };
 
+DataPage.isAuth = true;
+
 export default DataPage;

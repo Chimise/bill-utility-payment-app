@@ -9,13 +9,13 @@ interface AuthProp {
 }
 
 const Auth = ({children}: AuthProp) => {
-    const {token} = useAuth();
+    const {token, isLoading} = useAuth();
 
     useEffect(() => {
-        if(!token) {
-            router.replace('/login');
+        if(!token && !isLoading)   {
+            router.replace('/auth/login');
         }
-    }, [token])
+    }, [token, isLoading])
 
 
 

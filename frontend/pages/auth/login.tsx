@@ -8,16 +8,18 @@ import Image from 'next/image';
 import Input from '../../components/ui/Input/Input';
 import InputPassword from '../../components/ui/InputPassword/InputPassword';
 import Button from '../../components/ui/Button/Button';
-import CopyRight from '../../components/common/Footer/CopyRight';
+import RegisterLayout from '../../components/common/RegisterLayout/RegisterLayout';
+import useLogin from '../../hooks/useLogin';
+import { getBackendUri } from '../../utils';
 
 import LogoImage from '../../assets/Logo.png';
 
 const LogInPage = () => {
 
-  const {values, errors, touched, handleSubmit, handleBlur, handleChange, isSubmitting} = useFormik({initialValues: {email: '', password: '', rememberMe: true}, onSubmit(values, {setSubmitting}){
-    setTimeout(() => {
-      setSubmitting(false);
-    }, 500)
+  const sendRequest = useLogin();
+
+  const {values, errors, touched, handleSubmit, handleBlur, handleChange, isSubmitting} = useFormik({initialValues: {email: '', password: '', rememberMe: true}, async onSubmit({email: identifier, password}){
+    await sendRequest({identifier, password});
   }, validationSchema: Yup.object({
     email: Yup.string().trim().email('Please enter a valid email').required('Enter your email'),
     password: Yup.string().trim().min(5, 'The password should be at least five characters').required('Enter your password'),
@@ -25,7 +27,7 @@ const LogInPage = () => {
   }) })
 
   return (
-    <div className='bg-gray-100 flex items-center justify-center w-full min-h-[130vh] md:min-h-[140vh]'>
+    <div className='bg-gray-100 flex items-center justify-center w-full min-h-[130vh] md:min-h-[100vh]'>
         <div className='w-full sm:w-[24rem] h-auto'>
             <div className='flex flex-col items-center mb-5'>
               <Link href='/'>
@@ -53,7 +55,7 @@ const LogInPage = () => {
                   <hr className='flex-1 bg-slate-600' /><span className='text-slate-500 text-sm'>Or</span><hr className='flex-1 bg-slate-600' />
               </div>
               <div className='space-x-3'>
-                <a href="http://backend.com" className='w-full border border-slate-500 bg-slate-500 flex hover:bg-slate-700 hover:border-slate-700 rounded-sm'>
+                <a href={getBackendUri('/connect/google')} className='w-full border border-slate-500 bg-slate-500 flex hover:bg-slate-700 hover:border-slate-700 rounded-sm'>
                   <span className='shrink-0 flex justify-center items-center text-green-600 bg-white w-8'><FontAwesomeIcon icon={['fab', 'google']} size='lg' /></span>
                   <span className='flex-1 text-sm text-center text-white py-2'>Log in with google</span>
                 </a>
@@ -66,10 +68,11 @@ const LogInPage = () => {
 }
 
 LogInPage.getLayout = (children: React.ReactNode) => {
-  return (<Fragment>
-    {children}
-    <CopyRight mode='dark' className='bg-gray-100 mt-0' />
-  </Fragment>);
+  return (
+    <RegisterLayout>
+      {children}
+    </RegisterLayout>
+  );
 }
 
 export default LogInPage;

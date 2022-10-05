@@ -199,26 +199,24 @@ const getProfile = async (provider, query, callback) => {
       break;
     }
     case 'google': {
-        
-      request({url: 'https://www.googleapis.com/oauth2/v3/userinfo', headers: {
-        'Authorization': `Bearer ${access_token}`
-      }}, (err, res, body) => {
-        if(err) {
+      const google = purest({ provider: 'google', config: purestConfig });
+
+      google
+        .query('oauth')
+        .get('tokeninfo')
+        .qs({ id_token: access_token })
+        .request((err, res, body) => {
+          if (err) {
+            console.log(err);
             callback(err);
-        }else {
-            const info = JSON.parse(body);
-            if(res.statusCode >= 300 || res.statusCode < 200) {
-                return err(info);
-            }
+          } else {
+            console.log(body);
             callback(null, {
-                username: info.email.split('@')[0],
-                email: info.email,
-                firstName: info.given_name,
-                lastName: info.family_name,
-                providerId: info.sub
-              });
-        }
-      })
+              username: body.email.split('@')[0],
+              email: body.email,
+            });
+          }
+        });
       break;
     }
     case 'github': {

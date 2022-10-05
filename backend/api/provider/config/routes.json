@@ -17,17 +17,17 @@
       }
     },
     {
-      "method": "GET",
-      "path": "/providers/:id",
-      "handler": "provider.findOne",
+      "method": "POST",
+      "path": "/provider/user",
+      "handler": "provider.user",
       "config": {
         "policies": []
       }
     },
     {
       "method": "GET",
-      "path": "/providers/:id/plans",
-      "handler": "provider.plan",
+      "path": "/providers/:id",
+      "handler": "provider.findOne",
       "config": {
         "policies": []
       }

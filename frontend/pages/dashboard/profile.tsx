@@ -3,7 +3,6 @@ import { Tab } from "@headlessui/react";
 import classNames from "classnames";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
-
 import AuthLayout from "../../components/common/AuthLayout/AuthLayout";
 import DashboardContainer from "../../components/ui/DashboardContainer/DashboardContainer";
 import DashboardHeader from "../../components/common/DashboardHeader/DashboardHeader";
@@ -12,10 +11,15 @@ import Input from "../../components/ui/Input/Input";
 import InputPassword from "../../components/ui/InputPassword/InputPassword";
 import Button from "../../components/ui/Button/Button";
 import { filteredNumbers } from "../../utils";
+import useUser from '../../hooks/useUser';
+import Spinner from '../../components/ui/Spinner/Spinner';
+import Error from '../../components/ui/Error/Error';
 
 const tabHeaders = ["Update Profile", "Change Password"];
 
 const ProfilePage = () => {
+
+const {isLoading, error, user, mutate} = useUser();
   
     const {values: {firstName, lastName, phoneNo}, errors, touched, handleBlur, handleChange, handleSubmit, isSubmitting} = useFormik({initialValues: {firstName: '', lastName: '', phoneNo: ''}, onSubmit: (values, {setSubmitting}) => {
 
@@ -108,28 +112,32 @@ const ProfilePage = () => {
         <h3 className="text-lg leading-6 font-medium text-gray-900">User Information</h3>
       </div>
       <div className="border-t border-gray-200">
-        <dl>
+        {isLoading && <Spinner className="p-7" />}
+        {error && <Error error={error.message} onRetry={() => mutate()} className='p-7' />}
+        {user && (  
+          <dl>
           <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">First Name</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Margot</dd>
+            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user.firstName}</dd>
           </div>
           <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Last Name</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">Promise</dd>
+            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user.lastName}</dd>
           </div>
           <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Email address</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">chimisepro@gmail.com</dd>
+            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user.email}</dd>
           </div>
           <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Phone Number</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">08036623453</dd>
+            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{user.phoneNo}</dd>
           </div>
           <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
             <dt className="text-sm font-medium text-gray-500">Balance</dt>
-            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">$120,000</dd>
+            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">&#8358;{user.amount}</dd>
           </div>
           </dl>
+        )}
       </div>
     </div>
         </Paper>
@@ -141,5 +149,7 @@ const ProfilePage = () => {
 ProfilePage.getLayout = (children: React.ReactNode) => {
   return <AuthLayout>{children}</AuthLayout>;
 };
+
+ProfilePage.isAuth = true;
 
 export default ProfilePage;

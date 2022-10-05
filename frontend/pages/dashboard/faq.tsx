@@ -29,4 +29,6 @@ FaqPage.getLayout = (children: React.ReactNode) => {
     )
 }
 
+FaqPage.isAuth = true;
+
 export default FaqPage;

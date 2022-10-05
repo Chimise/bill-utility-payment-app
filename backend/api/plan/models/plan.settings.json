@@ -17,7 +17,8 @@
       "model": "provider"
     },
     "cost": {
-      "type": "integer"
+      "type": "integer",
+      "private": true
     },
     "value": {
       "type": "integer"
@@ -26,15 +27,18 @@
       "type": "enumeration",
       "enum": [
         "SME",
-        "GIFTING",
-        "CORPORATEGIFTING"
+        "GIFTING"
       ]
     },
     "selling_price": {
       "type": "integer"
     },
+    "validity": {
+      "type": "text"
+    },
     "data_id": {
-      "type": "integer"
+      "type": "string",
+      "private": true
     }
   }
 }

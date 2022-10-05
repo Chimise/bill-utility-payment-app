@@ -76,4 +76,6 @@ AirtimePage.getLayout = (children: React.ReactNode) => {
     </AuthLayout>
 }
 
+AirtimePage.isAuth = true;
+
 export default AirtimePage;

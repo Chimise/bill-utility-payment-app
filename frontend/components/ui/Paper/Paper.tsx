@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 
 interface PaperProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
     className?: string;
 }
 

@@ -61,6 +61,6 @@ CableTvBillsPage.getLayout = (children: React.ReactNode) => {
     </AuthLayout>)
 }
 
-
+CableTvBillsPage.isAuth = true;
 
 export default CableTvBillsPage;

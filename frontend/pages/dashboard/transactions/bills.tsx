@@ -64,6 +64,6 @@ BillsHistoryPage.getLayout = (children: React.ReactNode) => {
     )
 }
 
-
+BillsHistoryPage.isAuth = true;
 
 export default BillsHistoryPage;

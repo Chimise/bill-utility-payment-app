@@ -1,4 +1,5 @@
 "use strict";
+const { job } = require("cron");
 const { sanitizeEntity, parseMultipartData } = require("strapi-utils");
 const yup = require("yup");
 const { handleError } = require("../../../utils");
@@ -19,7 +20,6 @@ const purchaseSchema = yup.object({
     .required("Please enter your recipients"),
 });
 
-
 module.exports = {
   async purchase(ctx) {
     try {
@@ -34,55 +34,75 @@ module.exports = {
       if (!provider) {
         return ctx.badRequest("The provider was not found");
       }
-      const totalPrice = (provider.airtime.charge + amount) * recipients.length;
+
+      const totalPrice = (provider.airtime_charge + amount) * recipients.length;
       if (!strapi.config.functions.hasEnoughMoney(ctx, totalPrice)) {
         return ctx.paymentRequired(
           "You do not have enough money, topup and try again"
         );
       }
-      const networkStatus = await strapi.config.functions.getProviderStatus(
-        provider.airtime.service_id
-      );
-      if (!networkStatus) {
-        return ctx.badImplementation(
-          `Sorry, ${provider.name} airtime purchase service is currently unavailable`
-        );
-      }
 
+      let type = "PREMIUM";
+
+      let networkStatus = await strapi.config.functions.getProviderStatus(
+        provider.airtime_id,
+        type
+      );
+
+      if (!networkStatus) {
+        type = "STANDARD";
+        networkStatus = await strapi.config.functions.getProviderStatus(
+          provider.airtime_id,
+          type
+        );
+        if (!networkStatus) {
+          return ctx.badImplementation("Service currently not available");
+        }
+      }
 
       const createdAt = new Date().toISOString();
 
       const purchasePromises = recipients.map((recipient) => {
-        return async () => {
+        // Perform all the task and return a promise
+        return (async () => {
           const data = await strapi.config.functions.handleAirtimePurchase(
-            provider.airtime.service_id,
+            provider.airtime_id,
             recipient,
-            amount
+            amount,
+            type
           );
-          await strapi.query("user", "users-permissions").update(
+          const user = await strapi.query("user", "users-permissions").update(
             { id: ctx.state.user.id },
             {
               amount:
-                ctx.state.user.amount - (amount + provider.airtime.charge),
+                ctx.state.user.amount - (provider.airtime_charge + amount),
             }
           );
-          const payment = await strapi.query("airtime-purchase").create({
+          const purchase = strapi.query("airtime-purchase").create({
             trans_id: data.trans_id,
             status: data.processing ? "processing" : "processed",
             provider: provider.id,
             recipient: recipient,
             amount,
-            buyer: ctx.state.user.id,
+            buyer: user.id,
             createdAt,
           });
-          return payment;
-        };
+          return purchase;
+        })();
       });
 
       const purchases = await Promise.all(purchasePromises);
-      return purchases.map((purchase) =>
-        sanitizeEntity(purchase, { model: strapi.models["airtime-purchase"] })
-      );
+
+      const sanitizedPurchases = purchases
+        .filter((purchase) => purchase)
+        .map((purchase) =>
+          sanitizeEntity(purchase, { model: strapi.models["airtime-purchase"] })
+        );
+
+      if (sanitizedPurchases.length === 0) {
+        return ctx.badImplementation("Request failed, try again");
+      }
+      return sanitizedPurchases;
     } catch (error) {
       console.log(error);
       return handleError(ctx, error);

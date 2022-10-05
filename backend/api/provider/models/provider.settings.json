@@ -8,7 +8,7 @@
   "options": {
     "increments": true,
     "timestamps": true,
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -18,20 +18,24 @@
     },
     "plans": {
       "via": "provider",
-      "collection": "plan"
+      "collection": "plan",
+      "private": true
     },
-    "airtime": {
-      "type": "component",
-      "repeatable": false,
-      "component": "bill.config"
+    "airtime_id": {
+      "type": "string",
+      "private": true
     },
-    "data": {
-      "type": "component",
-      "repeatable": false,
-      "component": "bill.config"
+    "data_id": {
+      "type": "string",
+      "private": true
     },
-    "network_id": {
-      "type": "integer"
+    "data_charge": {
+      "type": "decimal",
+      "private": true
+    },
+    "airtime_charge": {
+      "type": "decimal",
+      "private": true
     }
   }
 }

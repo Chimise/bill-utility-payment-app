@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { MenuIcon } from "@heroicons/react/outline";
 import { UserCircleIcon } from "@heroicons/react/solid";
 import { Menu, Transition } from "@headlessui/react";
+import useAuth from "../../../hooks/useAuth";
 import cn from "classnames";
 
 import MenuLink from "./MenuLink";
@@ -12,6 +13,7 @@ interface AuthHeaderProps {
 }
 
 const AuthHeader = ({onOpenMenu, isHome}: AuthHeaderProps) => {
+  const authcontext = useAuth();
   return (
     <header className={cn("w-full bg-white px-6 lg:px-8 py-2 h-14 z-10 sticky top-0 flex items-center justify-between lg:justify-end", {'shadow-sm shadow-black/50': !isHome} )}>
       <div className="shrink-0 text-slate-800 lg:hidden">
@@ -51,6 +53,7 @@ const AuthHeader = ({onOpenMenu, isHome}: AuthHeaderProps) => {
                 <Menu.Item>
                   {({ active }) => (
                     <button
+                    onClick={authcontext.logoutHandler}
                       className={cn(
                         "block w-full text-left px-4 py-2 text-sm text-gray-500",
                         { "bg-gray-100": active }

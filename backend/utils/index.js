@@ -138,7 +138,7 @@ exports.handleError = async (ctx, error) => {
         }catch(err) {
             response = null;
         }
-        return ctx.badImplementation(error.message, response);
+        return ctx.badImplementation(error.message || "Something went wrong", response);
     }else {
         return ctx.badRequest("Something wrong happened", error.data || {});
     }

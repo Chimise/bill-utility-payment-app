@@ -1,5 +1,8 @@
 "use strict";
-const { postRequest } = require("../../utils");
+const response = require('../../utils/plans');
+const plans = require('../../utils/plans.json').plans;
+
+
 
 /**
  * An asynchronous bootstrap function that runs before
@@ -12,42 +15,37 @@ const { postRequest } = require("../../utils");
  */
 
 module.exports = async () => {
-//   try {
-//     const cabletvs = await strapi.query("cabletv").find({_sort: 'service_id:asc'});
-//     const promises = [];
-//     cabletvs.forEach((cabletv) => {
-//       promises.push(
-//         postRequest("/services/packages", {
-//           body: {
-//             service_id: cabletv.service_id,
-//           },
-//         })
-//       );
-//     });
+    const providers = await strapi.query('provider').find({});
+    const originalPlans = await strapi.query('plan').find({});
+    
+    if(originalPlans.length === 0) {
+        const newPlans = plans.map(plan => {
+            const provider = providers.find(prov => prov.name.toLowerCase() === plan.network.toLowerCase());
+            const cost = parseInt(plan.cost);
+            const value = parseInt(plan.value);
+            const selling_price = parseInt(plan.airtime_cost);
+            return {
+                data_id: plan.code,
+                type: plan.package.toUpperCase(),
+                provider: provider.id,
+                selling_price: selling_price || (cost + provider.data_charge),
+                cost,
+                value,
+                validity: plan.validity || "Monthly"
+            }
+        });
+        await strapi.query('plan').model.insertMany(newPlans);
+    }
 
-//     const resolvedPromises = await Promise.all(promises);
-//     const resolvedData = await Promise.all(resolvedPromises.map(response => response.json()));
-
-//     console.log(JSON.stringify(resolvedData, null, 2));
-//     const modifiedData = cabletvs.map((cabletv, index) => {
-//         return {
-//             ...cabletv,
-//             plans: resolvedData[index].details.map(plan => ({
-//                 ...plan,
-//                 selling_price: (parseInt(cabletv.charge) || 50) + plan.price
-//             }))
-//         }
-//     });
-
-//     const queries = modifiedData.map(({id, ...data}) => {
-//         return strapi.query('cabletv').update({id}, data);
-//     })
-
-//     await Promise.all(queries);
-
-
-//   } catch (error) {
-//     console.log(error);
-//     throw new Error(error);
-//   }
 };
+
+// {
+//     "code": "MG1500",
+//     "airtime_cost": "1000",
+//     "cost": "950",
+//     "value": "1500",
+//     "network": "MTN",
+//     "package": "Gifting",
+//     "validity": "Monthly",
+//     "status": "1"
+//   },

@@ -5,7 +5,7 @@ interface UIContext {
     toastIsVisible: boolean;
     message: string;
     status: State['status'];
-    openToastHandler: (status: State['status'], message: string) => void;
+    openToastHandler: (status: State['status'], message: string, duration?: number) => void;
     closeToastHandler: () => void;
 
 }
@@ -18,9 +18,10 @@ interface State {
     message: string;
     toastIsVisible: boolean;
     status: 'success' | 'error' | 'info' | 'warning' | null;
+    duration: number;
 }
 
-type Actions = {type: 'SET TOAST', message: string, status: State['status']} | {type: 'DISMISS TOAST'}
+type Actions = {type: 'SET TOAST', message: string, status: State['status'], duration: number} | {type: 'DISMISS TOAST'}
 
 
 const UIContext = React.createContext<UIContext>({toastIsVisible: false, message: '', status: null, openToastHandler: () => {}, closeToastHandler: () => {}});
@@ -31,14 +32,16 @@ const uiReducer = (state: State, actions: Actions): State => {
         return {
             message: actions.message,
             status: actions.status,
-            toastIsVisible: true
+            toastIsVisible: true,
+            duration: actions.duration
         }
     }
     if(actions.type === 'DISMISS TOAST') {
         return {
             message: '',
-            status: null,
-            toastIsVisible: false
+            status: state.status,
+            toastIsVisible: false,
+            duration: 3000
         }
     }
   return state;
@@ -47,7 +50,8 @@ const uiReducer = (state: State, actions: Actions): State => {
 const INITIAL_STATE: State = {
     message: '',
     toastIsVisible: false,
-    status: null
+    status: null,
+    duration: 3000
 }
 
 
@@ -56,10 +60,11 @@ export const UIContextProvider = ({children}: UIContextProviderProps) => {
     const [state, dispatch] = useReducer<typeof uiReducer, State>(uiReducer, INITIAL_STATE, () => (INITIAL_STATE));
 
     const toastIsVisible = state.toastIsVisible;
+    const duration = state.duration;
 
-    const openToastHandler = (status: State['status'], message: string) => {
-        dispatch({type: 'SET TOAST', message: message, status: status});
-    }
+    const openToastHandler = useCallback((status: State['status'], message: string, duration: number = 3000) => {
+        dispatch({type: 'SET TOAST', message: message, status: status, duration});
+    }, [dispatch]);
 
     const closeToastHandler = useCallback(() => {
         dispatch({type: 'DISMISS TOAST'});
@@ -71,12 +76,12 @@ export const UIContextProvider = ({children}: UIContextProviderProps) => {
                 
                 closeToastHandler()
             }
-        }, 3000)
+        }, duration)
 
         return () => {
             clearTimeout(identifier);
         }
-    }, [toastIsVisible, closeToastHandler])
+    }, [toastIsVisible, closeToastHandler, duration])
 
     return (<UIContext.Provider value={{...state, openToastHandler, closeToastHandler}}>
         {children}

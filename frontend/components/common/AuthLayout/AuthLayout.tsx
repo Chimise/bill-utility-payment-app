@@ -5,6 +5,8 @@ import Link from 'next/link';
 import AuthHeader from './AuthHeader';
 import NavLink from '../../ui/NavLink/NavLink';
 import LogoImage from '../../../assets/White-Logo.png';
+import Toast from '../../ui/Toast/Toast';
+import useUI from '../../../hooks/useUI';
 
 import MobileAuthMenu from '../MobileAuthMenu/MobileAuthMenu';
 
@@ -30,6 +32,7 @@ const navLinks:NavLinks = {
 }
 const AuthLayout = ({children, isHome = false}: AuthLayoutProps) => {
     const [menuIsVisible, setMenuIsVisible] = useState(false);
+    const uiContext = useUI();
 
     const openMenuHandler = () => {
         setMenuIsVisible(true);
@@ -42,6 +45,7 @@ const AuthLayout = ({children, isHome = false}: AuthLayoutProps) => {
     return (
     <Fragment>
     <MobileAuthMenu showMenu={menuIsVisible} onCloseMenu={closeMenuHandler} />
+    <Toast message={uiContext.message} isVisible={uiContext.toastIsVisible} status={uiContext.status} onClose={uiContext.closeToastHandler} />
     <div className='lg:flex'>
         <nav className='hidden lg:basis-[250px] lg:shrink-0 lg:block lg:h-screen overflow-y-hidden'>
             <div className='fixed top-0 left-0 w-[250px] h-full lg:bg-slate-800'>

@@ -140,4 +140,6 @@ FundWalletPage.getLayout = (children: React.ReactNode) => {
   return <AuthLayout>{children}</AuthLayout>;
 };
 
+FundWalletPage.isAuth = true;
+
 export default FundWalletPage;

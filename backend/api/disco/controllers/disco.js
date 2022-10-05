@@ -3,7 +3,7 @@ const yup = require("yup");
 const _ = require('lodash');
 const {sanitizeEntity} = require('strapi-utils');
 
-const { handleError, postRequest } = require("../../../utils");
+const { handleError} = require("../../../utils");
 
 const paymentSchema = yup.object({
   amount: yup.number().required("Please enter the amount you want to recharge"),

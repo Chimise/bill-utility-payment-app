@@ -1,0 +1,11 @@
+@api_key = pk_test_Iey/ONDvnzc5D65h56MZsqCrj1HRx09aVlVvc09W+R8=
+@base_url = https://enterprise.mobilenig.com/api
+
+POST {{base_url}}/services HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{api_key}}
+
+{
+    "service_id": "BCA",
+    "requestType": "SME"
+}

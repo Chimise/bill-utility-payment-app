@@ -65,6 +65,6 @@ OrdersHistoryPage.getLayout = (children: React.ReactNode) => {
     )
 }
 
-
+OrdersHistoryPage.isAuth = true;
 
 export default OrdersHistoryPage;

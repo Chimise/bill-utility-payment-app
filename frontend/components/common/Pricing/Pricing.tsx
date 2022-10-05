@@ -1,47 +1,41 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo} from "react";
+
 import Container from "../../ui/Container/Container";
 import PricingSearch from "./PricingSearch";
 import PricingCardList from "./PricingCardList";
-import { pricingData, convertToBytes } from "../../../utils";
+import { Operator, Plan} from "../../../utils";
+import useOperators from "../../../hooks/useOperators";
+import usePlans from '../../../hooks/usePlans';
+import Spinner from '../../ui/Spinner/Spinner';
+import Error from '../../ui/Error/Error';
 
-export type TransformedDataInner = {
-  [key: string]: Array<{id: number; price: number; value: string;}>
+
+interface PricingProps {
+  operators: Array<Operator>
 }
 
-export type TransformedData = {
-  [key: string]: TransformedDataInner;
-};
+export type TransformedPlans = {
+  [key: string]: Array<Plan>
+}
 
 
+const Pricing = ({operators: initialOperators}: PricingProps) => {
+  const {operators} = useOperators(initialOperators);
+  const [selected, setSelected] = useState(operators![0]);
+  const {plans, error, isLoading, mutate} = usePlans(selected.id);
+
+  const transformedPlans = useMemo(() => {
+    if(plans) {
+      return plans.reduce<TransformedPlans>((acc, prev) => {
+      const plans = (acc[prev.validity] || []);
+      acc[prev.validity] = [...plans, prev];
+      acc[prev.validity].sort((planA, planB) => planA.value - planB.value);
+      return acc;
+      }, {});
+    }
+  }, [plans])
 
 
-const Pricing = () => {
-  const [selected, setSelected] = useState("");
-
-  const transformedData = useMemo<TransformedData>(
-    () =>
-      pricingData.reduce<TransformedData>((prev, curr) => {
-        if (!prev[curr.provider]) {
-          prev[curr.provider] = {
-            [curr.type]: [
-              { id: curr.id, value: curr.value, price: curr.price },
-            ],
-          };
-        } else {
-          prev[curr.provider][curr.type] = [...(prev[curr.provider][curr.type] || []), {id: curr.id, value: curr.value, price: curr.price}].sort((prev, next) => (convertToBytes(prev.value) - convertToBytes(next.value)));
-          }
-
-          return prev;
-        }, {}),
-    []
-  );
-
-  const providers = useMemo(
-    () => Object.keys(transformedData),
-    [transformedData]
-  );
-
-  const dataPlans = useMemo(() => transformedData[selected] ? {[selected]: transformedData[selected]} : transformedData, [selected, transformedData])
 
   return (
     <section className="bg-white/50 min-h-[50vh]">
@@ -49,12 +43,14 @@ const Pricing = () => {
         <header className="text-center text-4xl py-8 md:py-12 lg:text-5xl text-gray-600 font-medium">
           <h1>Our Data Pricing Plans</h1>
         </header>
-        <PricingSearch
+        {operators && <PricingSearch
           selected={selected}
           onSelect={setSelected}
-          searchTypes={providers}
-        />
-        <PricingCardList dataPlans={dataPlans} />
+          operators={operators}
+        />}
+        {isLoading && <Spinner className="w-full p-10" />}
+        {error && <Error error={error.message} onRetry={() => mutate()} className="p-9" />}
+        {transformedPlans && <PricingCardList dataPlans={transformedPlans} />}
         
       </Container>
     </section>

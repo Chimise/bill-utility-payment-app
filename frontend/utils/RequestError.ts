@@ -1,17 +1,17 @@
 export type ErrorData = {
     message: string
-    code?: string
+    code?: number
   }
   
 export type ErrorProps = {
-    code?: string
+    code?: number
   } & (
     | { message: string; errors?: never }
     | { message?: never; errors: ErrorData[] }
   )
   
 class RequestError extends Error {
-    code?: string
+    code?: number
     errors: ErrorData[]
   
     constructor({ message, code, errors }: ErrorProps) {

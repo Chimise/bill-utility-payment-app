@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "data_purchases",
   "info": {
-    "name": "DataPurchase"
+    "name": "DataPurchase",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -19,8 +20,18 @@
     "plan": {
       "model": "data-purchase"
     },
-    "recipients": {
-      "type": "json"
+    "trans_id": {
+      "type": "biginteger"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "processed",
+        "processing"
+      ]
+    },
+    "recipient": {
+      "type": "string"
     }
   }
 }

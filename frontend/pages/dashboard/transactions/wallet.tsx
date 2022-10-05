@@ -65,4 +65,6 @@ WalletHistoryPage.getLayout = (children: React.ReactNode) => {
   return <AuthLayout>{children}</AuthLayout>;
 };
 
+WalletHistoryPage.isAuth = true;
+
 export default WalletHistoryPage;

@@ -68,6 +68,6 @@ ElectricityBillsPage.getLayout = (children: React.ReactNode) => {
     </AuthLayout>)
 }
 
-
+ElectricityBillsPage.isAuth = true;
 
 export default ElectricityBillsPage;

@@ -21,8 +21,8 @@ const userSchema = yup.object({
     .string()
     .trim()
     .required("Please enter your first name"),
-  lastName: yup.string().trim().required("Plese enter your last name")
-    
+  lastName: yup.string().trim().required("Plese enter your last name"),
+  username: yup.string().required("Please enter your username")
 });
 
 module.exports = {

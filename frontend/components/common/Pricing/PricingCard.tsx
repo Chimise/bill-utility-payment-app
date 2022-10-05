@@ -1,10 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
+import {Plan} from '../../../utils'
+
 
 interface PricingCardProps {
     provider: string;
     type: string;
-    plans: Array<{price: number; value:string; id:number;}>
+    plans: Array<Plan>
 }
 
 type Classes = {
@@ -16,6 +18,7 @@ type Classes = {
 }
 
 const PricingCard = ({provider, type, plans}: PricingCardProps) => {
+
     const classes: Classes = {
         mtn: 'bg-[#ffc000]',
         airtel: 'bg-red-600',
@@ -33,12 +36,12 @@ const PricingCard = ({provider, type, plans}: PricingCardProps) => {
                 </div>
                 <ul className='ml-4 space-y-2 text-slate-700'>
                     {plans.map((plan) => (
-                        <li key={plan.id} className='relative space-x-2 text-slate-600 text-sm before:absolute before:w-2 before:h-2 before:bg-slate-600 before:top-[5px] before:-left-4 before:rotate-45'><span>{plan.value}</span><span></span>|<span>&#8358;{plan.price}</span></li>
+                        <li key={plan.id} className='relative space-x-2 text-slate-600 text-sm before:absolute before:w-2 before:h-2 before:bg-slate-600 before:top-[5px] before:-left-4 before:rotate-45'><span>{plan.value}</span><span></span>|<span>&#8358;{plan.selling_price}</span></li>
                     ))}
                     
                 </ul>
             </div>
-            <Link href='/register'>
+            <Link href='/dashboard/order/airtime'>
             <a className='block w-full bg-slate-700 rounded-md text-white text-center py-2 px-3 ring ring-slate-900/5 hover:bg-slate-800 hover:ring-slate-600/5 focus:outline-none'>Buy Now</a>
             </Link>
         </div>

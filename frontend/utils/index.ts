@@ -3,6 +3,22 @@ import RequestError from "./RequestError";
 
 export type Provider = "mtn" | "airtel" | "9mobile" | "glo";
 
+export interface Operator {
+  name: string;
+  id: string;
+
+
+}
+
+export interface Plan {
+  id: string,
+  validity: string,
+  value: number,
+  provider: Operator,
+  selling_price: number,
+  type: string
+}
+
 export type Providers = {
   [K in Provider]: string;
 };
@@ -73,7 +89,15 @@ interface RequestParams {
   method?: 'POST' | 'PUT' | 'DELETE' | 'PATCH'
 }
 
-
+export interface User {
+  id: string;
+  amount: number;
+  email: string;
+  phoneNo: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+}
 
 const bills: Array<BillHistory> = [{id: 1, cardNo: 3000300892, amount: 3000, billType: 'CableTv', cableTvPackage: '1 month', cableTvType: 'Dstv', date: new Date("2001-06-11T15:20:22.887Z")}, {id: 2, cardNo: 12239939393939, amount: 2000, date: new Date("2022-06-12T16:21:22.887Z"), disco: 'EEDC', meterType: 'Prepaid', billType: 'Electricity'}, {id: 3, cardNo: 22220303939303, amount: 1500, date: new Date("2022-08-16T17:44:59.8867Z"), billType: 'CableTv', cableTvPackage: '1 month', cableTvType: 'Startime'}, {id: 4, cardNo: 200239393848449, amount: 3500, date: new Date("2022-09-16T18:44:59.8867Z"), billType: 'Electricity', meterType: 'Prepaid', disco: 'Ikedc'}, {id: 5, cardNo: 300030089223, amount: 2000, billType: 'CableTv', cableTvPackage: '2 months', cableTvType: 'Gotv', date: new Date("2022-12-22T15:20:22.887Z")}, {id: 6, cardNo: 60939300892949, amount: 1500, billType: 'CableTv', cableTvPackage: '2 months', cableTvType: 'Startime', date: new Date("2022-07-11T15:20:22.887Z")}, {id: 7, cardNo: 959953389930030, amount: 800, billType: 'CableTv', cableTvPackage: '3 months', cableTvType: 'Dstv', date: new Date("2021-09-09T15:20:22.887Z")}, {id: 8, cardNo: 3993939393947573, amount: 2000, date: new Date("2022-07-12T17:21:22.887Z"), disco: 'KEDC', meterType: 'Prepaid', billType: 'Electricity'}, {id: 9, cardNo: 93000071133939, amount: 700, date: new Date("2022-10-19T13:21:22.887Z"), disco: 'EEDC', meterType: 'Postpaid', billType: 'Electricity'}, {id: 10, cardNo: 3939393923457, amount: 900, date: new Date("2022-10-02T09:21:22.887Z"), disco: 'IKEDC', meterType: 'Prepaid', billType: 'Electricity'}]
 export const sampleBills = bills.map((bill) => {
@@ -388,10 +412,44 @@ export async function sendRequest<Data extends object = {}>(uri: string, {body =
 
   const responseData = await response.json();
   if(!response.ok) {
-    const error = new RequestError({message: responseData.message, code: responseData.statusCode || response.status, errors: responseData.errors});
+    let message = responseData.message;
+    if(Array.isArray(message)) {
+      message = message[0].messages[0].message;
+    }
+    const error = new RequestError({message: message, code: responseData.statusCode || response.status, errors: responseData.errors});
     throw error;
   };
 
   return responseData as Data;
 
+}
+
+export const fetcher = async (url: string, token?: string) => {
+  const response = await fetch(getBackendUri(url), {
+    headers: {
+      ...(token ? {
+        'Authorization': `Bearer ${token}`
+      }: {})
+    }
+  });
+
+  
+  if(!response.ok) {
+    let responseData;
+    try {
+      const data = await response.text();
+      responseData = JSON.parse(data);
+    } catch (error) {
+      responseData = {message: 'An error Occured, Try Again', statusCode: response.status}
+    }
+    const error = new RequestError({message: responseData.message, code: responseData.statusCode || response.status, errors: responseData.errors});
+    throw error;
+  }
+
+  
+  return response.json();
+}
+
+export const capitalizeFirstLetter = (word: string) => {
+  return `${word.slice(0, 1).toUpperCase()}${word.slice(1).toLowerCase()}`
 }

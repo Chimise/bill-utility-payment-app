@@ -5,6 +5,8 @@ import OverviewPaper from "../../components/common/OverviewPaper/OverviewPaper";
 import Table, { Header } from "../../components/common/Table/Table";
 import { Funding, tableData, formatDate } from "../../utils";
 import DashboardContainer from "../../components/ui/DashboardContainer/DashboardContainer";
+import useUser from "../../hooks/useUser";
+import Paper from "../../components/ui/Paper/Paper";
 
 const sortBy: Array<{ id: keyof Funding; desc: boolean }> = [
   { id: "date", desc: true },
@@ -35,13 +37,10 @@ const columns: Header<Funding>[] = [
   { Header: "Comment", accessor: "comment", disableSortBy: true },
 ];
 
-const overviews = [
-  { header: "Wallet", content: 0 },
-  { header: "Transactions", content: 0 },
-];
 
 const Dashboard = () => {
   const rowClickHandler = (row: Funding) => {};
+  const {user, isLoading, error} = useUser();
 
   return (
     <div>
@@ -59,9 +58,9 @@ const Dashboard = () => {
       <DashboardContainer className="mt-6 space-y-3">
         <h4 className="text-xl">Overview</h4>
         <div className="grid grid-cols-1 gap-y-5 lg:grid-cols-2 lg:gap-x-5">
-          {overviews.map((overview) => (
-            <OverviewPaper key={overview.header} {...overview} />
-          ))}
+            {isLoading && <Paper className="p-6 animate-pulse bg-gray-200" />}
+            {user && <OverviewPaper header="Wallet" content={user.amount} />}
+            <OverviewPaper header="Transactions" content={0} />
         </div>
       </DashboardContainer>
 
@@ -86,5 +85,7 @@ const Dashboard = () => {
 Dashboard.getLayout = (children: React.ReactNode) => {
   return <AuthLayout>{children}</AuthLayout>;
 };
+
+Dashboard.isAuth = true;
 
 export default Dashboard;

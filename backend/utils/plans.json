@@ -1,0 +1,934 @@
+{
+    "plans": [
+      {
+        "code": "MS500",
+        "airtime_cost": null,
+        "cost": "140",
+        "value": "500",
+        "network": "MTN",
+        "package": "SME",
+        "validity": null,
+        "status": "1"
+      },
+      {
+        "code": "MS1000",
+        "airtime_cost": null,
+        "cost": "230",
+        "value": "1000",
+        "network": "MTN",
+        "package": "SME",
+        "validity": null,
+        "status": "1"
+      },
+      {
+        "code": "MS2000",
+        "airtime_cost": null,
+        "cost": "460",
+        "value": "2000",
+        "network": "MTN",
+        "package": "SME",
+        "validity": null,
+        "status": "1"
+      },
+      {
+        "code": "MS3000",
+        "airtime_cost": null,
+        "cost": "690",
+        "value": "3000",
+        "network": "MTN",
+        "package": "SME",
+        "validity": null,
+        "status": "1"
+      },
+      {
+        "code": "MS5000",
+        "airtime_cost": null,
+        "cost": "1150",
+        "value": "5000",
+        "network": "MTN",
+        "package": "SME",
+        "validity": null,
+        "status": "1"
+      },
+      {
+        "code": "MS10000",
+        "airtime_cost": null,
+        "cost": "2300",
+        "value": "10000",
+        "network": "MTN",
+        "package": "SME",
+        "validity": null,
+        "status": "1"
+      },
+      {
+          "code": "MG40D",
+          "airtime_cost": "50",
+          "cost": "47.5",
+          "value": "40",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "1 Day",
+          "status": "1"
+        },
+        {
+          "code": "MG100D",
+          "airtime_cost": "100",
+          "cost": "95",
+          "value": "100",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "1 Day",
+          "status": "1"
+        },
+        {
+          "code": "MG200D3",
+          "airtime_cost": "200",
+          "cost": "190",
+          "value": "200",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "3 Days",
+          "status": "1"
+        },
+        {
+          "code": "MG350W",
+          "airtime_cost": "300",
+          "cost": "285",
+          "value": "350",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "1 Week",
+          "status": "1"
+        },
+        {
+          "code": "MG750W2",
+          "airtime_cost": "500",
+          "cost": "475",
+          "value": "750",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "2 Weeks",
+          "status": "1"
+        },
+        {
+          "code": "MG1000W",
+          "airtime_cost": "550",
+          "cost": "475",
+          "value": "1000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "1 Week",
+          "status": "1"
+        },
+        {
+          "code": "MG1000D",
+          "airtime_cost": "300",
+          "cost": "285",
+          "value": "1000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "1 Day",
+          "status": "1"
+        },
+        {
+          "code": "MG1500",
+          "airtime_cost": "1000",
+          "cost": "950",
+          "value": "1500",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG2000W",
+          "airtime_cost": "1100",
+          "cost": "950",
+          "value": "2000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "1 Week",
+          "status": "1"
+        },
+        {
+          "code": "MG2000D2",
+          "airtime_cost": "500",
+          "cost": "475",
+          "value": "2000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "2 Days",
+          "status": "1"
+        },
+        {
+          "code": "MG2000",
+          "airtime_cost": "1200",
+          "cost": "1140",
+          "value": "2000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG3000",
+          "airtime_cost": "1500",
+          "cost": "1425",
+          "value": "3000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG4500",
+          "airtime_cost": "2000",
+          "cost": "1900",
+          "value": "4500",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG6000W",
+          "airtime_cost": "1500",
+          "cost": "1425",
+          "value": "6000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "1 Week",
+          "status": "1"
+        },
+        {
+          "code": "MG6000",
+          "airtime_cost": "2500",
+          "cost": "2375",
+          "value": "6000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG10000",
+          "airtime_cost": "3300",
+          "cost": "3135",
+          "value": "10000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG12000",
+          "airtime_cost": "3500",
+          "cost": "3325",
+          "value": "12000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG17000",
+          "airtime_cost": "4000",
+          "cost": "3800",
+          "value": "17000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG20000",
+          "airtime_cost": "5500",
+          "cost": "5225",
+          "value": "20000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG25000",
+          "airtime_cost": "6000",
+          "cost": "5700",
+          "value": "25000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG30000",
+          "airtime_cost": "6000",
+          "cost": "5700",
+          "value": "30000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG30000M2",
+          "airtime_cost": "8000",
+          "cost": "7600",
+          "value": "30000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "2 Months",
+          "status": "1"
+        },
+        {
+          "code": "MG40000",
+          "airtime_cost": "11000",
+          "cost": "10450",
+          "value": "40000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG75000",
+          "airtime_cost": "16500",
+          "cost": "15675",
+          "value": "75000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG100000M2",
+          "airtime_cost": "22000",
+          "cost": "20900",
+          "value": "100000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "2 Months",
+          "status": "1"
+        },
+        {
+          "code": "MG120000",
+          "airtime_cost": "22000",
+          "cost": "20900",
+          "value": "120000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG160000M2",
+          "airtime_cost": "33000",
+          "cost": "31350",
+          "value": "160000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "2 Months",
+          "status": "1"
+        },
+        {
+          "code": "MG200000",
+          "airtime_cost": "33000",
+          "cost": "31350",
+          "value": "200000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "MG400000M3",
+          "airtime_cost": "55000",
+          "cost": "52250",
+          "value": "400000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "3 Months",
+          "status": "1"
+        },
+        {
+          "code": "MG600000M3",
+          "airtime_cost": "75000",
+          "cost": "71250",
+          "value": "600000",
+          "network": "MTN",
+          "package": "Gifting",
+          "validity": "3 Months",
+          "status": "1"
+        },
+        {
+          "code": "9G500",
+          "airtime_cost": "500",
+          "cost": "475",
+          "value": "500",
+          "network": "9mobile",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "9G1500",
+          "airtime_cost": "1000",
+          "cost": "950",
+          "value": "1536",
+          "network": "9mobile",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "9G2000",
+          "airtime_cost": "1200",
+          "cost": "1140",
+          "value": "2048",
+          "network": "9mobile",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "9G3000",
+          "airtime_cost": "1500",
+          "cost": "1425",
+          "value": "3172",
+          "network": "9mobile",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "9G4500",
+          "airtime_cost": "2000",
+          "cost": "1900",
+          "value": "4608",
+          "network": "9mobile",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "9G11000",
+          "airtime_cost": "4000",
+          "cost": "3800",
+          "value": "11264",
+          "network": "9mobile",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "9G15000",
+          "airtime_cost": "5000",
+          "cost": "4750",
+          "value": "15360",
+          "network": "9mobile",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "9G40000",
+          "airtime_cost": "10000",
+          "cost": "9500",
+          "value": "40960",
+          "network": "9mobile",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "9G75000",
+          "airtime_cost": "15000",
+          "cost": "14250",
+          "value": "76800",
+          "network": "9mobile",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "GG50D",
+          "airtime_cost": "50",
+          "cost": "46",
+          "value": "50",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "1 Day",
+          "status": "1"
+        },
+        {
+          "code": "GG150D",
+          "airtime_cost": "100",
+          "cost": "92",
+          "value": "150",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "1 Day",
+          "status": "1"
+        },
+        {
+          "code": "GG200D4",
+          "airtime_cost": "200",
+          "cost": "184",
+          "value": "200",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "4 Days",
+          "status": "1"
+        },
+        {
+          "code": "GG350D2",
+          "airtime_cost": "200",
+          "cost": "184",
+          "value": "350",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "2 Days",
+          "status": "1"
+        },
+        {
+          "code": "GG1000D1",
+          "airtime_cost": "300",
+          "cost": "276",
+          "value": "1000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "1 Day",
+          "status": "1"
+        },
+        {
+          "code": "GG1800D14",
+          "airtime_cost": "500",
+          "cost": "460",
+          "value": "1800",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "14 Days",
+          "status": "1"
+        },
+        {
+          "code": "GG2000D2",
+          "airtime_cost": "500",
+          "cost": "460",
+          "value": "2000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "2 Days",
+          "status": "1"
+        },
+        {
+          "code": "GG3900",
+          "airtime_cost": "1000",
+          "cost": "920",
+          "value": "3900",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "Monthly (1GB+2GB Night)",
+          "status": "1"
+        },
+        {
+          "code": "GG7000D7",
+          "airtime_cost": "1500",
+          "cost": "1380",
+          "value": "7000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "7 Days",
+          "status": "1"
+        },
+        {
+          "code": "GG7500",
+          "airtime_cost": "1500",
+          "cost": "1380",
+          "value": "7500",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "Monthly (3.5GB+4GB Night)",
+          "status": "1"
+        },
+        {
+          "code": "GG9200",
+          "airtime_cost": "2000",
+          "cost": "1840",
+          "value": "9200",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "Monthly (5.2GB+4GB Night)",
+          "status": "1"
+        },
+        {
+          "code": "GG10800",
+          "airtime_cost": "2500",
+          "cost": "2300",
+          "value": "10800",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "Monthly (6.8GB+4GB Night)",
+          "status": "1"
+        },
+        {
+          "code": "GG100HRS",
+          "airtime_cost": "6000",
+          "cost": "5520",
+          "value": "12000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "100 Hrs",
+          "status": "1"
+        },
+        {
+          "code": "GG300HRS",
+          "airtime_cost": "15000",
+          "cost": "13800",
+          "value": "12000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "300 Hrs",
+          "status": "1"
+        },
+        {
+          "code": "GG14000",
+          "airtime_cost": "3000",
+          "cost": "2760",
+          "value": "14000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "Monthly (10GB+4GB Night)",
+          "status": "1"
+        },
+        {
+          "code": "GG18000",
+          "airtime_cost": "4000",
+          "cost": "3680",
+          "value": "18000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "Monthly (14GB+4GB Night)",
+          "status": "1"
+        },
+        {
+          "code": "GG24000",
+          "airtime_cost": "5000",
+          "cost": "4600",
+          "value": "24000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "Monthly (20GB+4GB)",
+          "status": "1"
+        },
+        {
+          "code": "GG29500",
+          "airtime_cost": "8000",
+          "cost": "7360",
+          "value": "29500",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "Monthly (27.5GB+2GB Night)",
+          "status": "1"
+        },
+        {
+          "code": "GG50000",
+          "airtime_cost": "10000",
+          "cost": "9200",
+          "value": "50000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "Monthly (46GB+4GB Night)",
+          "status": "1"
+        },
+        {
+          "code": "GG93000",
+          "airtime_cost": "15000",
+          "cost": "13800",
+          "value": "93000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "Monthly (86GB+7GB Night)",
+          "status": "1"
+        },
+        {
+          "code": "GG119000",
+          "airtime_cost": "18000",
+          "cost": "16560",
+          "value": "119000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "Monthly (109GB+10GB Night)",
+          "status": "1"
+        },
+        {
+          "code": "GG138000",
+          "airtime_cost": "20000",
+          "cost": "18400",
+          "value": "138000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "Monthly (126GB+12GB Night)",
+          "status": "1"
+        },
+        {
+          "code": "GG225000",
+          "airtime_cost": "30000",
+          "cost": "27600",
+          "value": "225000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "GG300000",
+          "airtime_cost": "36000",
+          "cost": "33120",
+          "value": "300000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "GG425D90",
+          "airtime_cost": "50000",
+          "cost": "46000",
+          "value": "425000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "90 Days",
+          "status": "1"
+        },
+        {
+          "code": "GG525D90",
+          "airtime_cost": "60000",
+          "cost": "55200",
+          "value": "525000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "90 Days",
+          "status": "1"
+        },
+        {
+          "code": "GG4Mo",
+          "airtime_cost": "75000",
+          "cost": "69000",
+          "value": "675000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "4 Months",
+          "status": "1"
+        },
+        {
+          "code": "GG1YR",
+          "airtime_cost": "100000",
+          "cost": "92000",
+          "value": "1024000",
+          "network": "Glo",
+          "package": "Gifting",
+          "validity": "1 Year",
+          "status": "1"
+        },
+        {
+          "code": "AG75D1",
+          "airtime_cost": "100",
+          "cost": "95",
+          "value": "75",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "1 Day",
+          "status": "1"
+        },
+        {
+          "code": "AG200D3",
+          "airtime_cost": "200",
+          "cost": "190",
+          "value": "200",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "3 Days",
+          "status": "1"
+        },
+        {
+          "code": "AG350D7",
+          "airtime_cost": "300",
+          "cost": "285",
+          "value": "350",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "7 Days",
+          "status": "1"
+        },
+        {
+          "code": "AG750W2",
+          "airtime_cost": "500",
+          "cost": "475",
+          "value": "750",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "2 Weeks",
+          "status": "1"
+        },
+        {
+          "code": "AG750D14",
+          "airtime_cost": "500",
+          "cost": "475",
+          "value": "750",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "14 Days",
+          "status": "1"
+        },
+        {
+          "code": "AG1000W1",
+          "airtime_cost": "500",
+          "cost": "475",
+          "value": "1000",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "1 Week",
+          "status": "1"
+        },
+        {
+          "code": "AG1000D1",
+          "airtime_cost": "300",
+          "cost": "285",
+          "value": "1000",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "1 Day",
+          "status": "1"
+        },
+        {
+          "code": "AG1500",
+          "airtime_cost": "1000",
+          "cost": "950",
+          "value": "1500",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "AG2000",
+          "airtime_cost": "1200",
+          "cost": "1140",
+          "value": "2000",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "AG2000D1",
+          "airtime_cost": "500",
+          "cost": "475",
+          "value": "2000",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "1 Day",
+          "status": "1"
+        },
+        {
+          "code": "AG3000",
+          "airtime_cost": "1500",
+          "cost": "1425",
+          "value": "3000",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "AG4500",
+          "airtime_cost": "2000",
+          "cost": "1900",
+          "value": "4500",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "AG6000",
+          "airtime_cost": "2500",
+          "cost": "2375",
+          "value": "6000",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "AG6000W1",
+          "airtime_cost": "1500",
+          "cost": "1425",
+          "value": "6000",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "1 Week",
+          "status": "1"
+        },
+        {
+          "code": "AG10000",
+          "airtime_cost": "3000",
+          "cost": "2850",
+          "value": "10000",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "AG11000",
+          "airtime_cost": "4000",
+          "cost": "3800",
+          "value": "11000",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "AG20000",
+          "airtime_cost": "5000",
+          "cost": "4750",
+          "value": "20000",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "AG40000",
+          "airtime_cost": "10000",
+          "cost": "9500",
+          "value": "40000",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "AG75000",
+          "airtime_cost": "15000",
+          "cost": "14250",
+          "value": "75000",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        },
+        {
+          "code": "AG110000",
+          "airtime_cost": "20000",
+          "cost": "19000",
+          "value": "110000",
+          "network": "Airtel",
+          "package": "Gifting",
+          "validity": "Monthly",
+          "status": "1"
+        }
+    ]
+  }

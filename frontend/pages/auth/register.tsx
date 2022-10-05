@@ -8,27 +8,19 @@ import Image from 'next/image';
 import Input from '../../components/ui/Input/Input';
 import InputPassword from '../../components/ui/InputPassword/InputPassword';
 import Button from '../../components/ui/Button/Button';
-import CopyRight from '../../components/common/Footer/CopyRight';
+import RegisterLayout from '../../components/common/RegisterLayout/RegisterLayout';
 import { getBackendUri } from '../../utils';
-import useMutation from '../../hooks/useMutation';
-import { registerUser } from '../../utils/mutation';
+import useRegister from '../../hooks/useRegister';
 
 import LogoImage from '../../assets/Logo.png';
 
 
 const RegisterPage = () => {
-
-  const {sendRequest, data, error} = useMutation(registerUser);
+    const sendRequest = useRegister();
 
   const {values, errors, touched, handleSubmit, handleBlur, handleChange, isSubmitting} = useFormik({initialValues: {email: '', password: '', firstName: '', lastName: '', phoneNo: ''}, async onSubmit(values){
     values.phoneNo = values.phoneNo.replace(/^0/, '+234');
-    await sendRequest(values);
-    if(error) {
-      console.log(error);
-    }
-    if(data) {
-      console.log(data);
-    }
+    await sendRequest({...values, username: values.email.split('@')[0]});
   }, validationSchema: Yup.object({
     email: Yup.string().trim().email('Please enter a valid email').required('Enter your email'),
     password: Yup.string().trim().min(5, 'The password should be at least five characters').required('Enter your password'),
@@ -38,7 +30,7 @@ const RegisterPage = () => {
   }) })
 
   return (
-    <div className='bg-gray-100 flex items-center justify-center w-full min-h-[150vh] md:min-h-[160vh]'>
+    <div className='bg-gray-100 flex items-center justify-center w-full min-h-[150vh] md:min-h-[140vh]'>
         <div className='w-full sm:w-[24rem] h-auto'>
             <div className='flex flex-col items-center mb-5'>
               <Link href='/'>
@@ -80,10 +72,11 @@ const RegisterPage = () => {
 }
 
 RegisterPage.getLayout = (children: React.ReactNode) => {
-  return (<Fragment>
-    {children}
-    <CopyRight mode='dark' className='bg-gray-100 mt-0' />
-  </Fragment>);
+  return (
+    <RegisterLayout>
+      {children}
+    </RegisterLayout>
+  )
 }
 
 export default RegisterPage;

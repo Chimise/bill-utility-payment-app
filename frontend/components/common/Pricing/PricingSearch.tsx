@@ -2,17 +2,17 @@ import React, { useMemo, Fragment } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import cn from "classnames";
+import {Operator} from '../../../utils';
 
-import type { PricingData } from "./Pricing";
 
 interface PricingSearchProps {
-  searchTypes: string[];
-  selected: string;
-  onSelect: React.Dispatch<React.SetStateAction<string>>;
+  operators: Operator[];
+  selected: Operator;
+  onSelect: React.Dispatch<React.SetStateAction<Operator>>;
 }
 
 const PricingSearch = ({
-  searchTypes,
+  operators,
   selected,
   onSelect,
 }: PricingSearchProps) => {
@@ -30,7 +30,7 @@ const PricingSearch = ({
                   return (
                     <>
                       <span className="truncate uppercase font-medium text-sm text-slate-700 tracking-wide mr-2">
-                        {selected || "All"}
+                        {selected.name}
                       </span>
                       <span className="flex items-center">
                         <ChevronDownIcon
@@ -51,32 +51,12 @@ const PricingSearch = ({
                 leaveTo="opacity-0"
               >
                 <Listbox.Options className="absolute w-full bg-slate-100 shadow-lg z-10 py-1 space-y-1 mt-1 rounded-sm min-h-40 text-sm focus:outline-none overflow-y-scroll">
-                  <Listbox.Option
-                    value=""
-                    className={({ active, selected }) =>
-                          `cursor-default select-none relative py-2 pl-2 pr-1 ${
-                            active
-                              ? "text-slate-300 bg-slate-900"
-                              : "text-slate-900"
-                          }`
-                        }
-                  >
-                    {({ selected }) => (
-                      <span
-                        className={`block truncate text-sm text-center ${
-                          selected ? "font-normal" : "font-light"
-                        }`}
-                      >
-                        ALL
-                      </span>
-                    )}
-                  </Listbox.Option>
-                  {searchTypes.map((type, index) => {
+                  {operators.map((operator) => {
                     return (
                       <Listbox.Option
-                        key={index}
-                        value={type}
-                        className={({ active, selected }) =>
+                        key={operator.id}
+                        value={operator}
+                        className={({ active}) =>
                           `cursor-default select-none relative py-2 pl-2 pr-1 ${
                             active
                               ? "text-slate-300 bg-slate-900"
@@ -90,7 +70,7 @@ const PricingSearch = ({
                               selected ? "font-normal" : "font-light"
                             }`}
                           >
-                            {type}
+                            {operator.name}
                           </span>
                         )}
                       </Listbox.Option>
