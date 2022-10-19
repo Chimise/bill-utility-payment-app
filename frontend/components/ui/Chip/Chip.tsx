@@ -2,14 +2,11 @@ import React from 'react';
 import cn from 'classnames';
 
 interface Classes {
-    success: string;
-    error: string;
-    warning: string;
-    info: string;
+    [key: string]: string;
 }
 
 interface ChipProps {
-    color: keyof Classes;
+    color: string;
     className?: string;
     children: React.ReactNode
 

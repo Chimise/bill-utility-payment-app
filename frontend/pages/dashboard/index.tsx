@@ -7,14 +7,16 @@ import { Funding, tableData, formatDate } from "../../utils";
 import DashboardContainer from "../../components/ui/DashboardContainer/DashboardContainer";
 import useUser from "../../hooks/useUser";
 import Paper from "../../components/ui/Paper/Paper";
+import usePayments from '../../hooks/usePayments';
+import { PaymentData } from "../../utils/mutation";
 
-const sortBy: Array<{ id: keyof Funding; desc: boolean }> = [
-  { id: "date", desc: true },
+const sortBy: Array<{ id: keyof PaymentData; desc: boolean }> = [
+  { id: "createdAt", desc: true },
 ];
 
-const sortDate: Header<Funding>["sortType"] = (rowA, rowB) => {
-  const dateRowA = rowA.original.date.getTime();
-  const dateRowB = rowB.original.date.getTime();
+const sortDate: Header<PaymentData>["sortType"] = (rowA, rowB) => {
+  const dateRowA = new Date(rowA.original.createdAt).getTime();
+  const dateRowB = new Date(rowB.original.createdAt).getTime();
   if (dateRowA > dateRowB) {
     return 1;
   } else if (dateRowB > dateRowA) {
@@ -24,23 +26,26 @@ const sortDate: Header<Funding>["sortType"] = (rowA, rowB) => {
   }
 };
 
-const columns: Header<Funding>[] = [
-  { Header: "Transaction ID", accessor: "id", disableSortBy: true },
+const columns: Header<PaymentData>[] = [
+  { Header: "Reference", accessor: "reference", disableSortBy: true },
   {
     Header: "Date",
-    accessor: "date",
+    accessor: "createdAt",
     sortType: sortDate,
     Cell: ({ value }) => formatDate(value),
   },
-  { Header: "Current Balance", accessor: "walletBalance", disableSortBy: true },
-  { Header: "Funded Amount", accessor: "amount", disableSortBy: true },
-  { Header: "Comment", accessor: "comment", disableSortBy: true },
+  { Header: "Amount", accessor: "amount", disableSortBy: true },
+  { Header: "Curr Bal", accessor: "currentBal", disableSortBy: true },
+  { Header: "Prev Bal", accessor: "prevBal", disableSortBy: true },
+  { Header: "Method", accessor: "method", disableSortBy: true }
+  
 ];
 
 
 const Dashboard = () => {
-  const rowClickHandler = (row: Funding) => {};
-  const {user, isLoading, error} = useUser();
+  const {isLoading: paymentsIsLoading, error: paymentsError, payments, mutate} = usePayments()
+  
+  const {user, isLoading} = useUser();
 
   return (
     <div>
@@ -68,11 +73,12 @@ const Dashboard = () => {
         <h5 className="text-xl">Recent Wallet Funding</h5>
         <div className="overflow-y-auto py-5">
           <Table
-            data={tableData}
+            data={payments || []}
             columns={columns}
-            isLoading={true}
+            isLoading={paymentsIsLoading}
             sortBy={sortBy}
-            onRowClick={rowClickHandler}
+            error={paymentsError}
+            onErrorRetry={() => mutate()}
           />
         </div>
       </DashboardContainer>

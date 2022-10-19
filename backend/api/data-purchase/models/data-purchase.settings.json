@@ -18,7 +18,8 @@
       "model": "user"
     },
     "plan": {
-      "model": "data-purchase"
+      "model": "plan",
+      "via": "data_purchases"
     },
     "trans_id": {
       "type": "biginteger"
@@ -32,6 +33,10 @@
     },
     "recipient": {
       "type": "string"
+    },
+    "provider": {
+      "model": "provider",
+      "via": "data_purchases"
     }
   }
 }

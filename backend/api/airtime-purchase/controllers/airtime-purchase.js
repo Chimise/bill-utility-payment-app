@@ -71,6 +71,7 @@ module.exports = {
             amount,
             type
           );
+          console.log(data);
           const user = await strapi.query("user", "users-permissions").update(
             { id: ctx.state.user.id },
             {
@@ -81,7 +82,7 @@ module.exports = {
           const purchase = strapi.query("airtime-purchase").create({
             trans_id: data.trans_id,
             status: data.processing ? "processing" : "processed",
-            provider: provider.id,
+            provider: providerId,
             recipient: recipient,
             amount,
             buyer: user.id,
@@ -102,6 +103,7 @@ module.exports = {
       if (sanitizedPurchases.length === 0) {
         return ctx.badImplementation("Request failed, try again");
       }
+      console.log(sanitizedPurchases);
       return sanitizedPurchases;
     } catch (error) {
       console.log(error);

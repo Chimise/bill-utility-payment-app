@@ -150,3 +150,4 @@ exports.generateUniqueNumber = () => {
     const shortenStringLength = uniqueString.length <= 15 ? uniqueString : uniqueString.slice(0, 15);
     return parseInt(shortenStringLength);
 };
+

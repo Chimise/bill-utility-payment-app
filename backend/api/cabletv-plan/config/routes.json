@@ -1,0 +1,60 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/cabletv-plans",
+      "handler": "cabletv-plan.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cabletv-plans/count",
+      "handler": "cabletv-plan.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/cabletv-plans/:id",
+      "handler": "cabletv-plan.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/cabletv-plans/purchase",
+      "handler":"cabletv-plan.purchase",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/cabletv-plans",
+      "handler": "cabletv-plan.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/cabletv-plans/:id",
+      "handler": "cabletv-plan.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/cabletv-plans/:id",
+      "handler": "cabletv-plan.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

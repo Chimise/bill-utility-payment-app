@@ -1,14 +1,16 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon, FontAwesomeIconProps} from '@fortawesome/react-fontawesome';
 import cn from 'classnames';
 
+
 interface SpinnerProps {
-    className?: string
+    className?: string,
+    size?: FontAwesomeIconProps['size']
 }
 
-const Spinner = ({className}: SpinnerProps) => {
+const Spinner = ({className, size = '4x'}: SpinnerProps) => {
     return (<div className={cn("flex items-center justify-center", className)}>
-    <FontAwesomeIcon icon={['fas', 'spinner']} spin size="4x" />
+    <FontAwesomeIcon color="#075985" icon={['fas', 'spinner']} spin size={size} />
   </div>)
 }
 

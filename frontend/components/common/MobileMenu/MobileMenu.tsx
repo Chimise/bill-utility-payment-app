@@ -57,14 +57,14 @@ const MobileMenu = (props: MobileMenu) => {
           </ul>
           <ul className="flex justify-evenly p-1 items-center space-x-1 flex-1">
             <li className="grow-[2]">
-              <Link href="/login">
+              <Link href="/auth/login">
                 <a onClick={props.onClick} className="block w-full h-full py-2 px-4 truncate text-center font-medium text-blue-500 text-normal border border-transparent focus:outline-none hover:border-blue-500 rounded-md hover:bg-blue-500 hover:text-slate-100">
                   Sign In
                 </a>
               </Link>
             </li>
             <li className="grow-[3]">
-              <Link href="/register" passHref>
+              <Link href="/auth/register" passHref>
                 <Button Component="a" onClick={props.onClick} className="w-full h-full" variant="slim">
                   create new account
                 </Button>

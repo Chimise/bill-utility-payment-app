@@ -25,7 +25,6 @@ const purchaseSchema = yup.object({
 
 module.exports = {
   async purchase(ctx) {
-    const { id } = ctx.state.user;
     const planId = ctx.params.id;
 
     try {
@@ -61,6 +60,7 @@ module.exports = {
             trans_id: data.trans_id,
             plan: plan.id,
             buyer: user.id,
+            provider: plan.provider.id,
             recipient,
             status: data.processing ? 'processing' : 'processed',
             createdAt

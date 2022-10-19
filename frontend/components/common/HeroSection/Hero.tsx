@@ -16,7 +16,7 @@ const Hero = () => {
             data bundles on any Nigerian network. Our price rates beat that of
             network providers.
           </p>
-          <Link href="/register" passHref>
+          <Link href="/auth/register" passHref>
             <a
               className="bg-blue-500 text-white cursor-pointer inline-flex
     px-6 py-3 leading-6 transition ease-in-out duration-150

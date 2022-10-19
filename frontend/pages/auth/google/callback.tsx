@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -12,11 +12,28 @@ import Input from '../../../components/ui/Input/Input';
 import Paper from '../../../components/ui/Paper/Paper';
 import Button from '../../../components/ui/Button/Button';
 import RegisterLayout from '../../../components/common/RegisterLayout/RegisterLayout';
+import useUser from '../../../hooks/useUser';
 
 const ProviderPage = () => {
     const {query, isReady, replace} = useRouter();
-    const {loginHandler, token} = useAuth();
+    const {loginHandler} = useAuth();
     const sendRequest = useProvider();
+    const {user, isLoading} = useUser();
+
+    const hasDetails = useMemo(() => {
+        if(user) {
+            return user.firstName && user.lastName && user.phoneNo;
+        }else {
+            return false;
+        }
+    }, [user]);
+
+    useEffect(() => {
+        if(hasDetails) {
+            replace('/dashboard');
+        }
+    }, [hasDetails, replace]);
+    
 
     useEffect(() => {
         if(isReady && query && !query.id_token) {
@@ -54,8 +71,8 @@ const ProviderPage = () => {
 
     return (
     <div className="h-screen w-screen items-center justify-center">
-        {!token && <Loader isVisible={true} />}
-        {token && <div className="w-full h-full flex items-center p-8 sm:p-0 justify-center bg-slate-100">
+        {isLoading && <Loader isVisible={true} />}
+        {user && !hasDetails && <div className="w-full h-full flex items-center p-8 sm:p-0 justify-center bg-slate-100">
                 <Paper className="p-7 w-full sm:w-[24rem]">
                     <p className='font-medium text-center my-2 text-slate-800 uppercase'>Complete your Login</p>
                     <form onSubmit={handleSubmit} className='space-y-2'>

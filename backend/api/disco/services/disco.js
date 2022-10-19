@@ -11,28 +11,28 @@ const {getRequest} = require("../../../utils");
 module.exports = {
   async handleDiscoPayment(disco, ...args) {
     switch (disco.initial) {
-      case "IKEDC": {
+      case "ikeja": {
         return this.handleIkejaBill(disco, ...args);
       }
-      case "EKEDC": {
+      case "eko": {
         return this.handleEkoBill(disco, ...args);
       }
-      case "AEDC": {
+      case "abuja": {
         return this.handleAbujaBill(disco, ...args);
       }
-      case "KAEDCO": {
+      case "kaduna": {
         return this.handleKadunaBill(disco, ...args);
       }
-      case "IBEDC": {
+      case "ibadan": {
         return this.handleIbadanBill(disco, ...args);
       }
-      case "KEDC": {
+      case "kano": {
         return this.handleKanoBill(disco, ...args);
       }
-      case "PHEDC": {
+      case "port": {
         return this.handlePortHarcourtBill(disco, ...args);
       }
-      case "JEDC": {
+      case "jos": {
         return this.handleAbujaBill(disco, ...args);
       }
       default: {

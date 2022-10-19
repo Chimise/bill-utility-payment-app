@@ -25,7 +25,7 @@ const Banner = () => {
                     <li className='relative before:absolute before:-left-4 before:bottom-2 before:h-2 before:w-2 before:bg-blue-400 before:rotate-45' >Enjoy Secured and Fast Transactions</li>
                 </ul>
                 
-                <Link href='/register'>
+                <Link href='/auth/register'>
                    <a className='block px-4 py-3 bg-blue-400 text-xl uppercase text-center cursor-pointer text-white font-medium rounded-md hover:bg-slate-100 active:bg-slate-100 hover:text-blue-900'>Begin Now</a>
                 </Link>
             </div>

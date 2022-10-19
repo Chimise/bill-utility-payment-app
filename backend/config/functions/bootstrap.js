@@ -1,6 +1,6 @@
 "use strict";
-const response = require('../../utils/plans');
 const plans = require('../../utils/plans.json').plans;
+const cabletvPlans = require('../../utils/cabletvs.json').plans;
 
 
 
@@ -15,10 +15,12 @@ const plans = require('../../utils/plans.json').plans;
  */
 
 module.exports = async () => {
-    const providers = await strapi.query('provider').find({});
+    
     const originalPlans = await strapi.query('plan').find({});
+    const previousPlans = await strapi.query('cabletv-plan').find({});
     
     if(originalPlans.length === 0) {
+        const providers = await strapi.query('provider').find({});
         const newPlans = plans.map(plan => {
             const provider = providers.find(prov => prov.name.toLowerCase() === plan.network.toLowerCase());
             const cost = parseInt(plan.cost);
@@ -37,15 +39,20 @@ module.exports = async () => {
         await strapi.query('plan').model.insertMany(newPlans);
     }
 
+    if(previousPlans && previousPlans.length === 0) {
+        const cabletvs = await strapi.query('cabletv').find({});
+        const modifiedPlans = cabletvPlans.map(plan => {
+            const cabletv = cabletvs.find(cabletv => plan.name.toLowerCase().startsWith(cabletv.name.toLowerCase()));
+            return {
+                ...plan,
+                selling_price: plan.price,
+                cabletv: cabletv.id
+            }
+        });
+    
+        await strapi.query('cabletv-plan').model.insertMany(modifiedPlans);
+    }
+
 };
 
-// {
-//     "code": "MG1500",
-//     "airtime_cost": "1000",
-//     "cost": "950",
-//     "value": "1500",
-//     "network": "MTN",
-//     "package": "Gifting",
-//     "validity": "Monthly",
-//     "status": "1"
-//   },
+

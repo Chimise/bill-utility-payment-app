@@ -5,6 +5,7 @@ import RequestError from "../utils/RequestError";
 const useOperators = (initialData?: Operator[]) => {
     const {data: operators, error, mutate} = useSWR<Array<Operator>, RequestError>('/providers', null, {fallbackData: initialData})
 
+
     return {
         isLoading: !operators && !error,
         operators,

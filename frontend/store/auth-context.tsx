@@ -51,6 +51,8 @@ export const AuthContextProvider = ({
       }).catch(err=> {
         setIsLoading(false);
       })
+    }else {
+      setIsLoading(false);
     }
   }, []);
 

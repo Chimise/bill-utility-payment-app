@@ -18,22 +18,6 @@
     },
     {
       "method": "GET",
-      "path": "/cabletvs/:id/plan",
-      "handler": "cabletv.plan",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "POST",
-      "path": "/cabletvs/:id/purchase",
-      "handler": "cabletv.purchase",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
       "path": "/cabletvs/:id",
       "handler": "cabletv.findOne",
       "config": {

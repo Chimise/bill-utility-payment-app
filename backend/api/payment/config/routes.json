@@ -18,6 +18,22 @@
     },
     {
       "method": "GET",
+      "path": "/payments/get_charge",
+      "handler": "payment.getCharge",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/payments/getDedicatedAccount",
+      "handler": "payment.getDedicatedAccount",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
       "path": "/payments/:id",
       "handler": "payment.findOne",
       "config": {
@@ -25,17 +41,9 @@
       }
     },
     {
-      "method": "GET",
-      "path": "/payments/verify/:reference",
+      "method": "POST",
+      "path": "/payments/verify/",
       "handler": "payment.verify",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
-      "path": "payments/getDedicatedAccount",
-      "handler": "payment.getDedicatedAccount",
       "config": {
         "policies": []
       }
@@ -60,14 +68,6 @@
       "method": "DELETE",
       "path": "/payments/:id",
       "handler": "payment.delete",
-      "config": {
-        "policies": []
-      }
-    },
-    {
-      "method": "GET",
-      "path": "/payments/get_charge",
-      "handler": "payment.getCharge",
       "config": {
         "policies": []
       }

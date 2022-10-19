@@ -8,7 +8,7 @@
   "options": {
     "increments": true,
     "timestamps": true,
-    "draftAndPublish": true
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -17,17 +17,20 @@
     },
     "meterType": {
       "via": "disco",
-      "collection": "meter"
+      "collection": "meter",
+      "private": true
     },
     "initial": {
       "type": "string"
     },
     "charge": {
-      "type": "integer"
+      "type": "integer",
+      "private": true
     },
     "electricity_payments": {
       "via": "disco",
-      "collection": "electricity-payment"
+      "collection": "electricity-payment",
+      "private": true
     }
   }
 }

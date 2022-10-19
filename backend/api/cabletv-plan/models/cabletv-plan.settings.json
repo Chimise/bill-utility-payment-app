@@ -1,0 +1,39 @@
+{
+  "kind": "collectionType",
+  "collectionName": "cabletv_plans",
+  "info": {
+    "name": "CabletvPlan",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "price": {
+      "type": "integer",
+      "private": true
+    },
+    "selling_price": {
+      "type": "integer"
+    },
+    "productCode": {
+      "type": "string",
+      "private": true
+    },
+    "cabletv": {
+      "model": "cabletv",
+      "via": "plans"
+    },
+    "payments": {
+      "private": true,
+      "via": "plan",
+      "collection": "cabletv-payment"
+    }
+  }
+}

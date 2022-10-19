@@ -61,7 +61,7 @@ function MyApp({ Component, pageProps }: App) {
                 (err.code === 401 || err.code === 404)
               )
                 return;
-              if (retryCount >= 7) return;
+              if (retryCount >= 3) return;
 
               setTimeout(() => revalidate({ retryCount }), 5000);
             },

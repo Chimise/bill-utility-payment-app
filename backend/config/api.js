@@ -1,5 +1,5 @@
 module.exports = ({env}) => ({
     responses: {
-        privateAttributes: ['__v', '_id', 'createdAt', 'published_at']
+        privateAttributes: ['__v', '_id', 'published_at']
     }
 });

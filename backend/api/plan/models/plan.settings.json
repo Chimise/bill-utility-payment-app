@@ -39,6 +39,11 @@
     "data_id": {
       "type": "string",
       "private": true
+    },
+    "data_purchases": {
+      "via": "plan",
+      "private": true,
+      "collection": "data-purchase"
     }
   }
 }

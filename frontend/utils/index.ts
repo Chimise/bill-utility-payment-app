@@ -1,17 +1,19 @@
 import * as Yup from "yup";
 import RequestError from "./RequestError";
+import type { Stepper } from "../components/common/AnalyzeNumbers/AnalyzeNumbers";
 
-export type Provider = "mtn" | "airtel" | "9mobile" | "glo";
-
-export interface Operator {
-  name: string;
+export interface Db {
   id: string;
-
-
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface Plan {
-  id: string,
+export interface Operator extends Db {
+  name: string;
+}
+
+
+export interface Plan extends Db {
   validity: string,
   value: number,
   provider: Operator,
@@ -20,7 +22,7 @@ export interface Plan {
 }
 
 export type Providers = {
-  [K in Provider]: string;
+  [K: string]: string;
 };
 
 export const providers: Providers = {
@@ -54,17 +56,6 @@ export interface Funding {
 
 
 
-
-interface OrderHistory {
-  id: number;
-  type: 'Data' | 'Airtime';
-  recipients: number;
-  provider: Provider;
-  plan?: string;
-  amount: number;
-  date: Date;
-  total?: number
-}
 
 type BillHistory =  {
   id: number;
@@ -188,12 +179,13 @@ export const convertToBytes = (dataPlan: string): number => {
   return dataInBytes;
 };
 
-export const formatDate = (date: Date) => {
-  const dayOfMonth = date.getDate();
-  const month = date.getMonth();
-  const year = date.getFullYear();
+export const formatDate = (date: string) => {
+  // const dayOfMonth = date.getDate();
+  // const month = date.getMonth();
+  // const year = date.getFullYear();
 
-  return `${dayOfMonth}/${month}/${year}`;
+  // return `${dayOfMonth}/${month}/${year}`;
+  return date.slice(0, 19);
 }
 
 export const pricingData: PricingData[] = [
@@ -452,4 +444,20 @@ export const fetcher = async (url: string, token?: string) => {
 
 export const capitalizeFirstLetter = (word: string) => {
   return `${word.slice(0, 1).toUpperCase()}${word.slice(1).toLowerCase()}`
+}
+
+export const convertDataToString = (data: number) => {
+  if(data < 1000) {
+      return `${data}MB`
+  }
+   const converToGigaByte = data / 1000;
+   return `${converToGigaByte.toFixed(0)}GB`
+}
+
+export const getStepperAttr = (amount: number, operator: Operator | undefined, recipients: number, isValidActive: boolean, isInValidActive: boolean, validNumbers: string[], invalidNumbers: string[]): Array<Stepper> => {
+  const isProviderValid = !!operator;
+  const isTotalValid = recipients > 0 && amount > 0
+  const total = isTotalValid ? recipients * amount : 0;
+
+  return [{iconName: 'provider', active: isProviderValid, header: 'Provider', content: operator? operator.name : ''}, {iconName: 'validNumbers', active: isValidActive, header: 'Valid Numbers', content: validNumbers}, {iconName: 'invalidNumbers', active: isInValidActive, header: 'Invalid Numbers', content: invalidNumbers}, {iconName: 'recipients', active: isValidActive, header: 'Recipients', content: recipients.toString()}, {iconName: 'total', active: isTotalValid, header: 'Total', content: `₦${total}`}]
 }

@@ -1,8 +1,8 @@
-const {postRequest, generateUniqueNumber} = require('../../utils');
+const {postRequest, generateUniqueNumber, RequestError} = require('../../utils');
 
 module.exports = async function (airtime_id, phoneNumber, amount, type) {
     const trans_id = generateUniqueNumber();
-    const response = await postRequest('/services', {
+    const response = await postRequest('/services/', {
         body: {
             trans_id,
             service_id: airtime_id,
@@ -13,6 +13,9 @@ module.exports = async function (airtime_id, phoneNumber, amount, type) {
     })
 
     const data = await response.json();
+    if(data.message === 'failure') {
+        throw new RequestError(response);
+    }
     if(response.status === 202 || data.statusCode === '202') {
         data.processing = true;
     }

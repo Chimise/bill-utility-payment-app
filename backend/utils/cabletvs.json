@@ -1,0 +1,189 @@
+{
+    "plans": [
+        {
+            "name": "GOtv Supa",
+            "price": 5500,
+            "productCode": "MBGSP"
+          },
+          {
+            "name": "GOtv Smallie - monthly",
+            "price": 900,
+            "productCode": "MBGSM"
+          },
+          {
+            "name": "GOtv Smallie - quarterly",
+            "price": 2400,
+            "productCode": "MBGSQ"
+          },
+          {
+            "name": "GOtv Smallie - yearly",
+            "price": 7000,
+            "productCode": "MBGSY"
+          },
+          {
+            "name": "GOtv Max",
+            "price": 4150,
+            "productCode": "MBGM"
+          },
+          {
+            "name": "GOtv Jinja Bouquet",
+            "price": 1900,
+            "productCode": "MBGJB"
+          },
+          {
+            "name": "GOtv Jolli Bouquet",
+            "price": 2800,
+            "productCode": "MBGJB2"
+          },
+          {
+            "name": "DStv Yanga Bouquet E36",
+            "price": 2950,
+            "productCode": "MBDYB"
+          },
+          {
+            "name": "DStv Confam Bouquet E36",
+            "price": 5300,
+            "productCode": "MBDCB"
+          },
+          {
+            "name": "DStv Compact",
+            "price": 9000,
+            "productCode": "MBDC2"
+          },
+          {
+            "name": "DStv Compact Plus",
+            "price": 14250,
+            "productCode": "MBDCP"
+          },
+          {
+            "name": "DStv Premium",
+            "price": 18400,
+            "productCode": "MBDP1"
+          },
+          {
+            "name": "DStv Premium Asia",
+            "price": 23500,
+            "productCode": "MBDPA"
+          },
+          {
+            "name": "DStv Asian Bouqet",
+            "price": 7100,
+            "productCode": "MBDAB"
+          },
+          {
+            "name": "DStv Padi",
+            "price": 2150,
+            "productCode": "MBDP2"
+          },
+          {
+            "name": "DStv Premium French",
+            "price": 29300,
+            "productCode": "MBDPF"
+          },
+          {
+            "name": "DStv Compact Plus + HDPVR\/XtraView",
+            "price": 17150,
+            "productCode": "MBDCH"
+          },
+          {
+            "name": "DStv Compact Plus + Asian Add-on",
+            "price": 21350,
+            "productCode": "MBDCA"
+          },
+          {
+            "name": "DStv Compact Plus + French Touch + HDPVR\/XtraView",
+            "price": 19800,
+            "productCode": "MBDCFH"
+          },
+          {
+            "name": "DStv Premium + HDPVR\/XtraView",
+            "price": 21300,
+            "productCode": "MBDPH"
+          },
+          {
+            "name": "DStv Premium + French Touch + HDPVR\/XtraView",
+            "price": 23950,
+            "productCode": "MBDPFH"
+          },
+          {
+            "name": "DStv Premium + French Touch",
+            "price": 21050,
+            "productCode": "MBDPFT"
+          },
+          {
+            "name": "DStv Premium Asia + HDPVR\/XtraView",
+            "price": 26400,
+            "productCode": "MBDPAH"
+          },
+          {
+            "name": "DStv Premium Asia + French Touch",
+            "price": 26150,
+            "productCode": "MBDPAF"
+          },
+          {
+            "name": "DStv Yanga Bouquet E36 + French Touch",
+            "price": 5600,
+            "productCode": "MBDYBF"
+          },
+          {
+            "name": "DStv Yanga Bouquet E36 + HDPVR\/XtraView",
+            "price": 5850,
+            "productCode": "MBDYBH"
+          },
+          {
+            "name": "DStv Yanga Bouquet E36 + French Touch + HDPVR\/XtraView",
+            "price": 8500,
+            "productCode": "MBDYFH"
+          },
+          {
+            "name": "DStv Confam Bouquet E36 + French Touch",
+            "price": 7950,
+            "productCode": "MBDCBF"
+          },
+          {
+            "name": "DStv Confam Bouquet E36 + HDPVR\/XtraView",
+            "price": 8200,
+            "productCode": "MBDCBH"
+          },
+          {
+            "name": "DStv Confam Bouquet E36 + French Touch + HDPVR\/XtraView",
+            "price": 10850,
+            "productCode": "MBDCBFH"
+          },
+          {
+            "name": "StarTimes Nova",
+            "price": 900,
+            "productCode": "MBSN"
+          },
+          {
+            "name": "StarTimes Sports Plus",
+            "price": 1200,
+            "productCode": "MBSSP"
+          },
+          {
+            "name": "StarTimes Basic",
+            "price": 1850,
+            "productCode": "MBSB"
+          },
+          {
+            "name": "StarTimes Smart",
+            "price": 2600,
+            "productCode": "MBSS"
+          },
+          {
+            "name": "StarTimes Classic",
+            "price": 2750,
+            "productCode": "MBSC"
+          },
+          {
+            "name": "StarTimes Super",
+            "price": 4900,
+            "productCode": "MBSSU"
+          },
+          {
+            "name": "StarTimes Chinese",
+            "price": 7800,
+            "productCode": "MBSCH"
+          }
+    ]
+}

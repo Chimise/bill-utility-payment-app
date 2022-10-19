@@ -17,6 +17,9 @@
     "reference": {
       "type": "string"
     },
+    "status": {
+      "type": "string"
+    },
     "prevBal": {
       "type": "decimal"
     },
@@ -25,9 +28,6 @@
     },
     "method": {
       "type": "string"
-    },
-    "comment": {
-      "type": "text"
     },
     "user": {
       "via": "payments",

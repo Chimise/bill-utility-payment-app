@@ -1,35 +1,23 @@
 import useSWR from "swr";
-
+import { getOperators } from "../utils/requests";
 import Pricing from "../components/common/Pricing/Pricing";
-import {getBackendUri, Operator} from '../utils'
-import RequestError from "../utils/RequestError";
+import { Operator } from "../utils";
 
-
-interface PricingPageProps{
-    operators: Array<Operator>
+interface PricingPageProps {
+  operators: Array<Operator>;
 }
 
-const PricingPage = ({operators}: PricingPageProps) => {
-
-    return (
-        <Pricing operators={operators}  />
-    )
-}
-
+const PricingPage = ({ operators }: PricingPageProps) => {
+  return <Pricing operators={operators} />;
+};
 
 export const getStaticProps = async () => {
-    const response = await fetch(getBackendUri('/providers'));
-    if(!response.ok) {
-        const error = new RequestError({message: "An error occured", code: response.status});
-        throw error;
-    }
-    const data = await response.json();
-    return {
-        props: {
-            operators: data
-        }
-    }
-}
-
+  const operators = getOperators();
+  return {
+    props: {
+      operators,
+    },
+  };
+};
 
 export default PricingPage;

@@ -6,25 +6,13 @@ import Image from "next/image";
 import { XIcon } from "@heroicons/react/outline";
 import LogoImage from "../../../assets/White-Logo.png";
 import NavLink from '../../ui/NavLink/NavLink';
+import {navLinks} from '../AuthLayout/AuthLayout';
 
 interface MobileAuthMenuProps {
   showMenu: boolean;
   onCloseMenu: () => void;
 }
 
-
-interface NavLinks {
-  [key: string]: Array<{href: string; label: string, icon: string}>
-}
-
-
-const navLinks:NavLinks = {
-  actions: [{href: '/dashboard', label: 'Dashboard', icon: 'dashboard'}, {href: '/dashboard/wallet/fund', label: 'Fund Wallet', icon: 'fund'}],
-  utility: [{href: '/dashboard/utility/airtime', label: 'Airtime Topup', icon: 'airtime'}, {href: '/dashboard/utility/data', label: 'Data Topup', icon: 'data'}, {href: '/dashboard/utility/bulk-sms', label: 'Send Bulk SMS', icon: 'sms'}],
-  bills: [{href: '/dashboard/bills/electricity', label: 'Pay Electricity Bills', icon: 'electricity'}, {href: '/dashboard/bills/cable-tv', label: 'Cable TV Subscriptions', icon: 'cabletv'}],
-  faq: [{label: 'Faq', href: '/dashboard/faq', icon: 'faq'}],
-  transactions: [{href: '/dashboard/transactions/wallet', label: 'Wallet Funding', icon: 'wallet'}, {label: 'Order History', href: '/dashboard/transactions/orders', icon: 'order'}, {label: 'Bill History', href: '/dashboard/transactions/bills', icon: 'bills'}]  
-}
 
 
 const MobileAuthMenu = ({showMenu, onCloseMenu}:MobileAuthMenuProps) => {

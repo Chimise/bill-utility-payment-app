@@ -10,10 +10,10 @@ const Actions = () => {
         <h3 className="text-3xl sm:text-4xl font-semibold">Ready To Get Started?</h3>
       </header>
       <div className='text-center space-x-5'>
-          <Link href="/login">
+          <Link href="/auth/login">
             <a className={cn(classes, 'text-blue-500 hover:bg-blue-500 hover:text-white')}>Login</a>
           </Link>
-          <Link href="/register">
+          <Link href="/auth/register">
             <a className={cn(classes, 'bg-blue-500 text-white hover:bg-blue-900 hover:border-blue-900')}>Get Started</a>
           </Link>
         </div>

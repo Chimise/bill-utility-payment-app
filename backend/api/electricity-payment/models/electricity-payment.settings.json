@@ -12,8 +12,8 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "meterNo": {
-      "type": "text"
+    "accountNumber": {
+      "type": "string"
     },
     "amount": {
       "type": "integer"
@@ -38,8 +38,14 @@
       ]
     },
     "disco": {
-      "model": "disco",
-      "via": "electricity_payments"
+      "via": "electricity_payments",
+      "model": "disco"
+    },
+    "token": {
+      "type": "string"
+    },
+    "trans_id": {
+      "type": "string"
     }
   }
 }

@@ -16,19 +16,16 @@
       "type": "string"
     },
     "service_id": {
-      "type": "string"
-    },
-    "plans": {
-      "type": "component",
-      "repeatable": true,
-      "component": "bill.cable-data"
+      "type": "string",
+      "private": true
     },
     "charge": {
-      "type": "integer"
+      "type": "integer",
+      "private": true
     },
-    "payments": {
+    "plans": {
       "via": "cabletv",
-      "collection": "cabletv-payment",
+      "collection": "cabletv-plan",
       "private": true
     }
   }

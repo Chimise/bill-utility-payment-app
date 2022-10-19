@@ -11,12 +11,15 @@ import { ChevronDownIcon } from "@heroicons/react/solid";
 import ToolTip from "../../ui/Tooltip/Tooltip";
 import TablePagination from "./TablePagination";
 import { formatDate } from "../../../utils";
+import Spinner from "../../ui/Spinner/Spinner";
+import RequestError from "../../../utils/RequestError";
+import Error from "../../ui/Error/Error";
 
 export interface Header<T extends object = {}>
   extends UseSortByColumnOptions<T> {
   Header: string;
   accessor: keyof T;
-  Cell?: ({value}: {value: Date}) => any;
+  Cell?: ({value}: {value: string}) => any;
 }
 
 export interface TableProps<T extends object = {}> {
@@ -26,7 +29,8 @@ export interface TableProps<T extends object = {}> {
   defaultPageIndex?: number;
   isLoading: boolean;
   sortBy: SortingRule<T>[];
-  onRowClick: (original: T) => void;
+  error: RequestError | undefined;
+  onErrorRetry: () => void;
 }
 
 function Table<T extends object = {}>({
@@ -36,7 +40,8 @@ function Table<T extends object = {}>({
   defaultPageSize = 5,
   isLoading,
   sortBy,
-  onRowClick,
+  error,
+  onErrorRetry
 }: TableProps<T>) {
   const {
     getTableProps,
@@ -70,9 +75,9 @@ function Table<T extends object = {}>({
   );
 
   return (
-    <div className="min-w-[700px] shadow-[0px_3px_3px_-2px_rgba(0,0,0,0.2),0px_3px_4px_0px_rgba(0,0,0,0.14),0px_1px_8px_0px_rgba(0,0,0,0.12)]">
+    <div className="min-w-[700px] rounded-md shadow-sm shadow-gray-300">
       <table
-        className="w-full border border-slate-200 table-fixed border-collapse min-h-[300px]"
+        className="min-w-full border border-slate-200 table-fixed border-collapse"
         {...getTableProps()}
       >
         <thead>
@@ -80,50 +85,56 @@ function Table<T extends object = {}>({
             <tr
               {...headerGroup.getHeaderGroupProps()}
               key={index}
-              className="bg-slate-100 text-slate-700"
+              className="bg-gray-100 text-slate-700 h-14"
             >
               {headerGroup.headers.map((column, columnIndex) => (
                 <th
-                  className="text-left p-2 border-0 border-b border-slate-200"
+                  className="text-left first:pl-6 last:pr-6 p-2 border-0 border-b border-slate-200"
+                  // @ts-ignore
                   {...column.getHeaderProps(column.getSortByToggleProps())}
                   key={`${index}-${columnIndex}`}
                 >
-                  <span className="flex items-center w-full space-x-3">
+                  <span className="flex items-center w-full space-x-1">
                     <span>{column.render("Header")}</span>
-                    <span className="shrink-0">
+                      {/* @ts-ignore */}
                       {column.isSorted ? (
+                        <span className="shrink-0">
                         <ChevronDownIcon
                           className={`text-sm font-medium transition-transform w-5 h-5 ${
+                            // @ts-ignore
                             column.isSortedDesc ? "rotate-0" : "rotate-180"
                           }`}
                         />
+                        </span>
                       ) : null}
-                    </span>
+                    <span className="flex-1" />
                   </span>
                 </th>
               ))}
             </tr>
           ))}
         </thead>
-        <tbody {...getTableBodyProps()}>
+        {isLoading && <div className="w-full flex items-center justify-center">
+          <Spinner className="py-10 px-4" size='2x' />
+          </div>}
+        {data.length > 0 && (<tbody {...getTableBodyProps()}>
           {page.map((row, index) => {
             prepareRow(row);
 
             return (
               <tr
-                className="hover:bg-slate-300 h-[54px]"
+                className="hover:bg-gray-100 bg-white h-[54px]"
                 {...row.getRowProps()}
                 key={index}
-                onClick={() => onRowClick(row.original)}
               >
                 {row.cells.map((cell, cellIndex) => {
                   return (
                     <td
-                      className="text-left truncate text-md p-2 border-0 border-b border-slate-200 align-middle h-[53px]"
+                      className="text-left first:pl-6 last:pr-6 truncate text-md p-2 border-0 border-b border-slate-200 align-middle h-[53px]"
                       {...cell.getCellProps()}
                       key={`${index}-${cellIndex}`}
                     >
-                      <ToolTip title={cell.value instanceof Date ? formatDate(cell.value) : cell.value}>
+                      <ToolTip title={cell.column.id === 'createdAt' ? formatDate(cell.value) : cell.value}>
                         {cell.render("Cell")}
                       </ToolTip>
                     </td>
@@ -132,7 +143,11 @@ function Table<T extends object = {}>({
               </tr>
             );
           })}
-        </tbody>
+        </tbody>)}
+
+        {data.length === 0 && !isLoading && (<div className="py-10 w-full" />)}
+
+          {error && <Error className="p-5 md:p-7 w-full" error={error.message} onRetry={onErrorRetry} />}
       </table>
       <TablePagination data={data} setPageSize={setPageSize} pageSize={pageSize} pageIndex={pageIndex} canNextPage={canNextPage} canPreviousPage={canPreviousPage} pageCount={pageCount} gotoPage={gotoPage} previousPage={previousPage} nextPage={nextPage} />
     </div>

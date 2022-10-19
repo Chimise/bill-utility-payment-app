@@ -34,12 +34,12 @@ const Footer = () => {
             <h4 className="text-slate-200 text-xl mb-6">Account</h4>
             <ul className="space-y-3">
               <li>
-                <Link href="login">
+                <Link href="/auth/login">
                   <a className="hover:text-blue-500 text-slate-50">Login</a>
                 </Link>
               </li>
               <li>
-                <Link href="register">
+                <Link href="/auth/register">
                   <a className="hover:text-blue-500 text-slate-50">Register</a>
                 </Link>
               </li>

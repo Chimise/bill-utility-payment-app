@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useMemo} from 'react';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
@@ -12,20 +12,27 @@ import TextArea from '../../../components/ui/TextArea/TextArea';
 import Button from '../../../components/ui/Button/Button';
 import AnalyzeNumbers from '../../../components/common/AnalyzeNumbers/AnalyzeNumbers';
 import DashboardContainer from '../../../components/ui/DashboardContainer/DashboardContainer';
-import { providers, filteredNumbers } from '../../../utils';
+import { filteredNumbers, Operator, getStepperAttr } from '../../../utils';
 import usePhoneNumAnalyzer from '../../../hooks/usePhoneNumAnalyzer';
-
+import useOperators from '../../../hooks/useOperators';
+import { getOperators } from '../../../utils/requests';
 import type { Stepper } from '../../../components/common/AnalyzeNumbers/AnalyzeNumbers';
+import useAirtimePayment from '../../../hooks/useAirtimePayment';
 
+interface AirtimePageProps {
+    operators: Operator[]
+}
 
-const AirtimePage = () => { 
-
-    const [provider, setProvider] = useState('');
+const AirtimePage = ({operators: initialValues}: AirtimePageProps) => { 
+    const {operators} = useOperators(initialValues);
+    const sendRequest = useAirtimePayment();
+    const [provider, setProvider] = useState(() => initialValues!.find(op => op.name === 'MTN'));
     const {values: {numbers, amount}, touched, errors, handleChange, handleBlur, handleSubmit, isSubmitting} = useFormik({initialValues: {numbers: '', amount: ''}, async onSubmit(values, {setFieldError}) {
-        if(!(provider in providers)) {
+        if(!provider) {
             setFieldError('numbers', 'Please choose a Network Provider');
             return;
         }
+        await sendRequest({provider: provider.id, recipients: validNumbers, amount: parseFloat(values.amount)});
 
     }, validationSchema: Yup.object({
         amount: Yup.number().required('Please enter a valid amount').min(50, 'Please enter an amount from ₦50'),
@@ -37,17 +44,14 @@ const AirtimePage = () => {
             const {invalidNum} = filteredNumbers(value);
             return invalidNum.length === 0
         }) 
-    })})
+    })});
     
 
     const {validNumbers, invalidNumbers, recipients, isInValidActive, isValidActive} = usePhoneNumAnalyzer(numbers);
 
-    const parsedAmount = parseInt(amount);
-    const isProviderValid = provider !== '';
-    const isTotalValid = recipients > 0 && parsedAmount > 0
-    const total = isTotalValid ? recipients * parsedAmount : 0;
-
-    const steppers: Array<Stepper> = [{iconName: 'provider', active: isProviderValid, header: 'Provider', content: provider.toUpperCase()}, {iconName: 'validNumbers', active: isValidActive, header: 'Valid Numbers', content: validNumbers}, {iconName: 'invalidNumbers', active: isInValidActive, header: 'Invalid Numbers', content: invalidNumbers}, {iconName: 'recipients', active: isValidActive, header: 'Recipients', content: recipients.toString()}, {iconName: 'total', active: isTotalValid, header: 'Total', content: `₦${total}`}]
+    const steppers: Array<Stepper> = useMemo(() => {
+        return getStepperAttr(parseInt(amount), provider, recipients, isValidActive, isInValidActive, validNumbers, invalidNumbers)
+      }, [amount, provider, recipients, isInValidActive, isValidActive, validNumbers, invalidNumbers])
 
     return (
         <DashboardContainer>
@@ -57,7 +61,7 @@ const AirtimePage = () => {
                 <div className='my-4 px-4 py-3'>
                     <form onSubmit={handleSubmit} className='space-y-5'>
                     <Input label='Recharge Amount (between ₦50 - ₦5000)' name='amount' borderClass='focus:border-slate-700 focus:ring-slate-700' placeholder='500' className='w-24'  onChange={handleChange} onBlur={handleBlur} value={amount} error={touched.amount && errors.amount}  />
-                    <SelectProvider providers={providers} onSelect={setProvider} selected={provider} label="Choose a Network Provider"  />
+                    <SelectProvider providers={operators || initialValues} onSelect={setProvider} selected={provider} label="Choose a Network Provider"  />
                     <TextArea name='numbers' onChange={handleChange} onBlur={handleBlur} value={numbers} error={touched.numbers && errors.numbers} label="Phone Numbers  (seperated by a comma, space or newline. Duplicate numbers won't be repeated)" borderClass='focus:border-slate-700 focus:ring-slate-700' />
                     <Button type='submit'  className='w-full bg-slate-600 hover:bg-slate-800' variant='flat' loading={isSubmitting}>Submit</Button>
                     </form>
@@ -79,3 +83,12 @@ AirtimePage.getLayout = (children: React.ReactNode) => {
 AirtimePage.isAuth = true;
 
 export default AirtimePage;
+
+export const getStaticProps = async () => {
+    const operators = await getOperators();
+    return {
+        props: {
+            operators
+        }
+    }
+}

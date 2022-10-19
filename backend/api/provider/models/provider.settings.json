@@ -36,6 +36,16 @@
     "airtime_charge": {
       "type": "decimal",
       "private": true
+    },
+    "airtime_purchases": {
+      "via": "provider",
+      "collection": "airtime-purchase",
+      "private": true
+    },
+    "data_purchases": {
+      "via": "provider",
+      "collection": "data-purchase",
+      "private": true
     }
   }
 }

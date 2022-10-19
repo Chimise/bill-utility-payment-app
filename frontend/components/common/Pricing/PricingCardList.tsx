@@ -8,11 +8,8 @@ interface PricingCardListProps {
 
 
 
-
-
-
 const PricingCardList = ({dataPlans}: PricingCardListProps) => {
-    return (<div className='my-7 p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-3 gap-y-6'>
+    return (<div className='my-7 p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-6'>
         {Object.entries(dataPlans).map(([key, plans]) => {
             return (
                     <div key={key}>

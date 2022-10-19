@@ -2,29 +2,29 @@ import React from "react";
 import { RadioGroup } from "@headlessui/react";
 
 import Chip from '../../ui/Chip/Chip';
+import {PaymentMethods} from '../../../hooks/usePaymentMethods';
 
 interface SelectPaymentMethodProps<S extends object = {}> {
-  selected: S;
-  onSelect: React.Dispatch<React.SetStateAction<S>>;
+  selected: S | undefined;
+  onSelect: React.Dispatch<React.SetStateAction<S | undefined>>;
   channels: Array<S>;
+  charges: MethodCharge
 }
 
-export interface Payment {
-  id: string | number;
-  title: string;
-  label?: {text: 'Top choice' | 'Recommended' | 'Zero fees' | 'Slowest', color: 'success' | 'error' | 'warning' | 'info'};
-  charges: number;
-  total: number;
-  duration: string;
-  availability?: string;
-  meta?: string;
+interface MethodCharge {
+  [key: string]: {
+    total: number,
+    charge: number;
+  }
 }
 
 
-function SelectPaymentMethod<S extends Payment = Payment>({
+
+function SelectPaymentMethod<S extends PaymentMethods = PaymentMethods>({
   selected,
   onSelect,
   channels,
+  charges
 }: SelectPaymentMethodProps<S>) {
   return (
     <RadioGroup value={selected} onChange={onSelect}>
@@ -55,10 +55,10 @@ function SelectPaymentMethod<S extends Payment = Payment>({
                       checked ? "text-white" : "text-gray-700"
                     }`}
                   >
-                    {channel.title}
+                    {channel.name}
                   </RadioGroup.Label>
-                  {channel.label && <Chip color={channel.label.color}>
-                    {channel.label.text}
+                  {channel.badgeColor && channel.badgeText && <Chip color={channel.badgeColor}>
+                    {channel.badgeText}
                     </Chip>}
 
                 </div>
@@ -70,13 +70,13 @@ function SelectPaymentMethod<S extends Payment = Payment>({
                         checked ? "text-sky-100" : "text-gray-500"
                       } font-bold text-sm`}
                     >
-                      <span>Fee: &#8358;{channel.charges}</span> {"|"}{" "}
-                      <span>Total: &#8358;{channel.total}</span>
+                      <span>Fee: &#8358;{charges[channel.identifier].charge}</span> {"|"}{" "}
+                      <span>Total: &#8358;{charges[channel.identifier].total}</span>
                     </RadioGroup.Description>
                     <div className={`text-xs ${checked ? 'text-slate-50' : 'text-gray-800'}`}>
                       <span>{channel.duration}{" "}</span>
                       {channel.availability && <span>{"|"}{" "}{channel.availability}{" "}</span>}
-                      {channel.meta && <span>{"|"}{" "}{channel.meta}</span>}
+                      {channel.description && <span>{"|"}{" "}{channel.description}</span>}
                     </div>
                   </div>
                   <div className="shrink-0 h-6 w-6 text-white flex items-center self-end">

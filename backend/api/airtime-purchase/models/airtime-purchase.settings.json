@@ -13,7 +13,8 @@
   "pluginOptions": {},
   "attributes": {
     "provider": {
-      "model": "airtime-purchase"
+      "model": "provider",
+      "via": "airtime_purchases"
     },
     "amount": {
       "type": "integer",

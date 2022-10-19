@@ -4,17 +4,19 @@ import DashboardContainer from "../../../components/ui/DashboardContainer/Dashbo
 import DashboardHeader from "../../../components/common/DashboardHeader/DashboardHeader";
 import Paper from "../../../components/ui/Paper/Paper";
 import UtilityHeader from "../../../components/common/UtilityHeader/UtilityHeader";
-import { Funding, tableData, formatDate } from "../../../utils";
+import {formatDate } from "../../../utils";
 import Table, { Header } from "../../../components/common/Table/Table";
+import { PaymentData } from "../../../utils/mutation";
+import usePayments from "../../../hooks/usePayments";
 
 
-const sortBy: Array<{ id: keyof Funding; desc: boolean }> = [
-  { id: "date", desc: true },
+const sortBy: Array<{ id: keyof PaymentData; desc: boolean }> = [
+  { id: "createdAt", desc: true },
 ];
 
-const sortDate: Header<Funding>["sortType"] = (rowA, rowB) => {
-  const dateRowA = rowA.original.date.getTime();
-  const dateRowB = rowB.original.date.getTime();
+const sortDate: Header<PaymentData>["sortType"] = (rowA, rowB) => {
+  const dateRowA = new Date(rowA.original.createdAt).getTime();
+  const dateRowB = new Date(rowB.original.createdAt).getTime();
   if (dateRowA > dateRowB) {
     return 1;
   } else if (dateRowB > dateRowA) {
@@ -24,23 +26,24 @@ const sortDate: Header<Funding>["sortType"] = (rowA, rowB) => {
   }
 };
 
-const columns: Header<Funding>[] = [
+const columns: Header<PaymentData>[] = [
+  { Header: "Reference", accessor: "reference", disableSortBy: true },
   {
     Header: "Date",
-    accessor: "date",
+    accessor: "createdAt",
     sortType: sortDate,
     Cell: ({ value }) => formatDate(value),
   },
-  { Header: "Current Balance", accessor: "walletBalance", disableSortBy: true },
-  { Header: "Funded Amount", accessor: "amount", disableSortBy: true },
-  { Header: "Comment", accessor: "comment", disableSortBy: true },
+  { Header: "Amount", accessor: "amount", disableSortBy: true },
+  { Header: "Curr Bal", accessor: "currentBal", disableSortBy: true },
+  { Header: "Prev Bal", accessor: "prevBal", disableSortBy: true },
+  { Header: "Method", accessor: "method", disableSortBy: true }
+  
 ];
 
+
 const WalletHistoryPage = () => {
-  
-  const rowClickHandler = (rowData: Funding) => {
-    console.log(rowData);
-  };
+  const {isLoading, payments, error, mutate} = usePayments()
 
   return (
     <DashboardContainer>
@@ -49,11 +52,12 @@ const WalletHistoryPage = () => {
         <UtilityHeader title="Funding History" />
         <div className="mt-4 mb-10 w-full overflow-y-auto px-8 py-10">
           <Table
-            data={tableData}
+            data={payments || []}
             columns={columns}
-            isLoading={true}
-            onRowClick={rowClickHandler}
+            isLoading={isLoading}
             sortBy={sortBy}
+            error={error}
+            onErrorRetry={() => mutate()}
           />
         </div>
       </Paper>

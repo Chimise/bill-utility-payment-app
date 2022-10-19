@@ -26,6 +26,9 @@ module.exports = {
     async findOne(ctx) {
         const {id} = ctx.params;
         const entity = await strapi.services[modelName].findOne({id, buyer: ctx.state.user.id});
+        if(!entity) {
+            return ctx.badRequest("Data not found");
+        }
         return sanitizeEntity(entity, {model: strapi.models[modelName]});
     }
 };

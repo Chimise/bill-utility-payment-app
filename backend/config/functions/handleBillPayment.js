@@ -3,7 +3,7 @@ const {postRequest, generateUniqueNumber} = require('../../utils');
 
 module.exports = async (service_id, others = {}) => {
     const trans_id = generateUniqueNumber();
-    const response = await postRequest('/services', {
+    const response = await postRequest('/services/', {
         service_id,
         trans_id,
         ...others

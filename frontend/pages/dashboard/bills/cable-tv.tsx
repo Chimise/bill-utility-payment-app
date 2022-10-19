@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import AuthLayout from '../../../components/common/AuthLayout/AuthLayout';
@@ -9,43 +9,64 @@ import UtitityHeader from '../../../components/common/UtilityHeader/UtilityHeade
 import Select from '../../../components/ui/Select/Select';
 import Input from '../../../components/ui/Input/Input';
 import Button from '../../../components/ui/Button/Button';
+import { getCableTvs } from '../../../utils/requests';
+import type { CableTv } from '../../../hooks/useCableTvBills';
+import useCableTvs from '../../../hooks/useCableTvs';
+import useCableTvPlans from '../../../hooks/useCableTvPlans';
+import useCableTvPayments from '../../../hooks/useCableTvPayment';
 
-const cableTvs = ["STARTIMES", "GOTV", "DSTV"];
-const packages = ["1 months", "3 months", "6 months"];
+
 const BORDER_CLASS = 'focus:ring-slate-700 focus:border-slate-700';
 
+interface CableTvBillsPageProps {
+    cabletvs: CableTv[]
+}
 
-const CableTvBillsPage = () => {
 
-    const {values, touched, errors, handleBlur, handleChange, handleSubmit, isSubmitting} = useFormik({initialValues: {cableTv: '', smartCardNo: '', package: '', amount: ''}, onSubmit: (values, {setSubmitting}) => {
-        console.log(values);
+const CableTvBillsPage = ({cabletvs: initialData}: CableTvBillsPageProps) => {
+const {cabletvs} = useCableTvs(initialData);
+const sendRequest = useCableTvPayments()
+const {values, touched, errors, handleBlur, handleChange, handleSubmit, isSubmitting} = useFormik({initialValues: {cableTv: '', smartCardNo: '', package: ''}, onSubmit: async (values) => {
+        await sendRequest({id: values.package, customerAccountId: values.smartCardNo});
     }, validationSchema: Yup.object({
-        cableTv: Yup.string().required('Please choose your Cable Tv Type').oneOf(cableTvs),
+        cableTv: Yup.string().required('Please choose your Cable Tv Type').oneOf(cabletvs.map(cab => cab.id)),
         smartCardNo: Yup.number().required("Please enter your SmartCard Number"),
-        package: Yup.string().required("Please select a package").oneOf(packages),
-        amount: Yup.number().required("Please enter an amount")
+        package: Yup.string().required("Please select a package")
     })})
+
+const planId = values.package;
+
+const {plans} = useCableTvPlans(values.cableTv);
+const amount = useMemo(() => {
+    if(!plans) {
+        return '';
+    }
+    const plan = plans.find(plan => plan.id === planId);
+    return plan ? plan.selling_price.toString() : '';
+}, [plans, planId])
 
     return (
         <DashboardContainer>
             <DashboardHeader title="Pay your Utility Bills (DSTV, GOTV, STARTIME)" />
             <Paper className='mt-4 mb-10 md:mb-4'>
                 <UtitityHeader title="Cable TVs" />
-                <form className='p-4 my-4 grid grid-cols-1 md:grid-cols-2 gap-4'>
+                <form className='p-4 my-4 grid grid-cols-1 md:grid-cols-2 gap-4' onSubmit={handleSubmit}>
                     <Select borderClass={BORDER_CLASS} name="cableTv" label="Cable Tv" value={values.cableTv} onChange={handleChange} onBlur={handleBlur} error={touched.cableTv && errors.cableTv}>
                         <option value="">Select Cable Tv</option>
-                        {cableTvs.map(cableTv => (
-                            <option key={cableTv} value={cableTv}>{cableTv}</option>
+                        {cabletvs.map(cabletv => (
+                            <option key={cabletv.id} value={cabletv.id}>{cabletv.name}</option>
                         ))}
                     </Select>
                     <Input borderClass={BORDER_CLASS} name="smartCardNo" label="SmartCard/IUC No" value={values.smartCardNo} onChange={handleChange} onBlur={handleBlur} error={touched.smartCardNo && errors.smartCardNo}  />
                     <Select borderClass={BORDER_CLASS} name="package" label="Package" value={values.package} onChange={handleChange} onBlur={handleBlur} error={touched.package && errors.package}>
                         <option value="">Select Package</option>
-                        {packages.map(_package => (
-                            <option key={_package} value={_package}>{_package}</option>
+                        {plans && plans.map(plan => (
+                            <option key={plan.id} value={plan.id}>
+                            {plan.name}
+                        </option>
                         ))}
                     </Select>
-                    <Input borderClass={BORDER_CLASS} name="amount" label="Amount" value={values.amount} onChange={handleChange} onBlur={handleBlur} error={touched.amount && errors.amount}  />
+                    <Input borderClass={BORDER_CLASS} name="amount" label="Amount" value={amount} onChange={() => {}} readOnly disabled />
                     <div className="flex justify-end md:col-span-2">
                             <Button type="submit" className='w-full sm:w-auto bg-cyan-600 hover:bg-cyan-800' loading={isSubmitting}>Submit</Button>
                     </div>
@@ -64,3 +85,13 @@ CableTvBillsPage.getLayout = (children: React.ReactNode) => {
 CableTvBillsPage.isAuth = true;
 
 export default CableTvBillsPage;
+
+
+export const getStaticProps = async () => {
+    const cabletvs = await getCableTvs();
+    return {
+        props: {
+            cabletvs
+        }
+    }
+}

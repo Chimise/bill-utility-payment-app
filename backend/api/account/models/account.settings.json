@@ -15,7 +15,8 @@
       "type": "string"
     },
     "account_id": {
-      "type": "integer"
+      "type": "integer",
+      "private": true
     },
     "name": {
       "type": "string"
