@@ -1,0 +1,32 @@
+{
+    "providers": [
+        {
+            "name": "MTN",
+            "airtime_charge": 0,
+            "airtime_id": "BAD",
+            "data_charge": 20,
+            "data_id": "BCA"
+        },
+        {
+            "name": "GLO",
+            "airtime_charge": 0,
+            "airtime_id": "BAB",
+            "data_charge": 20,
+            "data_id": "BCC"
+        },
+        {
+            "name": "9MOBILE",
+            "airtime_charge": 0,
+            "airtime_id": "BAC",
+            "data_charge": 20,
+            "data_id": "BCB"
+        },
+        {
+            "name": "AIRTEL",
+            "airtime_id": "BAA",
+            "data_charge": 20,
+            "data_id": "BCD",
+            "airtime_charge": 0
+        }
+    ]
+}

@@ -1,10 +1,11 @@
 import React from 'react';
+import { NextSeo } from 'next-seo';
 import AuthLayout from '../../../components/common/AuthLayout/AuthLayout';
 import DashboardContainer from '../../../components/ui/DashboardContainer/DashboardContainer';
 import DashboardHeader from '../../../components/common/DashboardHeader/DashboardHeader';
 import Paper from '../../../components/ui/Paper/Paper';
 import UtilityHeader from '../../../components/common/UtilityHeader/UtilityHeader';
-import {Order, orders, formatDate} from '../../../utils';
+import {formatDate} from '../../../utils';
 import Table, {Header} from '../../../components/common/Table/Table';
 import useAirtimePurchases, {AirtimePurchase} from '../../../hooks/useAirtimePurchases';
 
@@ -46,6 +47,12 @@ const OrdersHistoryPage = () => {
   const {data, error, isLoading, mutate} = useAirtimePurchases()
 
     return (<DashboardContainer>
+      <NextSeo
+        title="Airtime Payment History"
+        description="View all previous airtime purchase transactions"
+        nofollow
+        noindex
+      />
         <DashboardHeader title="Orders Funding History" />
         <Paper className='space-y-2 mb-10 md:mb-0'>
             <UtilityHeader title="Funding History" />

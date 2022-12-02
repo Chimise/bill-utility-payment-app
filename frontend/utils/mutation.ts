@@ -46,7 +46,7 @@ export const handlePayment: Fetcher<PaymentData> = async (values, token) => {
 }
 
 export const handleElectricityPayment: Fetcher<ElectricityPurchase> = async (values, token, id: string) => {
-    const data = await sendRequest<ElectricityPurchase>(`/disco/${id}/payment`, {
+    const data = await sendRequest<ElectricityPurchase>(`/discos/${id}/payment`, {
         body: values
     }, token);
 

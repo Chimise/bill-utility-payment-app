@@ -6,17 +6,21 @@ import Input from "../../ui/Input/Input";
 import TextArea from "../../ui/TextArea/TextArea";
 import Button from "../../ui/Button/Button";
 import useUI from "../../../hooks/useUI";
+import { sendRequest } from "../../../utils";
 
 
 const ContactUs = () => {
 
     const context = useUI();
 
-    const {values, errors, touched, handleBlur, handleSubmit, handleChange, isSubmitting} = useFormik({initialValues: {firstName: '', lastName: '', email: '', phone: '', subject: '', message: ''}, onSubmit: (values, {setSubmitting}) => {
-        setTimeout(() => {
+    const {values, errors, touched, handleBlur, handleSubmit, handleChange, isSubmitting} = useFormik({initialValues: {firstName: '', lastName: '', email: '', phone: '', subject: '', message: ''}, onSubmit: async ({firstName, lastName, phone: phoneNo, subject, message, email}, {resetForm}) => {
+        try {
+            await sendRequest('/messages', {body: {firstName, lastName, phoneNo, email, message, subject}});
             context.openToastHandler('success', 'Message Sent Successfully');
-            setSubmitting(false);
-        }, 800)
+            resetForm()
+        } catch (error) {
+            context.openToastHandler('error', 'Message could not be sent');
+        }
     }, validationSchema: Yup.object({
         firstName: Yup.string().trim().max(20, 'Must be 20 characters or less').required('Required'),
         lastName: Yup.string().trim().max(20, 'Must be 20 characters or less').required('Required'),
@@ -70,7 +74,7 @@ const ContactUs = () => {
                 <TextArea label="Message" name='message' onChange={handleChange} onBlur={handleBlur} value={values.message} error={touched.message && errors.message} />
                 </div>
                 <div className="md:col-span-2 flex justify-end">
-                    <Button type='submit' variant="slim" loading={isSubmitting} >Submit</Button>
+                    <Button type='submit' className="bg-slate-700" variant="slim" loading={isSubmitting}>Submit</Button>
                 </div>
             </div>
             </form>

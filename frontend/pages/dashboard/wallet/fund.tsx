@@ -3,6 +3,7 @@ import { useFormik } from "formik";
 import { usePaystackPayment, } from "react-paystack";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
+import { NextSeo } from "next-seo";
 
 import AuthLayout from "../../../components/common/AuthLayout/AuthLayout";
 import SelectPaymentMethod from "../../../components/common/SelectPaymentMethod/SelectPaymentMethod";
@@ -128,6 +129,12 @@ function FundWalletPage({methods}: FundWalletPageProps) {
 
   return (
     <div className="w-11/12 mx-auto mt-6 mb-8">
+      <NextSeo
+        title="Fund your Wallet"
+        description="View all our accepted payment options"
+        nofollow
+        noindex
+      />
       <div className="w-full mx-auto max-w-xl space-y-6">
         <h2 className="text-3xl font-medium">Fund Wallet</h2>
         <form onSubmit={handleSubmit} className="space-y-6">

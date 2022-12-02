@@ -1,0 +1,20 @@
+{
+    "methods": [
+        {
+            "name": "Dedicated Bank Account",
+            "availability": "24/7",
+            "duration": "Instant Payment",
+            "badgeText": "Recommended",
+            "badgeColor": "success",
+            "description": "Bank Transfer From any account",
+            "identifier": "dedicated"
+        },
+        {
+            "name": "Paystack Using Debit Card",
+            "duration": "Instant Payment",
+            "availability": "24/7",
+            "identifier": "card",
+            "description": "Credit card payment"
+        }
+    ]
+}

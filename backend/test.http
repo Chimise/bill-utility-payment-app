@@ -1,5 +1,9 @@
 @api_key = pk_test_Iey/ONDvnzc5D65h56MZsqCrj1HRx09aVlVvc09W+R8=
+@geonatech_key = 92821b7db88f691d87714d3f6b6b542835df63d6
+@paystack_key = sk_test_423fa3ee2a78c615b83890446a408382b50cc397
+@geonatech_base_url = https://geodnatechsub.com/api
 @base_url = https://enterprise.mobilenig.com/api
+@paystack_base_url = https://api.paystack.co
 
 POST {{base_url}}/services/packages HTTP/1.1
 Content-Type: application/json
@@ -162,4 +166,41 @@ Authorization: Bearer {{api_key}}
 
 {
     "service_id": "AKB"
+}
+
+###
+POST {{base_url}}/services/proxy HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{api_key}}
+
+{
+    "service_id": "AMB",
+    "customerAccountId": "007903302"
+}
+
+###
+GET {{geonatech_base_url}}/validatemeter?meternumber=007903302&disconame=Ikeja Electric&mtype=prepaid
+Authorization: Bearer {{geonatech_key}}
+
+###
+# @name Customer
+POST {{paystack_base_url}}/customer HTTP/1.1
+Authorization: Bearer {{paystack_key}}
+Content-Type: application/json
+
+{
+    "email": "chimise@gmail.com",
+    "first_name": "Chisom",
+    "last_name": "promise",
+    "phone": "08035523453"
+}
+
+###
+POST {{paystack_base_url}}/dedicated_account HTTP/1.1
+Authorization: Bearer {{paystack_key}}
+Content-Type: application/json
+
+{
+    "customer": "{{Customer.response.body.$.data.id}}",
+    "preferred_bank": "test-bank"
 }

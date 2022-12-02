@@ -14,7 +14,7 @@ module.exports = {
         return {
             amount: Math.ceil((responseData.data.amount - responseData.data.fees) / 100),
             method: responseData.data.channel,
-            createdAt: responseData.data.paid_at,
+            createdAt: new Date(responseData.data.paidAt),
             status: responseData.data.status
         }
     },

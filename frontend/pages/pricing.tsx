@@ -1,4 +1,4 @@
-import useSWR from "swr";
+import { NextSeo } from "next-seo";
 import { getOperators } from "../utils/requests";
 import Pricing from "../components/common/Pricing/Pricing";
 import { Operator } from "../utils";
@@ -8,11 +8,21 @@ interface PricingPageProps {
 }
 
 const PricingPage = ({ operators }: PricingPageProps) => {
-  return <Pricing operators={operators} />;
+  return (
+    <>
+      <NextSeo
+        title="Pricing"
+        description="View prices of data and airtime for MTN, AIRTEL, GLO and ETISALAT"
+        nofollow
+        noindex
+      />
+      <Pricing operators={operators} />
+    </>
+  );
 };
 
 export const getStaticProps = async () => {
-  const operators = getOperators();
+  const operators = await getOperators();
   return {
     props: {
       operators,

@@ -1,6 +1,7 @@
 import React, {useState, useMemo} from "react";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
+import { NextSeo } from "next-seo";
 import DashboardContainer from "../../../components/ui/DashboardContainer/DashboardContainer";
 import DashboardHeader from "../../../components/common/DashboardHeader/DashboardHeader";
 import AuthLayout from "../../../components/common/AuthLayout/AuthLayout";
@@ -70,6 +71,12 @@ const DataPage = ({operators: initialValues}: DataPageProps) => {
 
   return (
     <DashboardContainer>
+      <NextSeo
+        title="Buy Mobile Data"
+        description="Purchase MTN, AIRTEL, GLO and ETISALAT mobile data at an affordabe rate"
+        nofollow
+        noindex
+      />
       <DashboardHeader title="Data Topup"></DashboardHeader>
       <Paper>
          <UtilityHeader title="Purchase Data" />

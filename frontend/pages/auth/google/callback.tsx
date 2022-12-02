@@ -73,8 +73,8 @@ const ProviderPage = () => {
     <div className="h-screen w-screen items-center justify-center">
         {isLoading && <Loader isVisible={true} />}
         {user && !hasDetails && <div className="w-full h-full flex items-center p-8 sm:p-0 justify-center bg-slate-100">
+            <h2 className='font-medium text-center my-2 bg-violet-700 uppercase'>Complete Your Login</h2>
                 <Paper className="p-7 w-full sm:w-[24rem]">
-                    <p className='font-medium text-center my-2 text-slate-800 uppercase'>Complete your Login</p>
                     <form onSubmit={handleSubmit} className='space-y-2'>
                         <Input name="firstName" label="First Name" onChange={handleChange} onBlur={handleBlur} error={touched.firstName && errors.firstName} value={values.firstName}  />
                         <Input name="lastName" label="Last Name" onChange={handleChange} onBlur={handleBlur} error={touched.lastName && errors.lastName} value={values.lastName} />

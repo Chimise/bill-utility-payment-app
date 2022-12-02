@@ -1,0 +1,19 @@
+{
+    "cabletvs": [
+        {
+            "name": "DStv",
+            "service_id": "AKC",
+            "charge": 0
+        },
+        {
+            "name": "GOtv",
+            "service_id": "AKA",
+            "charge": 0
+        },
+        {
+            "name": "Startimes",
+            "service_id": "AKB",
+            "charge": 0
+        }
+    ]
+}

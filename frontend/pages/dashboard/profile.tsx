@@ -3,6 +3,7 @@ import { Tab } from "@headlessui/react";
 import classNames from "classnames";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
+import { NextSeo } from "next-seo";
 import AuthLayout from "../../components/common/AuthLayout/AuthLayout";
 import DashboardContainer from "../../components/ui/DashboardContainer/DashboardContainer";
 import DashboardHeader from "../../components/common/DashboardHeader/DashboardHeader";
@@ -10,19 +11,32 @@ import Paper from "../../components/ui/Paper/Paper";
 import Input from "../../components/ui/Input/Input";
 import InputPassword from "../../components/ui/InputPassword/InputPassword";
 import Button from "../../components/ui/Button/Button";
-import { filteredNumbers } from "../../utils";
+import { filteredNumbers, sendRequest, User } from "../../utils";
 import useUser from '../../hooks/useUser';
 import Spinner from '../../components/ui/Spinner/Spinner';
 import Error from '../../components/ui/Error/Error';
+import useUI from "../../hooks/useUI";
+import useAuth from "../../hooks/useAuth";
 
 const tabHeaders = ["Update Profile", "Change Password"];
 
 const ProfilePage = () => {
 
 const {isLoading, error, user, mutate} = useUser();
-  
-    const {values: {firstName, lastName, phoneNo}, errors, touched, handleBlur, handleChange, handleSubmit, isSubmitting} = useFormik({initialValues: {firstName: '', lastName: '', phoneNo: ''}, onSubmit: (values, {setSubmitting}) => {
-
+const {token} = useAuth()
+const {openToastHandler} = useUI();
+    const {values: {firstName, lastName, phoneNo}, errors, touched, handleBlur, handleChange, handleSubmit, isSubmitting} = useFormik({initialValues: {firstName: user?.firstName || '', lastName: user?.lastName || '', phoneNo: user?.phoneNo || ''}, onSubmit: (values, {setSubmitting}) => {
+      sendRequest<User>(`/users/${user!.id}`, {
+        method: 'PUT',
+        body: values
+      }, token).then((modifiedUser) => {
+        mutate(modifiedUser, false);
+        openToastHandler('success', "User details updated");
+        setSubmitting(false);
+      }).catch((error) => {
+        openToastHandler('error', error.message || "Something went wrong");
+        setSubmitting(false);
+      })
     }, validationSchema: Yup.object({
         firstName: Yup.string().required('Please provide your first Name'),
         lastName: Yup.string().required('Please provide your last name'),
@@ -40,9 +54,19 @@ const {isLoading, error, user, mutate} = useUser();
             setFieldError('confirmPassword', "Entered passwords do not match");
             return;
         }
-
-
-
+        sendRequest<User>(`/users/${user!.id}`, {
+          method: 'PUT',
+          body: {
+            password: values.newPassword
+          }
+        }, token).then((modifiedUser) => {
+          mutate(modifiedUser, false);
+          openToastHandler('success', "User details updated");
+          setSubmitting(false);
+        }).catch((error) => {
+          openToastHandler('error', error.message || "Something went wrong");
+          setSubmitting(false);
+        })
         console.log(values);
     }, validationSchema: Yup.object({
         newPassword: Yup.string().trim().min(5, 'Your password should be up to 5 characters').required('Please enter a new password'),
@@ -51,6 +75,12 @@ const {isLoading, error, user, mutate} = useUser();
 
   return (
     <DashboardContainer>
+      <NextSeo
+        title="Profile Settings"
+        description="You can view or update your profile"
+        nofollow
+        noindex
+      />
       <DashboardHeader title="View or Change Your Profile" />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-4 mt-8 mb-10 md:mb-0">
         <Paper>

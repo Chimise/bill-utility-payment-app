@@ -1,6 +1,6 @@
 'use strict';
 const _ = require('lodash');
-const {postRequest, generateUniqueNumber} = require('../../../utils');
+const {postRequest, generateUniqueNumber, RequestError} = require('../../../utils');
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-services)
@@ -24,6 +24,9 @@ module.exports = {
         })
 
         const data = await response.json();
+        if(data.message === 'failure') {
+            throw new RequestError(response);
+        }
         if(response.status === 202 || data.statusCode === "202") {
             data.processing = true;
         };

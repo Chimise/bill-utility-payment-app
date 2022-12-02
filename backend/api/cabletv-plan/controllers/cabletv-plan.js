@@ -36,14 +36,14 @@ module.exports = {
 
       let purchaseData;
       try {
-        purchaseData = await strapi.services.cabletv.payBills(
+        purchaseData = await strapi.services['cabletv-plan'].payBills(
           plan.cabletv.service_id,
           plan,
           customerData.details,
           customerAccountId
         );
       } catch (error) {
-        purchaseData = await strapi.services.cabletv.payBills(
+        purchaseData = await strapi.services['cabletv-plan'].payBills(
           plan.cabletv.service_id,
           plan,
           customerData.details,
@@ -63,9 +63,8 @@ module.exports = {
         trans_id: purchaseData.trans_id,
         buyer: ctx.state.user.id,
         status: purchaseData.processing ? "processing" : "processed",
-        planId: plan.id,
-        cardNo: body.customerAccountId,
-        cabletv: cableTv.id,
+        plan: plan.id,
+        cardNo: customerAccountId,
       });
 
       const sanitizedPayment = sanitizeEntity(payment, {

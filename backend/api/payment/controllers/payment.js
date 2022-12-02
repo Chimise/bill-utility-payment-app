@@ -12,7 +12,6 @@ module.exports = {
     const user = ctx.state.user;
     try {
       const data = await strapi.services.payment.verifyPayment(reference);
-      console.log(data);
       const amount = data.amount;
       const initialAmount = user.amount;
       const currentAmount = user.amount + amount;
@@ -42,7 +41,7 @@ module.exports = {
   },
   async getDedicatedAccount(ctx) {
     const user = ctx.state.user;
-    const accounts = await strapi.query('account').find({user: user.id});
+    let accounts = await strapi.query('account').find({user: user.id});
     
     if (accounts.length == 0) {
       if (!user.firstName || !user.lastName || !user.phoneNo) {
@@ -57,7 +56,7 @@ module.exports = {
         user.phoneNo
       );
 
-      console.log(customerCode)
+      
       const data =
         await strapi.services.payment.createVirtualAccount(customerCode);
         // Change to this code when using live key
@@ -69,7 +68,6 @@ module.exports = {
           user: user.id
         })
 
-        console.log(data);
 
       accounts = [account];
     }
@@ -90,7 +88,7 @@ module.exports = {
   },
   async find(ctx) {
     let entities;
-    const {id} = ctx.state.user.id;
+    const {id} = ctx.state.user;
     if(ctx.query._q) {
       entities = await strapi.query('payment').search({...ctx.query, user: id});
     }else {
@@ -121,20 +119,35 @@ module.exports = {
     ctx.status = 200;
 
     if (body.event === "charge.success") {
-      const user = strapi
+      let user = await strapi
         .query("user", "users-permissions")
         .findOne({ email: body.data.customer.email });
-      if (!user) {
+      const reference = body.data && body.data.reference;
+      if (!user || !reference) {
         return;
       }
-      if (
-        body.data.channel === "dedicated_nuban" ||
-        body.data.authorization.channel === "dedicated_nuban"
-      ) {
-         
-      } else {
-        
+      
+      const paymentData = await strapi.query('payment').findOne({id: user.id, reference});
+      if(!paymentData) {
+        const amount = (body.data.amount - body.data.fees) / 100;
+         const initialAmount = user.amount;
+         const currentAmount = user.amount + amount;
+         user = await strapi.query('user', 'users-permissions').update({id: user.id}, {
+          amount: currentAmount
+         })
+         await strapi.query('payment').create({
+            reference,
+            method: body.data.channel,
+            createdAt: new Date(body.data.paidAt),
+            status: body.data.status,
+            amount,
+            prevBal: initialAmount,
+            currentBal: currentAmount,
+            user: user.id
+         })
       }
+  
+      
     }
   },
 };

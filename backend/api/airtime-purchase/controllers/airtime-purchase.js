@@ -1,5 +1,4 @@
 "use strict";
-const { job } = require("cron");
 const { sanitizeEntity, parseMultipartData } = require("strapi-utils");
 const yup = require("yup");
 const { handleError } = require("../../../utils");

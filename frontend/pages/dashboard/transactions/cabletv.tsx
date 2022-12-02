@@ -1,4 +1,5 @@
 import React from 'react';
+import { NextSeo } from 'next-seo';
 import AuthLayout from '../../../components/common/AuthLayout/AuthLayout';
 import DashboardContainer from '../../../components/ui/DashboardContainer/DashboardContainer';
 import DashboardHeader from '../../../components/common/DashboardHeader/DashboardHeader';
@@ -46,6 +47,12 @@ const sortBy: Array<{ id: keyof CableTvPurchase; desc: boolean }> = [
 const BillsHistoryPage = () => {
     const {data, error, isLoading, mutate} = useCableTvBills()
     return (<DashboardContainer>
+      <NextSeo
+        title="Cabletv Payment History"
+        description="View all previous cabletv purchase transactions"
+        nofollow
+        noindex
+      />
         <DashboardHeader title="Bills Funding History" />
         <Paper className='space-y-2 mb-10 md:mb-0'>
             <UtilityHeader title="Funding History" />

@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useRouter } from "next/router";
 import useMutation from "./useMutation"
 import useAuth from "./useAuth";
 import useUI from "./useUI";
@@ -13,7 +12,6 @@ const useRegister = (redirectTo?: string) => {
     useEffect(() => {
         if(data) {
             loginHandler(data.jwt, true, redirectTo);
-            
         }
     }, [data, loginHandler, redirectTo])
 

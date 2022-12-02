@@ -4,7 +4,7 @@ import { useFormik, yupToFormErrors } from 'formik';
 import * as Yup from 'yup';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import Image from 'next/image';
-
+import { NextSeo } from 'next-seo';
 import Input from '../../components/ui/Input/Input';
 import InputPassword from '../../components/ui/InputPassword/InputPassword';
 import Button from '../../components/ui/Button/Button';
@@ -31,6 +31,12 @@ const RegisterPage = () => {
 
   return (
     <div className='bg-gray-100 flex items-center justify-center w-full min-h-[150vh] md:min-h-[140vh]'>
+      <NextSeo
+        title="Register"
+        description="Create an account with us and start enjoying our services"
+        nofollow
+        noindex
+      />
         <div className='w-full sm:w-[24rem] h-auto'>
             <div className='flex flex-col items-center mb-5'>
               <Link href='/'>

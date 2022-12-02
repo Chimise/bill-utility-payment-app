@@ -1,6 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { NextSeo } from "next-seo";
 import AuthLayout from "../../../components/common/AuthLayout/AuthLayout";
 import DashboardContainer from "../../../components/ui/DashboardContainer/DashboardContainer";
 import DashboardHeader from "../../../components/common/DashboardHeader/DashboardHeader";
@@ -40,7 +41,7 @@ const ElectricityBillsPage = ({
   } = useFormik({
     initialValues: { disco: "", meterNo: "", meterType: "", amount: "" },
     onSubmit: async ({disco, meterNo, meterType, amount}) => {
-      await sendRequest({type: meterType, customerAccountId: meterNo, amount}, disco);
+      await sendRequest({type: meterType.toLowerCase(), customerAccountId: meterNo, amount}, disco);
     },
     validationSchema: Yup.object({
       disco: Yup.string().required("Please choose a distribution company"),
@@ -56,6 +57,12 @@ const ElectricityBillsPage = ({
 
   return (
     <DashboardContainer>
+      <NextSeo
+        title="Electricity Payments"
+        description="Recharge your prepaid and postpaid meters without charges"
+        nofollow
+        noindex
+      />
       <DashboardHeader title="Pay your Electricity Bills" />
       <Paper className="mt-4 mb-10 md:mb-4">
         <UtilityHeader title="Electricity" />

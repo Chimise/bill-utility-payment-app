@@ -1,6 +1,7 @@
 import React, {useMemo} from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
+import { NextSeo } from 'next-seo';
 import AuthLayout from '../../../components/common/AuthLayout/AuthLayout';
 import DashboardContainer from '../../../components/ui/DashboardContainer/DashboardContainer';
 import DashboardHeader from '../../../components/common/DashboardHeader/DashboardHeader';
@@ -47,6 +48,12 @@ const amount = useMemo(() => {
 
     return (
         <DashboardContainer>
+            <NextSeo
+        title="CableTv Topup"
+        description="Top up your Dstv, Gotv and Startime without any charge"
+        nofollow
+        noindex
+      />
             <DashboardHeader title="Pay your Utility Bills (DSTV, GOTV, STARTIME)" />
             <Paper className='mt-4 mb-10 md:mb-4'>
                 <UtitityHeader title="Cable TVs" />

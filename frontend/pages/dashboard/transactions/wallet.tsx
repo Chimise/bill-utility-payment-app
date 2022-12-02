@@ -1,4 +1,5 @@
 import React from "react";
+import { NextSeo } from "next-seo";
 import AuthLayout from "../../../components/common/AuthLayout/AuthLayout";
 import DashboardContainer from "../../../components/ui/DashboardContainer/DashboardContainer";
 import DashboardHeader from "../../../components/common/DashboardHeader/DashboardHeader";
@@ -47,6 +48,12 @@ const WalletHistoryPage = () => {
 
   return (
     <DashboardContainer>
+      <NextSeo
+        title="Topup History"
+        description="View all previous wallet topup transactions"
+        nofollow
+        noindex
+      />
       <DashboardHeader title="Wallet Funding History" />
       <Paper className="space-y-2 mb-10 md:mb-0">
         <UtilityHeader title="Funding History" />

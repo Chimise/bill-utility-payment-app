@@ -1,4 +1,5 @@
 import React from "react";
+import { NextSeo } from "next-seo";
 import AuthLayout from "../../../components/common/AuthLayout/AuthLayout";
 import DashboardContainer from "../../../components/ui/DashboardContainer/DashboardContainer";
 import DashboardHeader from "../../../components/common/DashboardHeader/DashboardHeader";
@@ -60,6 +61,12 @@ const OrdersHistoryPage = () => {
 
   return (
     <DashboardContainer>
+      <NextSeo
+        title="Mobile Data Payment History"
+        description="View all previous mobile data purchase transactions"
+        nofollow
+        noindex
+      />
       <DashboardHeader title="Orders Funding History" />
       <Paper className="space-y-2 mb-10 md:mb-0">
         <UtilityHeader title="Funding History" />

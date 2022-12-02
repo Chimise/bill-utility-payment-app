@@ -1,4 +1,5 @@
 import React from 'react';
+import { NextSeo } from 'next-seo';
 import AuthLayout from '../../../components/common/AuthLayout/AuthLayout';
 import DashboardContainer from '../../../components/ui/DashboardContainer/DashboardContainer';
 import DashboardHeader from '../../../components/common/DashboardHeader/DashboardHeader';
@@ -45,6 +46,12 @@ const BillsHistoryPage = () => {
   const {data, isLoading, mutate, error} = useElectricityBills();
     
     return (<DashboardContainer>
+        <NextSeo
+        title="Electricity Payment History"
+        description="View all previous electricity payment transactions"
+        nofollow
+        noindex
+      />
         <DashboardHeader title="Bills Funding History" />
         <Paper className='space-y-2 mb-10 md:mb-0'>
             <UtilityHeader title="Funding History" />
