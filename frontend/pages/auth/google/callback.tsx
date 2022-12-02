@@ -2,7 +2,7 @@ import React, {useEffect, useMemo} from 'react';
 import { useRouter } from 'next/router';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-
+import { NextSeo } from 'next-seo';
 import Loader from '../../../components/ui/Loader/Loader';
 import { fetcher} from '../../../utils';
 import { AuthResponse } from '../../../utils/mutation';
@@ -70,11 +70,13 @@ const ProviderPage = () => {
     })})
 
     return (
-    <div className="h-screen w-screen items-center justify-center">
+    <div className="h-screen w-screen overflow-hidden items-center justify-center">
+        <NextSeo title='Complete your Login' nofollow noindex />
         {isLoading && <Loader isVisible={true} />}
         {user && !hasDetails && <div className="w-full h-full flex items-center p-8 sm:p-0 justify-center bg-slate-100">
-            <h2 className='font-medium text-center my-2 bg-violet-700 uppercase'>Complete Your Login</h2>
-                <Paper className="p-7 w-full sm:w-[24rem]">
+            <div className='w-full sm:w-[24rem] space-y-3'>
+            <h2 className='font-semibold text-center my-2 text-violet-700 uppercase'>Complete Your Login</h2>
+                <Paper className="p-7">
                     <form onSubmit={handleSubmit} className='space-y-2'>
                         <Input name="firstName" label="First Name" onChange={handleChange} onBlur={handleBlur} error={touched.firstName && errors.firstName} value={values.firstName}  />
                         <Input name="lastName" label="Last Name" onChange={handleChange} onBlur={handleBlur} error={touched.lastName && errors.lastName} value={values.lastName} />
@@ -84,6 +86,7 @@ const ProviderPage = () => {
                         </div>
                     </form>
                 </Paper>
+            </div>
             </div>}
     </div>
     )
