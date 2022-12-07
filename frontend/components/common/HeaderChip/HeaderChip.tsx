@@ -32,7 +32,7 @@ const HeaderChip = ({ isVisible }: HeaderChipProps) => {
       leaveTo="opacity-0"
     >
       <div
-        className="fixed w-8 w-8 lg:w-10 lg:h-10 p-1 bottom-4 right-4 text-white bg-slate-500 rounded-full z-10 shadow-sm flex items-center justify-center"
+        className="fixed w-8 lg:w-10 lg:h-10 p-1 bottom-4 right-4 text-white bg-slate-500 rounded-full z-10 shadow-sm flex items-center justify-center"
         onClick={clickHandler}
       >
         <ArrowUpIcon />
