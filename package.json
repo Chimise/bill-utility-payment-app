@@ -1,0 +1,17 @@
+{
+    "name": "nccomtech",
+    "private": true,
+    "version": "0.1.0",
+    "description": "Data Reseller App",
+    "scripts": {
+      "client_build": "cd frontend && npm run build",
+      "client_start": "cd frontend && npm start",
+      "build": "cd backend && npm run build",
+      "start": "cd backend && npm start"
+    },
+    "author": {
+      "name": "A Strapi developer"
+    },
+    "license": "MIT"
+  }
+  
