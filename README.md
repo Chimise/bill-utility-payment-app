@@ -5,6 +5,15 @@ A fullstack application for purchasing airtime and mobile data from major Nigeri
 ## Demo
 Here is a working live demo: [https://data-reseller-website-jmog.vercel.app/](https://data-reseller-website-jmog.vercel.app/)
 
+## Screenshots
+**Dashboard**
+
+![Dashboard](./docs/reseller-dashboard.png)
+
+**Payment**
+
+![Payments](./docs/reseller-payment.png)
+
 
 ## Built With
 * [Next.js](https://nextjs.org/): The frontend of the application is built with Next.js and utilizes Next.js powerful features like static generation.
