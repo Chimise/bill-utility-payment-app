@@ -6,8 +6,8 @@
   "scripts": {
     "develop": "strapi develop",
     "start": "strapi start",
-    "build:dev": "NODE_OPTIONS=--openssl-legacy-provider strapi build",
-    "build": "NODE_ENV=production NODE_OPTIONS=--openssl-legacy-provider strapi build",
+    "build:dev": "strapi build",
+    "build": "NODE_ENV=production strapi build",
     "strapi": "strapi"
   },
   "dependencies": {
