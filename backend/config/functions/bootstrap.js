@@ -19,6 +19,8 @@ const meters = require("../../utils/meters.js");
  */
 
 module.exports = async () => {
+  console.log(process.env.DATABASE_URI);
+  
   let providers = await strapi.query("provider").model.find({});
   let cabletvs = await strapi.query("cabletv").model.find({});
   const discos = await strapi.query("disco").model.find({});
